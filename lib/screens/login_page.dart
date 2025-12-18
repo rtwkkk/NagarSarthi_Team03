@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nagar_alert_app/l10n/app_localizations.dart';
+import 'package:nagar_alert_app/providers/locale_provider.dart';
 import 'package:nagar_alert_app/screens/dashboard_screen.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -157,6 +160,65 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   const SizedBox(height: 24),
+
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      child: DropdownButton<Locale>(
+                        focusColor: const Color.fromARGB(255, 104, 146, 167),
+
+                        value: context.watch<LocaleProvider>().locale,
+                        icon: const Icon(
+                          Icons.language,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                        elevation: 16,
+                        style: const TextStyle(
+                          color: Colors.indigo,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                        underline: const SizedBox(),
+                        dropdownColor: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
+                        items: AppLocalizations.supportedLocales.map((
+                          Locale locale,
+                        ) {
+                          String languageName;
+                          switch (locale.languageCode) {
+                            case 'en':
+                              languageName = 'English';
+                              break;
+                            case 'hi':
+                              languageName = 'हिंदी';
+                              break;
+                            case 'bn':
+                              languageName = 'বাংলা';
+                              break;
+                            case 'gu':
+                              languageName = 'ગુજરાતી';
+                              break;
+                            default:
+                              languageName = locale.languageCode.toUpperCase();
+                          }
+
+                          return DropdownMenuItem<Locale>(
+                            value: locale,
+                            child: Text(languageName),
+                          );
+                        }).toList(),
+                        onChanged: (Locale? newLocale) {
+                          if (newLocale != null) {
+                            context.read<LocaleProvider>().setLocale(newLocale);
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
                   ShaderMask(
                     shaderCallback: (bounds) => LinearGradient(
                       colors: [
@@ -165,8 +227,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         Colors.purple.shade500,
                       ],
                     ).createShader(bounds),
-                    child: const Text(
-                      'Nagar Alert Hub',
+                    child: Text(
+                      AppLocalizations.of(context)!.appTitle,
                       style: TextStyle(
                         fontSize: 34,
                         fontWeight: FontWeight.w800,
@@ -210,7 +272,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          'AI-Powered Intelligence Platform',
+                          AppLocalizations.of(context)!.platformTagline,
                           style: TextStyle(
                             fontSize: 13,
                             color: Colors.indigo.shade700,
@@ -240,8 +302,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Welcome Back',
+                        Text(
+                          AppLocalizations.of(context)!.welcomeBack,
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -250,7 +312,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          'Sign in to access real-time civic alerts',
+                          AppLocalizations.of(context)!.signInSubtitle,
                           style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey.shade600,
@@ -259,8 +321,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 32),
 
                         // Email Field
-                        const Text(
-                          'Email or Phone',
+                        Text(
+                          AppLocalizations.of(context)!.emailOrPhone,
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -271,7 +333,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         TextField(
                           controller: _emailController,
                           decoration: InputDecoration(
-                            hintText: 'Enter your email or phone number',
+                            hintText: AppLocalizations.of(context)!.emailHint,
                             hintStyle: TextStyle(color: Colors.grey.shade400),
                             filled: true,
                             fillColor: Colors.grey.shade50,
@@ -305,8 +367,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 20),
 
                         // Password Field
-                        const Text(
-                          'Password',
+                        Text(
+                          AppLocalizations.of(context)!.password,
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,
@@ -318,7 +380,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: _passwordController,
                           obscureText: true,
                           decoration: InputDecoration(
-                            hintText: 'Enter your password',
+                            hintText: AppLocalizations.of(
+                              context,
+                            )!.passwordHint,
                             hintStyle: TextStyle(color: Colors.grey.shade400),
                             filled: true,
                             fillColor: Colors.grey.shade50,
@@ -367,7 +431,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   activeColor: Colors.blue,
                                 ),
                                 Text(
-                                  'Remember me',
+                                  AppLocalizations.of(context)!.rememberMe,
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey.shade700,
@@ -377,8 +441,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             TextButton(
                               onPressed: () {},
-                              child: const Text(
-                                'Forgot password?',
+                              child: Text(
+                                AppLocalizations.of(context)!.forgotPassword,
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600,
@@ -434,8 +498,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
-                            child: const Text(
-                              'Sign In',
+                            child: Text(
+                              AppLocalizations.of(context)!.signIn,
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,
@@ -458,7 +522,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 horizontal: 16,
                               ),
                               child: Text(
-                                'or continue with',
+                                AppLocalizations.of(context)!.orContinueWith,
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: Colors.grey.shade500,
@@ -490,8 +554,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                 ),
-                                child: const Text(
-                                  'Google',
+                                child: Text(
+                                  AppLocalizations.of(context)!.google,
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -516,8 +580,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                 ),
-                                child: const Text(
-                                  'OTP Login',
+                                child: Text(
+                                  AppLocalizations.of(context)!.otpLogin,
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
@@ -538,10 +602,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontSize: 14,
                                 color: Colors.grey.shade700,
                               ),
-                              children: const [
-                                TextSpan(text: "Don't have an account? "),
+                              children: [
                                 TextSpan(
-                                  text: 'Sign up as Citizen',
+                                  text: AppLocalizations.of(context)!.noAccount,
+                                ),
+                                TextSpan(
+                                  text: AppLocalizations.of(
+                                    context,
+                                  )!.signUpCitizen,
                                   style: TextStyle(
                                     color: Colors.blue,
                                     fontWeight: FontWeight.w600,
@@ -560,7 +628,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   Column(
                     children: [
                       Text(
-                        '🔒 Secured by end-to-end encryption',
+                        AppLocalizations.of(context)!.secured,
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey.shade600,
@@ -568,7 +636,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 4),
                       Text(
-                        '✓ Verified by Government of India',
+                        AppLocalizations.of(context)!.verified,
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey.shade600,
@@ -584,4 +652,11 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+}
+
+Locale _getCurrentLanguageOnlyLocale(BuildContext context) {
+  final Locale currentLocale = Localizations.localeOf(context);
+
+  // Return only language code (ignore country code)
+  return Locale(currentLocale.languageCode);
 }

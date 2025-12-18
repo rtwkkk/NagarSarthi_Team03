@@ -1,0 +1,21 @@
+{
+  "appTitle": "Nagar Alert Hub",
+  "platformTagline": "AI-Powered Intelligence Platform",
+  "welcomeBack": "Welcome Back",
+  "signInSubtitle": "Sign in to access real-time civic alerts",
+  "emailOrPhone": "Email or Phone",
+  "emailHint": "Enter your email or phone number",
+  "password": "Password",
+  "passwordHint": "Enter your password",
+  "rememberMe": "Remember me",
+  "forgotPassword": "Forgot password?",
+  "signIn": "Sign In",
+  "orContinueWith": "or continue with",
+  "google": "Google",
+  "otpLogin": "OTP Login",
+  "noAccount": "Don't have an account? ",
+  "signUpCitizen": "Sign up as Citizen",
+  "secured": "🔒 Secured by end-to-end encryption",
+  "verified": "✓ Verified by Government of India",
+  "@@locale": "en"
+}
