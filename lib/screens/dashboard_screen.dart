@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:nagar_alert_app/screens/report_incidents_page.dart';
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  const DashboardScreen({super.key});
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  int _selectedIndex = 0;
+  // int _selectedIndex = 0;
 
   final List<Map<String, dynamic>> incidents = [
     {
@@ -469,106 +468,106 @@ class _DashboardScreenState extends State<DashboardScreen> {
             const SizedBox(height: 8),
 
             // Map View
-            Container(
-              height: 280,
-              margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade200,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.grey.shade300),
-              ),
-              child: Stack(
-                children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(16),
-                    child: Container(
-                      color: Colors.blue.shade50,
-                      child: Center(
-                        child: FlutterMap(
-                          options: MapOptions(
-                            initialCenter: const LatLng(22.8028, 86.1854),
-                            initialZoom: 13,
-                          ),
-                          children: [
-                            TileLayer(
-                              urlTemplate:
-                                  'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                              userAgentPackageName:
-                                  'com.example.nagar_alert_app',
-                            ),
-                            MarkerLayer(
-                              markers: [
-                                Marker(
-                                  point: const LatLng(22.8028, 86.1854),
-                                  width: 40,
-                                  height: 40,
-                                  child: const Icon(
-                                    Icons.location_pin,
-                                    color: Colors.red,
-                                    size: 40,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 12,
-                    right: 12,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withAlpha(25),
-                            blurRadius: 8,
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: 8,
-                            height: 8,
-                            decoration: const BoxDecoration(
-                              color: Colors.green,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          const SizedBox(width: 6),
-                          const Text(
-                            'Live',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.black87,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 12,
-                    right: 12,
-                    child: FloatingActionButton(
-                      mini: true,
-                      backgroundColor: Colors.white,
-                      onPressed: () {},
-                      child: const Icon(Icons.my_location, color: Colors.blue),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            // Container(
+            //   height: 280,
+            //   margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            //   decoration: BoxDecoration(
+            //     color: Colors.grey.shade200,
+            //     borderRadius: BorderRadius.circular(16),
+            //     border: Border.all(color: Colors.grey.shade300),
+            //   ),
+            //   child: Stack(
+            //     children: [
+            //       ClipRRect(
+            //         borderRadius: BorderRadius.circular(16),
+            //         child: Container(
+            //           color: Colors.blue.shade50,
+            //           child: Center(
+            //             child: FlutterMap(
+            //               options: MapOptions(
+            //                 initialCenter: const LatLng(22.8028, 86.1854),
+            //                 initialZoom: 13,
+            //               ),
+            //               children: [
+            //                 TileLayer(
+            //                   urlTemplate:
+            //                       'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+            //                   userAgentPackageName:
+            //                       'com.example.nagar_alert_app',
+            //                 ),
+            //                 MarkerLayer(
+            //                   markers: [
+            //                     Marker(
+            //                       point: const LatLng(22.8028, 86.1854),
+            //                       width: 40,
+            //                       height: 40,
+            //                       child: const Icon(
+            //                         Icons.location_pin,
+            //                         color: Colors.red,
+            //                         size: 40,
+            //                       ),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ),
+            //       Positioned(
+            //         top: 12,
+            //         right: 12,
+            //         child: Container(
+            //           padding: const EdgeInsets.symmetric(
+            //             horizontal: 12,
+            //             vertical: 8,
+            //           ),
+            //           decoration: BoxDecoration(
+            //             color: Colors.white,
+            //             borderRadius: BorderRadius.circular(20),
+            //             boxShadow: [
+            //               BoxShadow(
+            //                 color: Colors.black.withAlpha(25),
+            //                 blurRadius: 8,
+            //               ),
+            //             ],
+            //           ),
+            //           child: Row(
+            //             children: [
+            //               Container(
+            //                 width: 8,
+            //                 height: 8,
+            //                 decoration: const BoxDecoration(
+            //                   color: Colors.green,
+            //                   shape: BoxShape.circle,
+            //                 ),
+            //               ),
+            //               const SizedBox(width: 6),
+            //               const Text(
+            //                 'Live',
+            //                 style: TextStyle(
+            //                   fontSize: 12,
+            //                   fontWeight: FontWeight.w600,
+            //                   color: Colors.black87,
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       ),
+            //       Positioned(
+            //         bottom: 12,
+            //         right: 12,
+            //         child: FloatingActionButton(
+            //           mini: true,
+            //           backgroundColor: Colors.white,
+            //           onPressed: () {},
+            //           child: const Icon(Icons.my_location, color: Colors.blue),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // ),
 
             // Recent Incidents
             Padding(
@@ -629,7 +628,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ],
         ),
         child: FloatingActionButton.extended(
-          onPressed: () {},
+          heroTag: 'report_incident_fab',
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const ReportIncidentScreen(),
+              ),
+            );
+          },
           backgroundColor: Colors.transparent,
           elevation: 0,
           icon: const Icon(Icons.add_alert, color: Colors.white),
@@ -643,26 +650,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          setState(() {
-            _selectedIndex = index;
-          });
-        },
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.blue.shade600,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard),
-            label: 'Dashboard',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Map'),
-          BottomNavigationBarItem(icon: Icon(Icons.report), label: 'Reports'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   currentIndex: _selectedIndex,
+      //   onTap: (index) {
+      //     setState(() {
+      //       _selectedIndex = index;
+      //     });
+      //   },
+      //   type: BottomNavigationBarType.fixed,
+      //   selectedItemColor: Colors.blue.shade600,
+      //   unselectedItemColor: Colors.grey,
+      //   items: const [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.dashboard),
+      //       label: 'Dashboard',
+      //     ),
+      //     BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Map'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.report), label: 'Reports'),
+      //     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      //   ],
+      // ),
     );
   }
 

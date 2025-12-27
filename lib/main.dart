@@ -1,14 +1,23 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:nagar_alert_app/l10n/app_localizations.dart';
-import 'package:nagar_alert_app/screens/login_page.dart';
+import 'package:nagar_alert_app/providers/incident_provider.dart';
+// import 'package:nagar_alert_app/screens/login_page.dart';
+import 'package:nagar_alert_app/screens/main_screen.dart';
 import 'package:provider/provider.dart'; // Add provider: ^6.1.1 to pubspec.yaml
 import 'providers/locale_provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => LocaleProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LocaleProvider()),
+        ChangeNotifierProvider(create: (_) => IncidentProvider()),
+      ],
       child: const NagarAlertApp(),
     ),
   );
@@ -31,7 +40,7 @@ class NagarAlertApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          home: const LoginScreen(),
+          home: MainScreen(),
           debugShowCheckedModeBanner: false,
         );
       },
