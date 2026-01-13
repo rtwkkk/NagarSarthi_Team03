@@ -1,0 +1,36 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "nagar-alert-app",
+          "appId": "1:1001892553814:android:7b8098159475a5ff6447f7",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "nagar-alert-app",
+          "configurations": {
+            "android": "1:1001892553814:android:7b8098159475a5ff6447f7",
+            "ios": "1:1001892553814:ios:40b2e64b91a319ce6447f7"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": []
+    }
+  ]
+}

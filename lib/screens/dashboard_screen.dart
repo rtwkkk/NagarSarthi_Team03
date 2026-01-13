@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:nagar_alert_app/screens/ai_chat_screen.dart';
+import 'package:nagar_alert_app/screens/past_incident.dart';
 import 'package:nagar_alert_app/screens/report_incidents_page.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -9,54 +12,28 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  // int _selectedIndex = 0;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  final List<Map<String, dynamic>> incidents = [
-    {
-      'type': 'Traffic',
-      'title': 'Heavy traffic near Jubilee Park',
-      'severity': 'high',
-      'status': 'verified',
-      'time': '5 min ago',
-      'reports': 24,
-      'credibility': 92,
-      'icon': Icons.traffic,
-      'color': Colors.red,
-    },
-    {
-      'type': 'Utility',
-      'title': 'Power outage in Railway Colony',
-      'severity': 'medium',
-      'status': 'verified',
-      'time': '12 min ago',
-      'reports': 18,
-      'credibility': 88,
-      'icon': Icons.power_off,
-      'color': Colors.orange,
-    },
-    {
-      'type': 'Disaster',
-      'title': 'Waterlogging near Railway Station',
-      'severity': 'high',
-      'status': 'investigating',
-      'time': '18 min ago',
-      'reports': 31,
-      'credibility': 95,
-      'icon': Icons.water_damage,
-      'color': Colors.red,
-    },
-    {
-      'type': 'Protest',
-      'title': 'Peaceful gathering at Bistupur Roundabout',
-      'severity': 'low',
-      'status': 'verified',
-      'time': '25 min ago',
-      'reports': 12,
-      'credibility': 85,
-      'icon': Icons.group,
-      'color': Colors.blue,
-    },
-  ];
+  // Updated mapping using 'category' field from Firestore
+  final Map<String, Map<String, dynamic>> categoryConfig = {
+    'traffic': {'icon': Icons.traffic, 'color': Colors.red},
+    'utility': {'icon': Icons.power_off, 'color': Colors.orange},
+    'disaster': {'icon': Icons.water_damage, 'color': Colors.blue},
+    'protest': {'icon': Icons.group, 'color': Colors.indigo},
+    'crime': {'icon': Icons.warning_amber_rounded, 'color': Colors.deepOrange},
+    'infrastructure': {'icon': Icons.construction, 'color': Colors.amber},
+    'health': {'icon': Icons.local_hospital, 'color': Colors.pink},
+    'others': {'icon': Icons.more_horiz, 'color': Colors.grey},
+  };
+
+  DateTime get twoHoursAgo => DateTime.now().subtract(const Duration(hours: 2));
+  DateTime get _now => DateTime.now(); // For easy testing/mocking if needed
+  DateTime get _startOfMonth => DateTime(_now.year, _now.month, 1);
+  DateTime get _endOfMonth => DateTime(
+    _now.year,
+    _now.month + 1,
+    1,
+  ).subtract(const Duration(seconds: 1));
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +44,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
         elevation: 0,
         title: Row(
           children: [
-            // Artistic App Bar Logo
             Stack(
               alignment: Alignment.center,
               children: [
@@ -83,7 +59,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.blue.shade300.withAlpha(125),
+                        color: Colors.blue.shade300.withOpacity(0.5),
                         blurRadius: 8,
                         offset: const Offset(0, 3),
                       ),
@@ -179,433 +155,569 @@ class _DashboardScreenState extends State<DashboardScreen> {
             onPressed: () {},
           ),
           const SizedBox(width: 8),
+
+          IconButton(
+            icon: Container(
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Colors.purple.shade400, Colors.indigo.shade600],
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.indigo.withOpacity(0.35),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
+              ),
+              child: const Icon(
+                Icons.psychology_rounded, // or Icons.support_agent_rounded
+                color: Colors.white,
+                size: 26,
+              ),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AiChatScreen()),
+              );
+            },
+          ),
+
+          const SizedBox(width: 8),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Stats Cards - Improved Design
-            Container(
-              color: Colors.white,
-              padding: const EdgeInsets.fromLTRB(20, 24, 20, 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: StreamBuilder<QuerySnapshot>(
+        stream: _firestore
+            .collection('incidents')
+            .orderBy('createdAt', descending: true)
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          }
+
+          final incidents = snapshot.data!.docs;
+
+          // Filter recent (last 2 hours) and past incidents
+          final recentIncidents = incidents.where((doc) {
+            final data = doc.data() as Map<String, dynamic>;
+            final Timestamp? timestamp = data['createdAt'];
+            return timestamp != null && timestamp.toDate().isAfter(twoHoursAgo);
+          }).toList();
+
+          final pastIncidents = incidents.where((doc) {
+            final data = doc.data() as Map<String, dynamic>;
+            final Timestamp? timestamp = data['createdAt'];
+            return timestamp != null &&
+                timestamp.toDate().isBefore(twoHoursAgo);
+          }).toList();
+
+          // Dynamic stats
+          final int activeAlerts = incidents.length;
+          final int highPriority = incidents.where((doc) {
+            final data = doc.data() as Map<String, dynamic>;
+            return data['severity'] == 'high';
+          }).length;
+          final int inProgress = incidents.where((doc) {
+            final data = doc.data() as Map<String, dynamic>;
+            return data['status'] == 'investigating';
+          }).length;
+          // === Monthly stats (current month only) ===
+          final monthlyIncidents = incidents.where((doc) {
+            final data = doc.data() as Map<String, dynamic>;
+            final Timestamp? ts = data['createdAt'];
+            if (ts == null) return false;
+            final date = ts.toDate();
+            return date.isAfter(_startOfMonth) && date.isBefore(_endOfMonth);
+          }).toList();
+
+          final int monthlyVerifiedCount = monthlyIncidents.where((doc) {
+            final data = doc.data() as Map<String, dynamic>;
+            return data['verified'] == true;
+          }).length;
+
+          final int monthlyTotalReports = monthlyIncidents.fold<int>(0, (
+            sum,
+            doc,
+          ) {
+            final data = doc.data() as Map<String, dynamic>;
+            return sum + (data['reportCount'] as int? ?? 1);
+          });
+
+          // Inside StreamBuilder builder, after monthlyIncidents or allIncidents
+
+          // Calculate average response time for resolved incidents this month
+          double avgResponseMinutes = 0;
+          int resolvedCount = 0;
+
+          final resolvedIncidentsThisMonth = monthlyIncidents.where((doc) {
+            final data = doc.data() as Map<String, dynamic>;
+            // Option 1: If you have 'resolvedAt' field
+            return data['resolvedAt'] != null;
+            // Option 2: Or if you use status == 'resolved'
+            // return data['status'] == 'resolved';
+          }).toList();
+
+          if (resolvedIncidentsThisMonth.isNotEmpty) {
+            int totalMinutes = 0;
+            for (var doc in resolvedIncidentsThisMonth) {
+              final data = doc.data() as Map<String, dynamic>;
+              final Timestamp created = data['createdAt'] as Timestamp;
+              final Timestamp? resolved = data['resolvedAt'] as Timestamp?;
+
+              if (resolved != null) {
+                final duration = resolved.toDate().difference(created.toDate());
+                totalMinutes += duration.inMinutes;
+              }
+            }
+            avgResponseMinutes =
+                totalMinutes / resolvedIncidentsThisMonth.length;
+            resolvedCount = resolvedIncidentsThisMonth.length;
+          }
+
+          // Format nicely
+          String displayTime;
+          if (avgResponseMinutes < 60) {
+            displayTime = '${avgResponseMinutes.toStringAsFixed(1)} minutes';
+          } else {
+            final hours = (avgResponseMinutes / 60).floor();
+            final mins = (avgResponseMinutes % 60).round();
+            displayTime = '$hours hr ${mins > 0 ? '$mins min' : ''}';
+          }
+
+          String trendText =
+              '↓ 12%'; // You can calculate real trend vs last month later
+          Color trendColor = Colors.green.shade700;
+
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  color: Colors.white,
+                  padding: const EdgeInsets.fromLTRB(20, 24, 20, 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'Today\'s Overview',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w800,
-                          color: Colors.black87,
-                          letterSpacing: -0.5,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Today\'s Overview',
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.black87,
+                              letterSpacing: -0.5,
+                            ),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 6,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.green.shade50,
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: Colors.green.shade200),
+                            ),
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 6,
+                                  height: 6,
+                                  decoration: BoxDecoration(
+                                    color: Colors.green.shade500,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                const SizedBox(width: 6),
+                                Text(
+                                  'Live',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.green.shade700,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              Colors.blue.shade600,
+                              Colors.blue.shade700,
+                              Colors.indigo.shade800,
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.blue.shade400.withOpacity(0.4),
+                              blurRadius: 20,
+                              offset: const Offset(0, 10),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(0.2),
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: const Icon(
+                                    Icons.warning_amber_rounded,
+                                    color: Colors.white,
+                                    size: 24,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                    vertical: 4,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.orange.shade400,
+                                    borderRadius: BorderRadius.circular(8),
+                                  ),
+                                  child: const Text(
+                                    '↑ 12%',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 16),
+                            Text(
+                              '$activeAlerts',
+                              style: const TextStyle(
+                                fontSize: 42,
+                                fontWeight: FontWeight.w900,
+                                color: Colors.white,
+                                height: 1.1,
+                                letterSpacing: -1,
+                              ),
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              'Active Alerts Right Now',
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white.withOpacity(0.9),
+                              ),
+                            ),
+                            const SizedBox(height: 12),
+                            Row(
+                              children: [
+                                _buildMiniStat(
+                                  '$highPriority',
+                                  'High Priority',
+                                  Colors.red.shade300,
+                                ),
+                                const SizedBox(width: 16),
+                                _buildMiniStat(
+                                  '$inProgress',
+                                  'In Progress',
+                                  Colors.amber.shade300,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _buildModernStatCard(
+                              '$monthlyVerifiedCount',
+                              'Verified this month',
+                              Icons.verified_rounded,
+                              Colors.green,
+                              'Incidents confirmed in ${_getMonthName(_now.month)}',
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: _buildModernStatCard(
+                              '$monthlyTotalReports',
+                              'Reports this month',
+                              Icons.bar_chart_rounded,
+                              Colors.purple,
+                              'Citizen reports in ${_getMonthName(_now.month)}',
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 12),
                       Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 6,
-                        ),
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(18),
                         decoration: BoxDecoration(
-                          color: Colors.green.shade50,
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: Colors.green.shade200),
+                          color: Colors.grey.shade50,
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(color: Colors.grey.shade200),
                         ),
                         child: Row(
                           children: [
                             Container(
-                              width: 6,
-                              height: 6,
+                              padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.green.shade500,
-                              ),
-                            ),
-                            const SizedBox(width: 6),
-                            Text(
-                              'Live',
-                              style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.green.shade700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Large Featured Stat Card
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Colors.blue.shade600,
-                          Colors.blue.shade700,
-                          Colors.indigo.shade800,
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.blue.shade400.withAlpha(100),
-                          blurRadius: 20,
-                          offset: const Offset(0, 10),
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withAlpha(50),
+                                color: Colors.teal.shade50,
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: const Icon(
-                                Icons.warning_amber_rounded,
-                                color: Colors.white,
-                                size: 24,
+                              child: Icon(
+                                Icons.timer_rounded,
+                                color: Colors.teal.shade600,
+                                size: 28,
                               ),
-                            ),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 4,
-                              ),
-                              decoration: BoxDecoration(
-                                color: Colors.orange.shade400,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Text(
-                                '↑ 12%',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          '127',
-                          style: TextStyle(
-                            fontSize: 42,
-                            fontWeight: FontWeight.w900,
-                            color: Colors.white,
-                            height: 1.1,
-                            letterSpacing: -1,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Active Alerts Right Now',
-                          style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500,
-                            color: Colors.white.withAlpha(230),
-                          ),
-                        ),
-                        const SizedBox(height: 12),
-                        Row(
-                          children: [
-                            _buildMiniStat(
-                              '45',
-                              'High Priority',
-                              Colors.red.shade300,
                             ),
                             const SizedBox(width: 16),
-                            _buildMiniStat(
-                              '82',
-                              'In Progress',
-                              Colors.amber.shade300,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  // Grid of smaller stats
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildModernStatCard(
-                          '342',
-                          'Verified',
-                          Icons.verified_rounded,
-                          Colors.green,
-                          '+8% vs yesterday',
-                        ),
-                      ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: _buildModernStatCard(
-                          '1,247',
-                          'Reports',
-                          Icons.bar_chart_rounded,
-                          Colors.purple,
-                          '+23% this week',
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 12),
-
-                  // Response time card
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(18),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade50,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.grey.shade200),
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            color: Colors.teal.shade50,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Icon(
-                            Icons.speed_rounded,
-                            color: Colors.teal.shade600,
-                            size: 24,
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Avg Response Time',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey.shade600,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Row(
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '4.2',
+                                    'Avg Response Time',
                                     style: TextStyle(
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.w800,
-                                      color: Colors.teal.shade700,
-                                      height: 1,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    'minutes',
-                                    style: TextStyle(
-                                      fontSize: 14,
+                                      fontSize: 13,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.grey.shade600,
                                     ),
                                   ),
+                                  const SizedBox(height: 6),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.baseline,
+                                    textBaseline: TextBaseline.alphabetic,
+                                    children: [
+                                      Text(
+                                        avgResponseMinutes == 0
+                                            ? '-'
+                                            : displayTime.split(' ')[0],
+                                        style: TextStyle(
+                                          fontSize: 32,
+                                          fontWeight: FontWeight.w900,
+                                          color: Colors.teal.shade700,
+                                        ),
+                                      ),
+                                      if (avgResponseMinutes >= 60)
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            left: 4,
+                                          ),
+                                          child: Text(
+                                            displayTime.contains('hr')
+                                                ? 'hr'
+                                                : 'min',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.teal.shade600,
+                                            ),
+                                          ),
+                                        ),
+                                      if (avgResponseMinutes > 0 &&
+                                          avgResponseMinutes < 60)
+                                        Text(
+                                          ' min',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.teal.shade600,
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                  if (avgResponseMinutes > 0)
+                                    Text(
+                                      displayTime.contains('hr')
+                                          ? displayTime.split('hr')[1].trim()
+                                          : '',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.grey.shade600,
+                                      ),
+                                    ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    resolvedCount == 0
+                                        ? 'No resolved incidents yet'
+                                        : 'Based on $resolvedCount resolved cases this month',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: Colors.grey.shade500,
+                                    ),
+                                  ),
                                 ],
                               ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: Colors.green.shade50,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: Colors.green.shade200),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.trending_down_rounded,
-                                size: 14,
-                                color: Colors.green.shade700,
+                            ),
+                            // Trend indicator
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 6,
                               ),
-                              const SizedBox(width: 4),
-                              Text(
-                                '15%',
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.green.shade700,
+                              decoration: BoxDecoration(
+                                color: Colors.green.shade50,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(
+                                  color: Colors.green.shade200,
                                 ),
                               ),
-                            ],
-                          ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.trending_down_rounded,
+                                    size: 16,
+                                    color: trendColor,
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    trendText,
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w700,
+                                      color: trendColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 8),
-
-            // Map View
-            // Container(
-            //   height: 280,
-            //   margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            //   decoration: BoxDecoration(
-            //     color: Colors.grey.shade200,
-            //     borderRadius: BorderRadius.circular(16),
-            //     border: Border.all(color: Colors.grey.shade300),
-            //   ),
-            //   child: Stack(
-            //     children: [
-            //       ClipRRect(
-            //         borderRadius: BorderRadius.circular(16),
-            //         child: Container(
-            //           color: Colors.blue.shade50,
-            //           child: Center(
-            //             child: FlutterMap(
-            //               options: MapOptions(
-            //                 initialCenter: const LatLng(22.8028, 86.1854),
-            //                 initialZoom: 13,
-            //               ),
-            //               children: [
-            //                 TileLayer(
-            //                   urlTemplate:
-            //                       'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            //                   userAgentPackageName:
-            //                       'com.example.nagar_alert_app',
-            //                 ),
-            //                 MarkerLayer(
-            //                   markers: [
-            //                     Marker(
-            //                       point: const LatLng(22.8028, 86.1854),
-            //                       width: 40,
-            //                       height: 40,
-            //                       child: const Icon(
-            //                         Icons.location_pin,
-            //                         color: Colors.red,
-            //                         size: 40,
-            //                       ),
-            //                     ),
-            //                   ],
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //       Positioned(
-            //         top: 12,
-            //         right: 12,
-            //         child: Container(
-            //           padding: const EdgeInsets.symmetric(
-            //             horizontal: 12,
-            //             vertical: 8,
-            //           ),
-            //           decoration: BoxDecoration(
-            //             color: Colors.white,
-            //             borderRadius: BorderRadius.circular(20),
-            //             boxShadow: [
-            //               BoxShadow(
-            //                 color: Colors.black.withAlpha(25),
-            //                 blurRadius: 8,
-            //               ),
-            //             ],
-            //           ),
-            //           child: Row(
-            //             children: [
-            //               Container(
-            //                 width: 8,
-            //                 height: 8,
-            //                 decoration: const BoxDecoration(
-            //                   color: Colors.green,
-            //                   shape: BoxShape.circle,
-            //                 ),
-            //               ),
-            //               const SizedBox(width: 6),
-            //               const Text(
-            //                 'Live',
-            //                 style: TextStyle(
-            //                   fontSize: 12,
-            //                   fontWeight: FontWeight.w600,
-            //                   color: Colors.black87,
-            //                 ),
-            //               ),
-            //             ],
-            //           ),
-            //         ),
-            //       ),
-            //       Positioned(
-            //         bottom: 12,
-            //         right: 12,
-            //         child: FloatingActionButton(
-            //           mini: true,
-            //           backgroundColor: Colors.white,
-            //           onPressed: () {},
-            //           child: const Icon(Icons.my_location, color: Colors.blue),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-
-            // Recent Incidents
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Recent Incidents',
+                ),
+                const SizedBox(height: 8),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
+                  child: Text(
+                    'Recent Incidents (Last 2 Hours)',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: Colors.black87,
                     ),
                   ),
-                  TextButton.icon(
-                    onPressed: () {},
-                    icon: const Icon(Icons.filter_list, size: 18),
-                    label: const Text('Filter'),
-                    style: TextButton.styleFrom(foregroundColor: Colors.blue),
-                  ),
-                ],
-              ),
-            ),
+                ),
+                recentIncidents.isEmpty
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Text(
+                          'No incidents in the last 2 hours.',
+                          style: TextStyle(color: Colors.grey.shade600),
+                        ),
+                      )
+                    : ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        itemCount: recentIncidents.length,
+                        itemBuilder: (context, index) {
+                          final doc = incidents[index];
+                          final data = doc.data() as Map<String, dynamic>;
+                          final String title =
+                              data['title'] ?? 'Unknown Incident';
+                          final String category =
+                              data['category'] ?? 'others'; // ← Use 'category'
+                          final String severity = data['severity'] ?? 'medium';
+                          final String status = data['status'] ?? 'pending';
+                          final int reports = data['reportCount'] ?? 1;
+                          final int credibility = data['credibility'] ?? 50;
+                          final Timestamp? timestamp = data['createdAt'];
+                          final String timeAgo = timestamp != null
+                              ? _formatTimeAgo(timestamp.toDate())
+                              : 'Just now';
+                          // Get correct icon and color from category
+                          final String categoryKey = category.toLowerCase();
+                          final config =
+                              categoryConfig[categoryKey] ??
+                              categoryConfig['others']!;
+                          final Color color = config['color'];
+                          final IconData icon = config['icon'];
+                          return _buildIncidentCard({
+                            'title': title,
+                            'category': category,
+                            'severity': severity,
+                            'status': status,
+                            'time': timeAgo,
+                            'reports': reports,
+                            'credibility': credibility,
+                            'icon': icon,
+                            'color': color,
+                            'verified': data['verified'] == true,
+                          });
+                        },
+                      ),
 
-            // Incident Cards
-            ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              itemCount: incidents.length,
-              itemBuilder: (context, index) {
-                return _buildIncidentCard(incidents[index]);
-              },
+                const SizedBox(height: 20),
+
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Past Incidents',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      TextButton.icon(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const PastIncidentsScreen(),
+                            ),
+                          );
+                        },
+                        icon: const Icon(Icons.bookmark, size: 18),
+                        label: const Text('Click here to view'),
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.blue,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 100),
+              ],
             ),
-            const SizedBox(height: 20),
-          ],
-        ),
+          );
+        },
       ),
       floatingActionButton: Container(
         decoration: BoxDecoration(
@@ -621,7 +733,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
-              color: Colors.blue.shade400.withAlpha(125),
+              color: Colors.blue.shade400.withOpacity(0.5),
               blurRadius: 15,
               offset: const Offset(0, 8),
             ),
@@ -629,14 +741,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ),
         child: FloatingActionButton.extended(
           heroTag: 'report_incident_fab',
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const ReportIncidentScreen(),
-              ),
-            );
-          },
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ReportIncidentScreen(),
+            ),
+          ),
           backgroundColor: Colors.transparent,
           elevation: 0,
           icon: const Icon(Icons.add_alert, color: Colors.white),
@@ -650,27 +760,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
           ),
         ),
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   currentIndex: _selectedIndex,
-      //   onTap: (index) {
-      //     setState(() {
-      //       _selectedIndex = index;
-      //     });
-      //   },
-      //   type: BottomNavigationBarType.fixed,
-      //   selectedItemColor: Colors.blue.shade600,
-      //   unselectedItemColor: Colors.grey,
-      //   items: const [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(Icons.dashboard),
-      //       label: 'Dashboard',
-      //     ),
-      //     BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Map'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.report), label: 'Reports'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-      //   ],
-      // ),
     );
+  }
+
+  String _formatTimeAgo(DateTime date) {
+    final now = DateTime.now();
+    final difference = now.difference(date);
+    if (difference.inMinutes < 1) return 'Just now';
+    if (difference.inMinutes < 60) return '${difference.inMinutes} min ago';
+    if (difference.inHours < 24) return '${difference.inHours} hr ago';
+    return '${difference.inDays} day${difference.inDays > 1 ? 's' : ''} ago';
   }
 
   Widget _buildMiniStat(String value, String label, Color color) {
@@ -691,7 +790,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 fontSize: 18,
                 fontWeight: FontWeight.w800,
                 color: Colors.white,
-                height: 1,
               ),
             ),
             Text(
@@ -699,7 +797,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               style: TextStyle(
                 fontSize: 11,
                 fontWeight: FontWeight.w500,
-                color: Colors.white.withAlpha(200),
+                color: Colors.white.withOpacity(0.8),
               ),
             ),
           ],
@@ -723,7 +821,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         border: Border.all(color: Colors.grey.shade200),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha(10),
+            color: Colors.black.withOpacity(0.04),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -735,7 +833,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: color.withAlpha(25),
+              color: color.withOpacity(0.1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(icon, color: color, size: 20),
@@ -747,7 +845,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
               fontSize: 26,
               fontWeight: FontWeight.w900,
               color: color,
-              height: 1,
               letterSpacing: -0.5,
             ),
           ),
@@ -774,72 +871,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget _buildStatCard(
-    String value,
-    String label,
-    IconData icon,
-    Color color,
-    String change,
-  ) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: color.withAlpha(25),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withAlpha(80)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Icon(icon, color: color, size: 24),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-                decoration: BoxDecoration(
-                  color: change.startsWith('+')
-                      ? Colors.green.shade50
-                      : Colors.red.shade50,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  change,
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w600,
-                    color: change.startsWith('+')
-                        ? Colors.green.shade700
-                        : Colors.red.shade700,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: color,
-            ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.grey.shade700,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildIncidentCard(Map<String, dynamic> incident) {
+    final bool isVerified = incident['verified'] == true;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
@@ -847,7 +881,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha(10),
+            color: Colors.black.withOpacity(0.04),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -863,7 +897,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: incident['color'].withAlpha(25),
+                    color: (incident['color'] as Color).withOpacity(0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(
@@ -894,17 +928,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               vertical: 2,
                             ),
                             decoration: BoxDecoration(
-                              color: incident['status'] == 'verified'
+                              color: isVerified
                                   ? Colors.green.shade50
                                   : Colors.orange.shade50,
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
-                              incident['status'].toUpperCase(),
+                              isVerified ? 'VERIFIED' : 'PENDING',
                               style: TextStyle(
                                 fontSize: 10,
                                 fontWeight: FontWeight.w600,
-                                color: incident['status'] == 'verified'
+                                color: isVerified
                                     ? Colors.green.shade700
                                     : Colors.orange.shade700,
                               ),
@@ -961,3 +995,41 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 }
+
+String _getMonthName(int month) {
+  const months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+  return months[month - 1];
+}
+
+
+
+/// CODE FOR CHECKING AND SETTING AVG RESPONSE TIME AFTER THE ADMIN RESOLVES THE ISSUE.
+
+/* 
+
+Future<void> resolveIncident(String incidentId, String note, String adminId) async {
+  await FirebaseFirestore.instance
+      .collection('incidents')
+      .doc(incidentId)
+      .update({
+    'status': 'resolved',
+    'resolvedAt': FieldValue.serverTimestamp(),  // Accurate server time
+    'resolvedBy': adminId,                       // or admin name/email
+    'resolutionNote': note.trim().isEmpty ? null : note.trim(),
+  });
+}
+
+ */

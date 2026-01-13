@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
-
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
+import 'package:geolocator/geolocator.dart';
+// Import your services (create these files as shown in previous response)
+import '../services/incident_service.dart';
+import '../services/location_service.dart';
 
+// ==================== REPORT INCIDENT SCREEN ====================
 class ReportIncidentScreen extends StatefulWidget {
-  const ReportIncidentScreen({super.key});
+  const ReportIncidentScreen({Key? key}) : super(key: key);
 
   @override
   State<ReportIncidentScreen> createState() => _ReportIncidentScreenState();
@@ -14,12 +18,21 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
   final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
+  final IncidentService _incidentService = IncidentService();
+  final LocationService _locationService = LocationService();
+  final ImagePicker _imagePicker = ImagePicker();
 
   String? _selectedCategory;
   String? _selectedSeverity;
-  List<String> _selectedImages = [];
+  List<File> _selectedImages = [];
   bool _isAnonymous = false;
   bool _isSubmitting = false;
+  bool _isFetchingLocation = false;
+
+  // Location data
+  double? _latitude;
+  double? _longitude;
+  String _locationName = 'Fetching location...';
 
   final List<Map<String, dynamic>> categories = [
     {
@@ -102,10 +115,363 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _fetchCurrentLocation();
+  }
+
+  @override
   void dispose() {
     _titleController.dispose();
     _descriptionController.dispose();
     super.dispose();
+  }
+
+  // Fetch current location automatically
+  Future<void> _fetchCurrentLocation() async {
+    setState(() {
+      _isFetchingLocation = true;
+      _locationName = 'Fetching location...';
+    });
+
+    try {
+      final position = await _locationService.getCurrentLocation();
+
+      if (position != null) {
+        final address = await _locationService.getAddressFromCoordinates(
+          position.latitude,
+          position.longitude,
+        );
+
+        setState(() {
+          _latitude = position.latitude;
+          _longitude = position.longitude;
+          _locationName = address;
+          _isFetchingLocation = false;
+        });
+      } else {
+        setState(() {
+          _locationName = 'Unable to fetch location';
+          _isFetchingLocation = false;
+        });
+
+        _showLocationErrorDialog();
+      }
+    } catch (e) {
+      setState(() {
+        _locationName = 'Location error';
+        _isFetchingLocation = false;
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Location error: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  void _showLocationErrorDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text('Location Required'),
+        content: const Text(
+          'Please enable location services to report incidents. You can also manually refresh the location.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Geolocator.openLocationSettings();
+            },
+            child: const Text('Open Settings'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Pick image from camera
+  Future<void> _pickImageFromCamera() async {
+    try {
+      final XFile? image = await _imagePicker.pickImage(
+        source: ImageSource.camera,
+        maxWidth: 1920,
+        maxHeight: 1080,
+        imageQuality: 85,
+      );
+
+      if (image != null) {
+        setState(() {
+          _selectedImages.add(File(image.path));
+        });
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Image captured successfully'),
+            backgroundColor: Colors.green,
+            behavior: SnackBarBehavior.floating,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error capturing image: $e'),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
+  }
+
+  // Pick images from gallery
+  Future<void> _pickImageFromGallery() async {
+    try {
+      final List<XFile> images = await _imagePicker.pickMultiImage(
+        maxWidth: 1920,
+        maxHeight: 1080,
+        imageQuality: 85,
+      );
+
+      if (images.isNotEmpty) {
+        int added = 0;
+        for (var image in images) {
+          if (_selectedImages.length < 5) {
+            _selectedImages.add(File(image.path));
+            added++;
+          }
+        }
+
+        setState(() {});
+
+        if (added > 0) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('$added image(s) selected'),
+              backgroundColor: Colors.green,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          );
+        }
+
+        if (_selectedImages.length >= 5) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Maximum 5 images allowed'),
+              backgroundColor: Colors.orange,
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error selecting images: $e'),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+        ),
+      );
+    }
+  }
+
+  // Submit incident to Firebase
+  Future<void> _handleSubmit() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      if (_selectedCategory == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please select a category'),
+            backgroundColor: Colors.orange,
+          ),
+        );
+        return;
+      }
+
+      if (_selectedSeverity == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Please select severity level'),
+            backgroundColor: Colors.orange,
+          ),
+        );
+        return;
+      }
+
+      if (_latitude == null || _longitude == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text(
+              'Please wait for location to be fetched or refresh location',
+            ),
+            backgroundColor: Colors.orange,
+          ),
+        );
+        return;
+      }
+
+      setState(() {
+        _isSubmitting = true;
+      });
+
+      try {
+        final incidentId = await _incidentService.submitIncident(
+          category: _selectedCategory!,
+          title: _titleController.text.trim(),
+          description: _descriptionController.text.trim(),
+          severity: _selectedSeverity!,
+          latitude: _latitude!,
+          longitude: _longitude!,
+          locationName: _locationName,
+          isAnonymous: _isAnonymous,
+          imageFiles: _selectedImages.isEmpty ? null : _selectedImages,
+        );
+
+        if (mounted) {
+          setState(() {
+            _isSubmitting = false;
+          });
+
+          _showSuccessDialog(incidentId);
+        }
+      } catch (e) {
+        if (mounted) {
+          setState(() {
+            _isSubmitting = false;
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error submitting report: $e'),
+              backgroundColor: Colors.red,
+              behavior: SnackBarBehavior.floating,
+              duration: const Duration(seconds: 5),
+            ),
+          );
+        }
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: const Text('Please fill all required fields correctly'),
+          backgroundColor: Colors.red,
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      );
+    }
+  }
+
+  void _showSuccessDialog(String incidentId) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.green.shade50,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.check_circle_rounded,
+                color: Colors.green.shade600,
+                size: 64,
+              ),
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Report Submitted!',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w800,
+                color: Colors.black87,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Your incident report has been submitted and is pending verification. You will be notified once it\'s verified by authorities.',
+              style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24),
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.blue.shade50,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.confirmation_number_rounded,
+                    color: Colors.blue.shade700,
+                    size: 20,
+                  ),
+                  const SizedBox(width: 8),
+                  Flexible(
+                    child: Text(
+                      'Report ID: ${incidentId.substring(0, 8).toUpperCase()}',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.blue.shade700,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context); // Close dialog
+                  Navigator.pop(context); // Close report screen
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue.shade600,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                child: const Text(
+                  'Done',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -137,6 +503,7 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
                 _selectedImages.clear();
                 _titleController.clear();
                 _descriptionController.clear();
+                _isAnonymous = false;
               });
             },
             child: Text(
@@ -565,30 +932,15 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
                   width: 120,
                   margin: const EdgeInsets.only(right: 12),
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: Colors.grey.shade300),
+                    image: DecorationImage(
+                      image: FileImage(_selectedImages[index]),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   child: Stack(
                     children: [
-                      Center(
-                        child: Icon(
-                          Icons.image,
-                          size: 48,
-                          color: Colors.grey.shade400,
-                        ),
-                      ),
-                      // Simulated image placeholder
-                      Center(
-                        child: Text(
-                          'Image ${index + 1}',
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.grey.shade600,
-                          ),
-                        ),
-                      ),
                       Positioned(
                         top: 8,
                         right: 8,
@@ -624,7 +976,9 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
           children: [
             Expanded(
               child: OutlinedButton.icon(
-                onPressed: _selectedImages.length < 5 ? _pickImage : null,
+                onPressed: _selectedImages.length < 5
+                    ? _pickImageFromCamera
+                    : null,
                 icon: const Icon(Icons.camera_alt_rounded),
                 label: const Text('Take Photo'),
                 style: OutlinedButton.styleFrom(
@@ -634,6 +988,7 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   foregroundColor: Colors.blue.shade600,
+                  disabledForegroundColor: Colors.grey,
                 ),
               ),
             ),
@@ -652,6 +1007,7 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                   foregroundColor: Colors.blue.shade600,
+                  disabledForegroundColor: Colors.grey,
                 ),
               ),
             ),
@@ -695,11 +1051,20 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
                   color: Colors.blue.shade600,
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child: const Icon(
-                  Icons.location_on,
-                  color: Colors.white,
-                  size: 20,
-                ),
+                child: _isFetchingLocation
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : const Icon(
+                        Icons.location_on,
+                        color: Colors.white,
+                        size: 20,
+                      ),
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -716,28 +1081,61 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      'MG Road, Sector 14, Narnaund',
+                      _locationName,
                       style: TextStyle(
                         fontSize: 13,
                         color: Colors.grey.shade700,
                       ),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
                     ),
+                    if (_latitude != null && _longitude != null) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        'Lat: ${_latitude!.toStringAsFixed(4)}, Lng: ${_longitude!.toStringAsFixed(4)}',
+                        style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.grey.shade500,
+                          fontFamily: 'monospace',
+                        ),
+                      ),
+                    ],
                   ],
                 ),
               ),
             ],
           ),
           const SizedBox(height: 12),
-          TextButton.icon(
-            onPressed: () {
-              // Open location picker
-            },
-            icon: const Icon(Icons.edit_location_alt_rounded, size: 18),
-            label: const Text('Change Location'),
-            style: TextButton.styleFrom(
-              foregroundColor: Colors.blue.shade700,
-              padding: EdgeInsets.zero,
-            ),
+          Row(
+            children: [
+              TextButton.icon(
+                onPressed: _isFetchingLocation ? null : _fetchCurrentLocation,
+                icon: const Icon(Icons.refresh_rounded, size: 18),
+                label: const Text('Refresh'),
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.blue.shade700,
+                  padding: EdgeInsets.zero,
+                  disabledForegroundColor: Colors.grey,
+                ),
+              ),
+              const SizedBox(width: 16),
+              TextButton.icon(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Manual location picker coming soon'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.edit_location_alt_rounded, size: 18),
+                label: const Text('Change'),
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.blue.shade700,
+                  padding: EdgeInsets.zero,
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -806,7 +1204,9 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
         _selectedCategory != null &&
         _selectedSeverity != null &&
         _titleController.text.isNotEmpty &&
-        _descriptionController.text.isNotEmpty;
+        _descriptionController.text.isNotEmpty &&
+        _latitude != null &&
+        _longitude != null;
 
     return Container(
       width: double.infinity,
@@ -875,166 +1275,5 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
               ),
       ),
     );
-  }
-
-  void _pickImage() async {
-    // Simulate image picker
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.camera);
-
-    setState(() {
-      _selectedImages.add('image_${_selectedImages.length + 1}.jpg');
-    });
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('Image captured successfully'),
-        backgroundColor: Colors.green,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
-  }
-
-  void _pickImageFromGallery() async {
-    // Simulate image picker
-    final ImagePicker picker = ImagePicker();
-    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-
-    setState(() {
-      _selectedImages.add('image_${_selectedImages.length + 1}.jpg');
-    });
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: const Text('Image selected from gallery'),
-        backgroundColor: Colors.green,
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-    );
-  }
-
-  void _handleSubmit() async {
-    if (_formKey.currentState?.validate() ?? false) {
-      setState(() {
-        _isSubmitting = true;
-      });
-
-      // Simulate API call
-      await Future.delayed(const Duration(seconds: 2));
-
-      if (mounted) {
-        setState(() {
-          _isSubmitting = false;
-        });
-
-        // Show success dialog
-        showDialog(
-          context: context,
-          barrierDismissible: false,
-          builder: (context) => AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.green.shade50,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    Icons.check_circle_rounded,
-                    color: Colors.green.shade600,
-                    size: 64,
-                  ),
-                ),
-                const SizedBox(height: 24),
-                const Text(
-                  'Report Submitted!',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                Text(
-                  'Your incident report has been submitted successfully. Authorities will be notified.',
-                  style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 24),
-                Container(
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
-                    color: Colors.blue.shade50,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Icon(
-                        Icons.confirmation_number_rounded,
-                        color: Colors.blue.shade700,
-                        size: 20,
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Report ID: RPT-${DateTime.now().millisecondsSinceEpoch.toString().substring(7)}',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.blue.shade700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 24),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context); // Close dialog
-                      Navigator.pop(context); // Close report screen
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue.shade600,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: const Text(
-                      'Done',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Please fill all required fields'),
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      );
-    }
   }
 }

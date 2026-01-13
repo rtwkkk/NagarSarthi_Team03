@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:nagar_alert_app/screens/dashboard_screen.dart';
 import 'package:nagar_alert_app/screens/map_screen.dart';
-import 'package:nagar_alert_app/screens/profile_page.dart';
+import 'package:nagar_alert_app/screens/profile/profile_page.dart';
 import 'package:nagar_alert_app/screens/reports_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -15,140 +14,96 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  Future<bool> _showExitDialog(BuildContext parentContext) {
-    return showDialog<bool>(
-      context: parentContext,
-      builder: (dialogContext) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          title: Text(
-            "Exit App",
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
-          ),
-          content: Text(
-            "Are you sure you want to exit?",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
-          ),
-          actionsPadding: const EdgeInsets.only(bottom: 12, right: 10),
-          actions: [
-            // ----------- NO BUTTON -----------
-            TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Color(0xFF10B981),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 12,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              onPressed: () => Navigator.of(dialogContext).pop(false),
-              child: Text(
-                "No",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
+  // List of screens
+  static const List<Widget> _screens = <Widget>[
+    DashboardScreen(),
+    MapScreen(),
+    ReportsScreen(),
+    ProfileScreen(),
+  ];
 
-            // ----------- YES BUTTON -----------
-            TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: Color(0xFF10B981),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 24,
-                  vertical: 12,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              ),
-              onPressed: () => Navigator.of(dialogContext).pop(true),
-              child: Text(
-                "Yes",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    ).then((value) => value ?? false);
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
-  final List<Widget> _screens = [
-    //profile, report , map, dashboard
-    const DashboardScreen(),
-    const MapScreen(),
-    const ReportsScreen(),
-    const ProfileScreen(),
-  ];
+  // Custom active icon with gradient pill
+  Widget _buildActiveNavIcon(IconData icon) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Colors.blue.shade500, Colors.indigo.shade700],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue.shade400.withOpacity(0.4),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Icon(icon, color: Colors.white, size: 26),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: false,
-      onPopInvokedWithResult: (didPop, result) async {
-        if (didPop) return;
-
-        bool exit = await _showExitDialog(context);
-
-        if (exit) {
-          SystemNavigator.pop();
-        }
-      },
-      child: Scaffold(
-        body: IndexedStack(index: _selectedIndex, children: _screens),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: const Color(0xFF10B981),
-          unselectedItemColor: Colors.grey,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.dashboard),
-              label: 'Dashboard',
-            ),
-            BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Map'),
-            BottomNavigationBarItem(icon: Icon(Icons.report), label: 'Reports'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Profile',
+    return Scaffold(
+      body: IndexedStack(index: _selectedIndex, children: _screens),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.08),
+              blurRadius: 20,
+              offset: const Offset(0, -4),
             ),
           ],
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.white,
+            selectedItemColor: Colors.black,
+            unselectedItemColor: Colors.grey.shade600,
+            selectedFontSize: 12,
+            unselectedFontSize: 11,
+            showUnselectedLabels: true,
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            elevation: 0,
+            items: [
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.dashboard_outlined),
+                activeIcon: _buildActiveNavIcon(Icons.dashboard_rounded),
+                label: 'Dashboard',
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.map_outlined),
+                activeIcon: _buildActiveNavIcon(Icons.map_rounded),
+                label: 'Map',
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.report_outlined),
+                activeIcon: _buildActiveNavIcon(Icons.report_rounded),
+                label: 'Reports',
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.person_outline),
+                activeIcon: _buildActiveNavIcon(Icons.person_rounded),
+                label: 'Profile',
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
-// class MapScreen extends StatelessWidget {
-//   const MapScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Scaffold(body: Center(child: Text('Map Screen')));
-//   }
-// }
-
-// class ReportsScreen extends StatelessWidget {
-//   const ReportsScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Scaffold(body: Center(child: Text('Reports Screen')));
-//   }
-// }

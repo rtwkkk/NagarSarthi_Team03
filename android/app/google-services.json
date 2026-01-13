@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1001892553814",
+    "project_id": "nagar-alert-app",
+    "storage_bucket": "nagar-alert-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1001892553814:android:7b8098159475a5ff6447f7",
+        "android_client_info": {
+          "package_name": "com.example.nagar_alert_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuf02IJigRmPhBEOwdrAc0ZCZaWEupeHg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
