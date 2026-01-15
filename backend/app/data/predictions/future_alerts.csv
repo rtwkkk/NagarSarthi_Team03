@@ -1,0 +1,11 @@
+area_name,predicted_incidents_7_days,risk_level
+"Bank More, Dhanbad",1,MEDIUM
+"Bistupur, Jamshedpur",2,HIGH
+Chaibasa Market,1,MEDIUM
+Dumka Chowk,1,LOW
+"Harmu, Ranchi",1,MEDIUM
+"Katras Road, Dhanbad",1,HIGH
+"Main Road, Ranchi",1,MEDIUM
+"Ringle Road, Ranchi",1,LOW
+"Sakchi, Jamshedpur",1,HIGH
+"Steel Gate, Bokaro",1,MEDIUM

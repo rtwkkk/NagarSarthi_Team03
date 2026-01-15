@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pandas
+numpy
+statsmodels
+python-dotenv
+transformers
+torch
+sentencepiece
