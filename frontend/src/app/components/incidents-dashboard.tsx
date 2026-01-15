@@ -1,11 +1,8 @@
 import { useState, useEffect } from 'react';
 import {
-  getFirestore,
-  collection,
-  query,
-  onSnapshot,
   Timestamp,
 } from 'firebase/firestore';
+import { subscribeToIncidents } from '../../firebase/services';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 const MapContainerAny = MapContainer as any;
 const TileLayerAny = TileLayer as any;
@@ -49,6 +46,7 @@ interface Incident {
   status?: 'pending' | 'verified' | 'rejected' | 'dismissed' | null;
   createdAt: Timestamp;
   location?: IncidentLocation;
+  verified?: boolean; // Added to support Flutter logic check
 }
 
 type CardType = 'total' | 'verified' | 'pending' | 'rejected' | null;
@@ -69,7 +67,6 @@ interface StatsCardProps {
 // ============= MAIN COMPONENT =============
 
 export function IncidentsDashboard() {
-  const db = getFirestore();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -95,53 +92,32 @@ export function IncidentsDashboard() {
   useEffect(() => {
     setLoading(true);
 
-    // Real-time listener for all incidents
-    const incidentsRef = collection(db, 'incidents');
-    const q = query(incidentsRef);
+    const unsubscribe = subscribeToIncidents((incidents: any[]) => {
+      // Cast to local Incident type or map needed fields
+      setAllIncidents(incidents as unknown as Incident[]);
 
-    const unsubscribe = onSnapshot(
-      q,
-      (snapshot) => {
-        const incidents: Incident[] = [];
+      // Calculate statistics based on available data
+      const total = incidents.length;
+      // Check for 'verified' boolean OR 'verified' status as per Flutter logic
+      const verified = incidents.filter(
+        (inc) => inc.verified || inc.status === 'verified'
+      ).length;
+      const pending = incidents.filter(
+        (inc) =>
+          inc.status === 'pending' ||
+          (!inc.status && !inc.verified)
+      ).length;
+      const rejected = incidents.filter(
+        (inc) => inc.status === 'rejected' || inc.status === 'dismissed'
+      ).length;
 
-        snapshot.forEach((doc) => {
-          incidents.push({
-            id: doc.id,
-            ...doc.data(),
-          } as Incident);
-        });
+      setStats({ total, verified, pending, rejected });
+      setLoading(false);
+      setError(null);
+    });
 
-        setAllIncidents(incidents);
-
-        // Calculate statistics
-        const total = incidents.length;
-        const verified = incidents.filter(
-          (inc) => inc.status === 'verified'
-        ).length;
-        const pending = incidents.filter(
-          (inc) =>
-            inc.status === 'pending' ||
-            !inc.status ||
-            inc.status === null
-        ).length;
-        const rejected = incidents.filter(
-          (inc) => inc.status === 'rejected' || inc.status === 'dismissed'
-        ).length;
-
-        setStats({ total, verified, pending, rejected });
-        setLoading(false);
-        setError(null);
-      },
-      (err) => {
-        console.error('Error fetching incidents:', err);
-        setError('Failed to load incidents. Please try again.');
-        setLoading(false);
-      }
-    );
-
-    // Cleanup listener on unmount
     return () => unsubscribe();
-  }, [db]);
+  }, []);
 
   // ============= HANDLE INITIAL FILTER FROM ROUTER STATE =============
 

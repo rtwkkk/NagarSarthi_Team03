@@ -18,47 +18,79 @@ import {
 import { db } from './config';
 
 // Types
-export interface Incident {
-  id?: string;
-  title: string;
-  location: string;
-  time: string;
-  severity: 'critical' | 'high' | 'medium' | 'low';
-  type: string;
-  status: 'pending' | 'verified' | 'rejected' | 'assigned' | 'resolved';
-  reportedBy: string;
-  phone: string;
-  assignedTeam?: string;
-  description?: string;
-  imageUrl?: string;
-  createdAt?: Timestamp | any;
-  updatedAt?: Timestamp | any;
-  resolvedAt?: Timestamp | any;
-  userId?: string;
-  region?: string;
-}
+// Types moved to single definition below
 
 export interface UserProfile {
   id?: string;
+  name: string;
   email: string;
-  displayName: string;
-  role: 'Super Administrator' | 'Administrator' | 'Viewer';
-  region: string;
-  createdAt?: Timestamp | any;
-  updatedAt?: Timestamp | any;
-  photoURL?: string;
   phone?: string;
+  role?: 'admin' | 'user' | 'authority';
+  photoURL?: string;
+  createdAt?: any;
+  updatedAt?: any;
 }
 
 export interface NotificationPreferences {
-  userId: string;
-  solvedIssues: boolean;
-  regionalUpdates: boolean;
-  includeMetadata: boolean;
-  emailNotifications: boolean;
-  smsNotifications: boolean;
-  updatedAt?: Timestamp | any;
+  userId?: string;
+  emailAlerts: boolean;
+  pushNotifications: boolean;
+  smsAlerts: boolean;
+  categories: string[];
+  updatedAt?: any;
 }
+
+export interface Incident {
+  id?: string;
+  category: string;
+  title: string;
+  description: string;
+  severity: string;
+  location: any; // GeoPoint
+  locationName: string;
+  images: string[];
+  reportedBy: string;
+  reporterName: string;
+  isAnonymous: boolean;
+  upvotes: number;
+  viewCount: number;
+  reportCount: number;
+  credibility: number;
+  verified: boolean;
+  createdAt: Timestamp | any;
+  updatedAt: Timestamp | any;
+  status: 'pending' | 'verified' | 'rejected' | 'dismissed' | 'resolved' | 'investigating' | 'in-progress' | 'assigned';
+  assignedAt?: Timestamp | any | null;
+  resolvedAt?: Timestamp | any | null;
+  resolvedBy?: string | null;
+  resolutionNote?: string | null;
+}
+
+// ============= INCIDENT SERVICES =============
+
+/**
+ * Listen to incident updates in real-time
+ */
+export function subscribeToIncidents(
+  callback: (incidents: Incident[]) => void
+): () => void {
+  const q = query(
+    collection(db, 'incidents'),
+    orderBy('createdAt', 'desc'),
+    limit(100)
+  );
+
+  const unsubscribe = onSnapshot(q, (snapshot) => {
+    const incidents = snapshot.docs.map(doc => ({
+      ...doc.data(),
+      id: doc.id
+    } as Incident));
+    callback(incidents);
+  });
+
+  return unsubscribe;
+}
+
 
 // ============= INCIDENT SERVICES =============
 
@@ -139,33 +171,7 @@ export async function deleteIncident(incidentId: string): Promise<void> {
   await deleteDoc(doc(db, 'incidents', incidentId));
 }
 
-/**
- * Listen to incident updates in real-time
- */
-export function subscribeToIncidents(
-  callback: (incidents: Incident[]) => void,
-  region?: string
-): () => void {
-  let q = query(
-    collection(db, 'incidents'),
-    orderBy('createdAt', 'desc'),
-    limit(50)
-  );
-
-  if (region) {
-    q = query(q, where('region', '==', region));
-  }
-
-  const unsubscribe = onSnapshot(q, (snapshot) => {
-    const incidents = snapshot.docs.map(doc => ({
-      id: doc.id,
-      ...doc.data()
-    } as Incident));
-    callback(incidents);
-  });
-
-  return unsubscribe;
-}
+// Consolidated Incident interface and service are at the top of the file.
 
 // ============= USER PROFILE SERVICES =============
 

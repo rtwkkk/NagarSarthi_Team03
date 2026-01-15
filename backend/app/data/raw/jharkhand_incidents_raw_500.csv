@@ -1,501 +1,501 @@
 area_name,latitude,longitude,incident_type,date,time
-"Harmu, Ranchi",23.355269,85.299182,Others,2024-01-11,22:04:41
-"Bistupur, Jamshedpur",22.813166,86.210067,Health,2024-07-17,15:13:41
-"Harmu, Ranchi",23.355006,85.306793,Disaster,2024-10-01,06:47:58
-"Katras Road, Dhanbad",23.814031,86.315388,Protest,2024-06-30,09:29:25
-"Steel Gate, Bokaro",23.672495,86.15378,Others,2024-11-30,07:54:22
-Chaibasa Market,22.554424,85.800819,Crime,2024-10-30,07:26:58
-Dumka Chowk,24.259208,87.248164,Disaster,2024-06-23,22:32:05
-"Main Road, Ranchi",23.369632,85.31893,Health,2024-03-17,15:09:33
-"Katras Road, Dhanbad",23.809935,86.315546,Disaster,2024-01-03,15:56:05
-"Bank More, Dhanbad",23.79817,86.426564,Disaster,2024-11-14,17:41:45
-"Bistupur, Jamshedpur",22.809403,86.199706,Infrastructure,2024-03-13,00:31:38
-"Sakchi, Jamshedpur",22.79575,86.200749,Crime,2024-11-20,19:18:31
-"Harmu, Ranchi",23.355674,85.296642,Crime,2024-08-28,23:23:33
-Chaibasa Market,22.551119,85.806591,Traffic,2024-03-30,22:21:44
-"Bistupur, Jamshedpur",22.809826,86.197878,Utility,2024-08-10,03:10:09
-Dumka Chowk,24.271904,87.25029,Utility,2024-05-24,21:58:38
-"Sakchi, Jamshedpur",22.799148,86.195653,Crime,2024-04-28,03:17:09
-"Sakchi, Jamshedpur",22.793836,86.198827,Crime,2024-10-05,14:46:34
-Chaibasa Market,22.548644,85.806694,Traffic,2024-03-17,02:52:24
-"Harmu, Ranchi",23.350441,85.299548,Traffic,2024-12-29,01:20:10
-"Bistupur, Jamshedpur",22.810359,86.198773,Infrastructure,2024-08-07,16:48:43
-"Ringle Road, Ranchi",23.344485,85.319482,Infrastructure,2024-03-19,17:23:14
-"Sakchi, Jamshedpur",22.797998,86.211638,Utility,2024-03-09,20:10:15
-"Main Road, Ranchi",23.368243,85.332653,Protest,2024-08-30,10:26:51
-Chaibasa Market,22.551991,85.807179,Crime,2024-05-09,21:15:20
-"Bistupur, Jamshedpur",22.804475,86.202462,Protest,2024-10-31,07:53:27
-"Ringle Road, Ranchi",23.345927,85.30871,Disaster,2024-08-28,00:13:15
-"Steel Gate, Bokaro",23.666287,86.14773,Disaster,2024-07-15,05:06:57
-"Sakchi, Jamshedpur",22.800186,86.202308,Traffic,2024-05-14,18:33:31
-Chaibasa Market,22.548732,85.808342,Traffic,2024-10-02,08:31:36
-"Steel Gate, Bokaro",23.67131,86.158927,Utility,2024-02-06,14:30:02
-"Katras Road, Dhanbad",23.817027,86.315491,Utility,2024-02-25,07:06:03
-"Katras Road, Dhanbad",23.811263,86.319471,Protest,2024-01-03,06:14:06
-"Katras Road, Dhanbad",23.815066,86.311684,Traffic,2024-04-02,17:40:57
-"Bistupur, Jamshedpur",22.803242,86.198181,Protest,2024-07-25,09:07:35
-"Steel Gate, Bokaro",23.660187,86.143687,Protest,2024-06-20,05:42:31
-"Katras Road, Dhanbad",23.816171,86.313682,Crime,2024-03-02,03:56:24
-"Harmu, Ranchi",23.357896,85.292102,Others,2024-11-22,16:03:26
-"Main Road, Ranchi",23.360448,85.333634,Crime,2024-05-21,21:55:47
-"Harmu, Ranchi",23.363787,85.293549,Traffic,2024-12-20,01:20:58
-"Ringle Road, Ranchi",23.345063,85.317102,Crime,2024-07-12,09:51:03
-Dumka Chowk,24.263218,87.243893,Health,2024-06-06,03:19:47
-"Ringle Road, Ranchi",23.349015,85.303034,Health,2024-01-25,23:12:56
-"Katras Road, Dhanbad",23.811655,86.31997,Health,2024-07-18,14:29:56
-"Katras Road, Dhanbad",23.821277,86.32151,Crime,2024-05-11,19:35:28
-"Harmu, Ranchi",23.34824,85.302028,Others,2024-01-07,20:03:41
-"Bistupur, Jamshedpur",22.799739,86.201554,Utility,2024-07-23,20:40:16
-"Ringle Road, Ranchi",23.341954,85.313379,Utility,2024-03-31,07:10:04
-"Main Road, Ranchi",23.36612,85.324247,Crime,2024-09-20,16:03:51
-"Ringle Road, Ranchi",23.350056,85.309144,Traffic,2024-01-22,10:19:12
-"Bistupur, Jamshedpur",22.813488,86.196906,Utility,2024-02-18,15:39:03
-"Main Road, Ranchi",23.379386,85.320049,Infrastructure,2024-05-12,18:48:20
-Chaibasa Market,22.553701,85.811831,Traffic,2024-10-06,16:37:10
-"Harmu, Ranchi",23.363516,85.303694,Crime,2024-08-14,20:05:04
-Dumka Chowk,24.261031,87.254453,Traffic,2024-02-08,21:42:33
-"Sakchi, Jamshedpur",22.803423,86.201321,Disaster,2024-11-04,19:49:39
-"Ringle Road, Ranchi",23.347022,85.304235,Health,2024-03-13,21:42:53
-"Katras Road, Dhanbad",23.811098,86.323855,Disaster,2024-10-22,20:18:25
-"Bistupur, Jamshedpur",22.798546,86.197929,Infrastructure,2024-02-09,12:10:59
-"Main Road, Ranchi",23.361864,85.32814,Health,2024-06-16,22:06:04
-"Bistupur, Jamshedpur",22.803017,86.206807,Health,2024-12-09,04:28:10
-Chaibasa Market,22.545742,85.807132,Disaster,2024-10-10,10:50:42
-Chaibasa Market,22.552352,85.805851,Crime,2024-01-08,09:26:56
-"Harmu, Ranchi",23.36262,85.291119,Traffic,2024-01-06,21:21:18
-"Harmu, Ranchi",23.349246,85.298106,Infrastructure,2024-05-09,19:09:59
-Dumka Chowk,24.277529,87.252953,Health,2024-08-02,05:57:25
-"Ringle Road, Ranchi",23.347969,85.309301,Infrastructure,2024-07-02,07:00:37
-"Sakchi, Jamshedpur",22.79164,86.20975,Disaster,2024-08-18,05:19:47
-Chaibasa Market,22.559342,85.796229,Traffic,2024-04-09,15:08:47
-"Katras Road, Dhanbad",23.814455,86.310553,Protest,2024-06-05,12:56:26
-"Ringle Road, Ranchi",23.353558,85.308158,Utility,2024-10-02,15:23:43
-"Harmu, Ranchi",23.363166,85.295347,Utility,2024-08-11,14:25:17
-"Ringle Road, Ranchi",23.347836,85.301216,Protest,2024-01-03,03:15:20
-Dumka Chowk,24.268025,87.250388,Protest,2024-08-15,17:13:14
-"Harmu, Ranchi",23.357602,85.303205,Traffic,2024-08-02,17:26:36
-Chaibasa Market,22.544447,85.800219,Protest,2024-11-21,07:32:06
-"Bistupur, Jamshedpur",22.809969,86.203018,Crime,2024-07-16,07:32:28
-"Sakchi, Jamshedpur",22.809034,86.209187,Traffic,2024-06-17,23:15:03
-"Bank More, Dhanbad",23.793761,86.42519,Others,2024-02-16,07:34:40
-"Katras Road, Dhanbad",23.821848,86.305144,Health,2024-09-04,09:32:36
-"Steel Gate, Bokaro",23.667877,86.146301,Disaster,2024-10-08,15:25:46
-"Main Road, Ranchi",23.366626,85.317148,Crime,2024-01-04,16:25:13
-"Sakchi, Jamshedpur",22.797502,86.205742,Crime,2024-05-04,04:02:37
-"Steel Gate, Bokaro",23.668713,86.156118,Disaster,2024-07-24,12:48:27
-"Bistupur, Jamshedpur",22.798428,86.199261,Others,2024-08-12,12:20:10
-"Main Road, Ranchi",23.363056,85.318519,Traffic,2024-07-03,03:11:15
-"Bistupur, Jamshedpur",22.802646,86.209488,Health,2024-02-17,14:38:07
-Dumka Chowk,24.2669,87.240943,Crime,2024-10-16,05:42:23
-"Main Road, Ranchi",23.374663,85.318531,Utility,2024-02-07,14:15:31
-"Steel Gate, Bokaro",23.660415,86.154437,Utility,2024-12-21,03:54:20
-"Katras Road, Dhanbad",23.817884,86.305932,Disaster,2024-11-05,04:04:29
-"Ringle Road, Ranchi",23.338165,85.300773,Infrastructure,2024-12-01,14:34:31
-Dumka Chowk,24.26167,87.255281,Crime,2024-10-05,10:49:04
-"Sakchi, Jamshedpur",22.795358,86.208738,Protest,2024-11-21,21:39:00
-"Ringle Road, Ranchi",23.336536,85.304914,Disaster,2024-03-30,15:25:04
-Dumka Chowk,24.261248,87.250411,Infrastructure,2024-02-14,12:45:55
-Chaibasa Market,22.554786,85.806217,Crime,2024-12-27,13:38:02
-Dumka Chowk,24.266473,87.246501,Infrastructure,2024-02-07,03:11:02
-"Ringle Road, Ranchi",23.338671,85.311238,Utility,2024-07-08,17:34:25
-"Harmu, Ranchi",23.354056,85.301927,Utility,2024-02-28,00:38:43
-"Harmu, Ranchi",23.349245,85.289694,Crime,2024-03-21,21:45:52
-"Ringle Road, Ranchi",23.339619,85.309891,Crime,2024-04-05,14:25:50
-"Katras Road, Dhanbad",23.818415,86.309249,Utility,2024-07-07,13:27:24
-"Sakchi, Jamshedpur",22.802039,86.208446,Infrastructure,2024-01-19,12:31:14
-"Steel Gate, Bokaro",23.672824,86.149124,Crime,2024-11-18,15:40:12
-Chaibasa Market,22.547184,85.799312,Utility,2024-09-10,10:05:14
-"Sakchi, Jamshedpur",22.807148,86.202936,Health,2024-11-03,02:32:18
-"Bank More, Dhanbad",23.788204,86.435159,Utility,2024-02-10,23:16:45
-"Main Road, Ranchi",23.371568,85.32283,Traffic,2024-03-10,12:34:46
-"Main Road, Ranchi",23.363756,85.327366,Traffic,2024-10-05,03:25:40
-"Katras Road, Dhanbad",23.814033,86.317874,Infrastructure,2024-07-12,20:58:04
-"Sakchi, Jamshedpur",22.805866,86.210193,Traffic,2024-10-13,11:03:26
-Chaibasa Market,22.548078,85.804592,Infrastructure,2024-10-08,05:44:47
-"Katras Road, Dhanbad",23.820178,86.318003,Others,2024-01-10,14:35:28
-Dumka Chowk,24.258308,87.240642,Protest,2024-05-12,21:28:33
-"Steel Gate, Bokaro",23.66889,86.143502,Crime,2024-08-18,08:06:09
-Chaibasa Market,22.558387,85.804012,Crime,2024-01-21,04:11:27
-Dumka Chowk,24.25888,87.241195,Health,2024-07-17,16:04:20
-"Steel Gate, Bokaro",23.673666,86.160162,Infrastructure,2024-04-01,22:52:56
-"Katras Road, Dhanbad",23.811763,86.308054,Disaster,2024-11-17,08:38:02
-"Sakchi, Jamshedpur",22.808893,86.195906,Infrastructure,2024-06-03,11:26:16
-Dumka Chowk,24.276325,87.242421,Crime,2024-02-12,17:41:59
-"Ringle Road, Ranchi",23.352988,85.319225,Disaster,2024-03-26,01:06:26
-"Ringle Road, Ranchi",23.341059,85.313088,Utility,2024-11-11,10:24:27
-"Ringle Road, Ranchi",23.346245,85.315516,Infrastructure,2024-10-26,14:21:14
-"Bistupur, Jamshedpur",22.810114,86.196306,Disaster,2024-07-09,06:08:34
-"Sakchi, Jamshedpur",22.795464,86.20204,Utility,2024-08-19,18:43:53
-"Ringle Road, Ranchi",23.349395,85.316784,Crime,2024-12-26,11:44:22
-"Main Road, Ranchi",23.36129,85.328276,Health,2024-12-14,07:33:47
-"Ringle Road, Ranchi",23.344892,85.311172,Protest,2024-09-23,20:15:54
-Chaibasa Market,22.5464,85.800596,Protest,2024-07-17,10:24:35
-"Bistupur, Jamshedpur",22.797698,86.195384,Others,2024-07-27,17:40:40
-Chaibasa Market,22.556314,85.799978,Infrastructure,2024-07-24,20:15:13
-"Ringle Road, Ranchi",23.347194,85.302908,Disaster,2024-10-27,22:10:38
-Dumka Chowk,24.276654,87.246402,Disaster,2024-02-28,11:08:34
-"Katras Road, Dhanbad",23.810952,86.324208,Others,2024-02-18,11:10:42
-"Main Road, Ranchi",23.365019,85.33091,Infrastructure,2024-10-08,03:44:58
-"Katras Road, Dhanbad",23.822759,86.307091,Disaster,2024-11-20,08:14:30
-"Bistupur, Jamshedpur",22.796953,86.204683,Utility,2024-06-23,08:42:42
-"Main Road, Ranchi",23.368408,85.330837,Disaster,2024-10-30,05:19:06
-"Harmu, Ranchi",23.359077,85.300422,Utility,2024-09-22,00:42:56
-Dumka Chowk,24.264315,87.239762,Protest,2024-11-03,13:31:57
-"Harmu, Ranchi",23.362225,85.297593,Crime,2024-02-07,02:48:34
-"Harmu, Ranchi",23.363879,85.304758,Protest,2024-11-04,06:48:37
-"Bistupur, Jamshedpur",22.811576,86.195371,Others,2024-07-31,03:01:09
-"Harmu, Ranchi",23.35376,85.300472,Others,2024-10-10,04:52:12
-"Ringle Road, Ranchi",23.340752,85.315308,Health,2024-01-12,10:56:59
-Chaibasa Market,22.553466,85.798344,Disaster,2024-12-13,23:17:12
-Chaibasa Market,22.551752,85.807712,Disaster,2024-12-05,21:15:32
-"Katras Road, Dhanbad",23.814369,86.317302,Others,2024-03-29,21:26:35
-"Steel Gate, Bokaro",23.664694,86.160546,Disaster,2024-01-19,12:25:48
-"Main Road, Ranchi",23.360866,85.328827,Infrastructure,2024-10-31,22:17:37
-Chaibasa Market,22.556206,85.811123,Disaster,2024-02-17,16:29:57
-Dumka Chowk,24.267271,87.252395,Infrastructure,2024-06-10,10:01:57
-"Bank More, Dhanbad",23.805197,86.427808,Disaster,2024-11-27,12:42:51
-"Bank More, Dhanbad",23.788531,86.426661,Health,2024-07-28,20:34:35
-Chaibasa Market,22.542484,85.805749,Disaster,2024-07-24,21:53:23
-Dumka Chowk,24.275169,87.246359,Infrastructure,2024-08-07,14:03:01
-"Steel Gate, Bokaro",23.67685,86.155363,Traffic,2024-08-07,17:26:01
-"Bank More, Dhanbad",23.800613,86.4253,Crime,2024-05-31,06:27:04
-"Bistupur, Jamshedpur",22.811981,86.197774,Others,2024-09-14,09:36:39
-"Bistupur, Jamshedpur",22.796833,86.202898,Traffic,2024-12-19,16:47:23
-"Bank More, Dhanbad",23.791929,86.43992,Disaster,2024-01-20,00:22:39
-"Ringle Road, Ranchi",23.347684,85.311857,Others,2024-06-03,19:39:14
-"Main Road, Ranchi",23.375747,85.324283,Protest,2024-07-01,02:46:12
-Chaibasa Market,22.559314,85.808424,Health,2024-05-15,12:39:38
-"Katras Road, Dhanbad",23.808522,86.317883,Crime,2024-11-30,02:14:15
-"Katras Road, Dhanbad",23.805337,86.318546,Health,2024-03-17,14:15:23
-Chaibasa Market,22.543704,85.81161,Infrastructure,2024-03-18,15:26:58
-Dumka Chowk,24.265356,87.249021,Traffic,2024-07-18,16:27:32
-Dumka Chowk,24.2671,87.246353,Others,2024-12-28,18:51:58
-"Katras Road, Dhanbad",23.819659,86.309906,Traffic,2024-11-27,13:35:06
-"Katras Road, Dhanbad",23.820992,86.321301,Utility,2024-04-09,06:51:08
-"Bank More, Dhanbad",23.792761,86.426286,Health,2024-06-02,03:06:04
-"Bistupur, Jamshedpur",22.798734,86.206641,Traffic,2024-12-15,06:29:53
-"Sakchi, Jamshedpur",22.791179,86.208773,Crime,2024-12-21,16:18:07
-"Steel Gate, Bokaro",23.678733,86.148592,Infrastructure,2024-02-29,00:24:57
-Dumka Chowk,24.260177,87.252405,Health,2024-04-27,09:11:11
-"Bank More, Dhanbad",23.788528,86.423337,Infrastructure,2024-12-05,01:03:56
-"Bistupur, Jamshedpur",22.796595,86.207399,Crime,2024-12-26,11:14:46
-Chaibasa Market,22.559625,85.797413,Utility,2024-12-25,17:05:56
-Dumka Chowk,24.264424,87.253546,Traffic,2024-05-23,18:55:51
-"Bistupur, Jamshedpur",22.801675,86.194725,Disaster,2024-10-25,17:10:05
-"Bank More, Dhanbad",23.789631,86.436425,Crime,2024-02-08,22:20:03
-"Katras Road, Dhanbad",23.815356,86.314207,Protest,2024-02-15,12:22:42
-"Harmu, Ranchi",23.350844,85.30347,Health,2024-08-19,18:05:09
-"Main Road, Ranchi",23.368901,85.315964,Infrastructure,2024-08-06,04:59:11
-Dumka Chowk,24.273612,87.245386,Health,2024-04-15,14:21:30
-"Katras Road, Dhanbad",23.815526,86.311685,Utility,2024-12-07,10:12:14
-"Main Road, Ranchi",23.371012,85.328895,Others,2024-02-19,23:24:36
-"Bistupur, Jamshedpur",22.79739,86.198692,Health,2024-03-06,19:29:59
-"Main Road, Ranchi",23.35987,85.329303,Others,2024-04-23,00:21:49
-"Harmu, Ranchi",23.357066,85.298245,Disaster,2024-04-05,00:12:16
-Dumka Chowk,24.257906,87.254147,Others,2024-03-07,00:48:44
-Chaibasa Market,22.544952,85.808462,Protest,2024-03-17,02:14:26
-"Bank More, Dhanbad",23.797333,86.439336,Others,2024-09-19,22:06:35
-"Steel Gate, Bokaro",23.668636,86.144628,Protest,2024-04-05,06:16:45
-Dumka Chowk,24.27555,87.253745,Health,2024-04-05,10:03:29
-Chaibasa Market,22.544218,85.792419,Utility,2024-03-19,22:51:08
-"Ringle Road, Ranchi",23.344048,85.301959,Utility,2024-08-20,12:30:51
-"Steel Gate, Bokaro",23.664941,86.145941,Infrastructure,2024-10-02,02:23:45
-"Bistupur, Jamshedpur",22.810776,86.211587,Infrastructure,2024-10-17,08:11:57
-Chaibasa Market,22.552558,85.81161,Traffic,2024-12-30,20:23:58
-"Bank More, Dhanbad",23.787875,86.434115,Infrastructure,2024-01-18,14:36:16
-"Bank More, Dhanbad",23.79016,86.433665,Crime,2024-11-04,22:59:12
-"Steel Gate, Bokaro",23.661912,86.143327,Utility,2024-06-21,14:05:54
-"Katras Road, Dhanbad",23.822731,86.321073,Utility,2024-09-14,02:40:54
-"Bank More, Dhanbad",23.798856,86.437775,Others,2024-01-24,14:06:43
-Chaibasa Market,22.54157,85.803813,Crime,2024-11-12,00:10:40
-"Main Road, Ranchi",23.368678,85.319837,Traffic,2024-10-28,00:10:41
-"Katras Road, Dhanbad",23.806547,86.308084,Others,2024-08-03,10:02:26
-Chaibasa Market,22.557214,85.798923,Crime,2024-09-24,02:08:12
-"Sakchi, Jamshedpur",22.79469,86.200687,Others,2024-04-16,23:02:29
-"Bistupur, Jamshedpur",22.813845,86.20658,Others,2024-10-03,18:28:58
-"Sakchi, Jamshedpur",22.795479,86.204421,Health,2024-01-16,00:13:41
-"Bank More, Dhanbad",23.792993,86.421289,Crime,2024-09-22,17:00:05
-"Bistupur, Jamshedpur",22.798492,86.210071,Crime,2024-12-09,05:01:04
-"Harmu, Ranchi",23.354161,85.294871,Utility,2024-09-21,18:50:16
-Chaibasa Market,22.548451,85.806499,Utility,2024-11-01,14:34:05
-"Ringle Road, Ranchi",23.349115,85.318084,Traffic,2024-05-10,00:54:34
-"Bistupur, Jamshedpur",22.806184,86.205733,Traffic,2024-08-08,18:24:16
-"Bank More, Dhanbad",23.789841,86.43177,Health,2024-02-08,20:51:52
-"Ringle Road, Ranchi",23.346697,85.308448,Others,2024-01-14,13:25:40
-"Main Road, Ranchi",23.370296,85.328356,Traffic,2024-04-13,12:26:35
-"Katras Road, Dhanbad",23.818162,86.309515,Infrastructure,2024-10-02,00:07:42
-"Bank More, Dhanbad",23.788022,86.430097,Crime,2024-09-21,20:27:59
-"Harmu, Ranchi",23.363583,85.306858,Infrastructure,2024-11-18,16:12:09
-"Sakchi, Jamshedpur",22.797374,86.211519,Others,2024-04-29,18:15:00
-"Main Road, Ranchi",23.373171,85.334207,Disaster,2024-09-11,15:56:04
-"Ringle Road, Ranchi",23.350698,85.319501,Utility,2024-05-19,20:57:07
-"Katras Road, Dhanbad",23.81562,86.305179,Others,2024-07-27,15:17:34
-"Sakchi, Jamshedpur",22.795632,86.209423,Traffic,2024-10-18,14:29:43
-Dumka Chowk,24.275468,87.255345,Protest,2024-08-12,06:35:43
-Chaibasa Market,22.555707,85.799083,Protest,2024-09-07,20:11:28
-Chaibasa Market,22.558849,85.800413,Crime,2024-04-14,23:09:38
-"Katras Road, Dhanbad",23.821089,86.324596,Traffic,2024-08-30,07:53:45
-"Katras Road, Dhanbad",23.82341,86.311776,Traffic,2024-12-08,15:34:37
-"Main Road, Ranchi",23.371353,85.332481,Protest,2024-09-02,12:58:33
-"Sakchi, Jamshedpur",22.793306,86.199292,Infrastructure,2024-05-23,19:44:19
-"Katras Road, Dhanbad",23.808852,86.309685,Protest,2024-05-16,14:12:04
-Chaibasa Market,22.544009,85.801483,Infrastructure,2024-09-25,00:28:36
-"Bistupur, Jamshedpur",22.799796,86.20782,Health,2024-08-21,17:33:38
-"Steel Gate, Bokaro",23.666588,86.146722,Utility,2024-01-28,22:57:22
-"Ringle Road, Ranchi",23.344656,85.303029,Health,2024-12-12,22:24:15
-"Sakchi, Jamshedpur",22.795762,86.211647,Others,2024-06-27,08:25:30
-"Main Road, Ranchi",23.362886,85.321326,Disaster,2024-03-22,23:01:53
-"Bank More, Dhanbad",23.791185,86.440225,Crime,2024-02-22,03:47:34
-"Sakchi, Jamshedpur",22.806147,86.204351,Disaster,2024-05-22,13:44:16
-Chaibasa Market,22.556653,85.805075,Protest,2024-09-21,05:22:41
-"Harmu, Ranchi",23.361395,85.295003,Others,2024-03-13,15:00:05
-"Katras Road, Dhanbad",23.822499,86.318813,Crime,2024-08-15,13:21:28
-"Katras Road, Dhanbad",23.822036,86.32279,Infrastructure,2024-08-30,06:30:35
-"Katras Road, Dhanbad",23.813264,86.32176,Traffic,2024-06-12,21:59:55
-"Ringle Road, Ranchi",23.352847,85.311639,Utility,2024-05-10,15:31:28
-"Harmu, Ranchi",23.345682,85.295623,Traffic,2024-11-09,11:20:58
-"Sakchi, Jamshedpur",22.810707,86.194343,Disaster,2024-07-01,21:49:25
-"Bistupur, Jamshedpur",22.797602,86.207737,Infrastructure,2024-04-08,05:31:12
-"Sakchi, Jamshedpur",22.805255,86.202064,Health,2024-11-10,07:38:19
-"Katras Road, Dhanbad",23.823274,86.321461,Health,2024-10-07,00:16:24
-"Bistupur, Jamshedpur",22.796313,86.198945,Utility,2024-12-08,20:59:51
-"Sakchi, Jamshedpur",22.792782,86.198634,Others,2024-03-04,22:47:45
-"Bank More, Dhanbad",23.791765,86.420985,Utility,2024-11-23,08:14:00
-"Bank More, Dhanbad",23.794904,86.431454,Protest,2024-04-27,21:47:50
-"Bank More, Dhanbad",23.797252,86.426322,Protest,2024-05-13,19:14:37
-"Bank More, Dhanbad",23.791416,86.434277,Crime,2024-09-19,03:26:12
-"Bistupur, Jamshedpur",22.808819,86.209607,Disaster,2024-09-30,16:39:20
-"Main Road, Ranchi",23.361534,85.328163,Health,2024-04-22,10:38:18
-"Main Road, Ranchi",23.360307,85.329915,Disaster,2024-10-29,22:54:13
-"Ringle Road, Ranchi",23.343837,85.310385,Utility,2024-09-30,11:57:44
-"Sakchi, Jamshedpur",22.799088,86.19335,Traffic,2024-12-30,01:33:45
-"Bistupur, Jamshedpur",22.809406,86.21277,Others,2024-05-27,08:36:40
-Chaibasa Market,22.542231,85.801322,Traffic,2024-02-02,19:13:04
-"Harmu, Ranchi",23.355997,85.306304,Crime,2024-12-16,09:00:34
-Dumka Chowk,24.275295,87.252566,Crime,2024-04-30,14:16:55
-"Bistupur, Jamshedpur",22.799316,86.211646,Infrastructure,2024-08-27,18:18:53
-Chaibasa Market,22.558664,85.793438,Disaster,2024-05-12,22:52:19
-"Harmu, Ranchi",23.357562,85.30603,Others,2024-04-04,17:27:02
-"Katras Road, Dhanbad",23.816558,86.309173,Others,2024-08-12,16:56:30
-"Harmu, Ranchi",23.346776,85.302827,Infrastructure,2024-04-16,11:32:03
-"Harmu, Ranchi",23.358485,85.294547,Others,2024-03-17,13:36:45
-Dumka Chowk,24.272144,87.243635,Crime,2024-12-25,06:55:57
-"Harmu, Ranchi",23.358656,85.296433,Protest,2024-05-14,18:58:17
-"Harmu, Ranchi",23.354187,85.294081,Utility,2024-03-27,18:56:12
-"Katras Road, Dhanbad",23.808085,86.306233,Traffic,2024-03-17,16:31:18
-"Bank More, Dhanbad",23.798669,86.422982,Health,2024-12-15,07:48:51
-"Steel Gate, Bokaro",23.667462,86.15625,Crime,2024-08-26,07:28:52
-"Steel Gate, Bokaro",23.672994,86.144395,Disaster,2024-12-03,05:49:38
-Dumka Chowk,24.264723,87.244125,Disaster,2024-07-29,14:18:10
-Dumka Chowk,24.265637,87.252349,Protest,2024-01-12,15:43:17
-"Harmu, Ranchi",23.345649,85.290252,Health,2024-02-16,06:19:30
-"Harmu, Ranchi",23.349473,85.299705,Traffic,2024-01-11,13:02:48
-"Bistupur, Jamshedpur",22.813352,86.19715,Traffic,2024-11-10,09:43:47
-"Harmu, Ranchi",23.362983,85.29119,Protest,2024-08-07,09:34:59
-"Ringle Road, Ranchi",23.336719,85.305139,Others,2024-02-21,13:11:55
-"Katras Road, Dhanbad",23.815463,86.311981,Others,2024-07-12,12:46:23
-"Main Road, Ranchi",23.373234,85.332048,Disaster,2024-03-20,09:28:43
-"Bank More, Dhanbad",23.787647,86.432035,Protest,2024-02-13,16:59:15
-Dumka Chowk,24.262832,87.246334,Protest,2024-06-19,19:32:19
-"Katras Road, Dhanbad",23.823443,86.321915,Infrastructure,2024-09-02,06:51:37
-"Steel Gate, Bokaro",23.65975,86.141191,Health,2024-08-13,15:33:57
-"Harmu, Ranchi",23.351541,85.287488,Traffic,2024-10-17,22:45:38
-"Harmu, Ranchi",23.356735,85.292631,Crime,2024-12-08,12:54:23
-Dumka Chowk,24.275639,87.254574,Disaster,2024-02-01,22:45:36
-Dumka Chowk,24.277223,87.252379,Others,2024-07-19,19:56:03
-"Bank More, Dhanbad",23.787256,86.427378,Crime,2024-05-12,20:57:10
-"Ringle Road, Ranchi",23.339083,85.304584,Utility,2024-08-20,05:23:14
-"Sakchi, Jamshedpur",22.796272,86.193227,Infrastructure,2024-07-05,08:33:11
-"Katras Road, Dhanbad",23.817824,86.314734,Crime,2024-01-14,03:15:50
-"Steel Gate, Bokaro",23.6621,86.153122,Utility,2024-10-06,16:28:14
-Dumka Chowk,24.270505,87.256194,Utility,2024-09-07,23:59:30
-"Bistupur, Jamshedpur",22.813342,86.210866,Utility,2024-05-29,09:40:50
-"Main Road, Ranchi",23.368927,85.322087,Disaster,2024-08-29,06:53:42
-"Bistupur, Jamshedpur",22.805861,86.204724,Protest,2024-06-25,08:55:44
-"Harmu, Ranchi",23.363447,85.287764,Others,2024-12-10,21:27:34
-"Bank More, Dhanbad",23.79997,86.439386,Others,2024-05-15,11:21:58
-"Main Road, Ranchi",23.361046,85.325634,Utility,2024-02-28,21:18:01
-"Steel Gate, Bokaro",23.662207,86.147897,Utility,2024-03-19,21:12:11
-"Sakchi, Jamshedpur",22.798163,86.19642,Disaster,2024-07-08,23:16:45
-"Steel Gate, Bokaro",23.661812,86.156533,Infrastructure,2024-03-04,12:41:26
-"Main Road, Ranchi",23.364186,85.332749,Crime,2024-07-16,02:35:54
-"Bank More, Dhanbad",23.802654,86.438121,Infrastructure,2024-09-10,05:48:16
-"Katras Road, Dhanbad",23.824117,86.312235,Health,2024-10-10,01:25:14
-"Bistupur, Jamshedpur",22.81409,86.21223,Utility,2024-10-09,01:29:36
-"Bistupur, Jamshedpur",22.803565,86.212831,Utility,2024-05-29,23:10:11
-Chaibasa Market,22.557814,85.809125,Protest,2024-11-12,22:42:10
-"Steel Gate, Bokaro",23.676031,86.145907,Protest,2024-12-06,02:15:49
-Dumka Chowk,24.259006,87.240755,Others,2024-06-19,18:12:10
-"Katras Road, Dhanbad",23.810954,86.308111,Others,2024-02-18,21:52:36
-"Bank More, Dhanbad",23.797155,86.434775,Disaster,2024-06-09,19:15:43
-"Katras Road, Dhanbad",23.817382,86.308866,Protest,2024-03-01,03:35:41
-"Main Road, Ranchi",23.360322,85.316595,Others,2024-08-03,09:32:55
-Dumka Chowk,24.273432,87.248412,Utility,2024-03-27,07:30:09
-Chaibasa Market,22.545354,85.797345,Crime,2024-01-09,14:14:54
-"Bank More, Dhanbad",23.799978,86.434755,Protest,2024-03-20,15:50:51
-"Sakchi, Jamshedpur",22.803313,86.199521,Health,2024-10-12,15:43:52
-"Katras Road, Dhanbad",23.812381,86.319201,Others,2024-02-08,08:49:14
-"Katras Road, Dhanbad",23.812787,86.317879,Others,2024-10-05,19:12:23
-"Main Road, Ranchi",23.363689,85.33189,Crime,2024-03-10,09:31:13
-Dumka Chowk,24.259117,87.252185,Disaster,2024-11-09,04:19:09
-"Bistupur, Jamshedpur",22.80526,86.212487,Utility,2024-09-22,08:20:15
-"Sakchi, Jamshedpur",22.798907,86.20685,Utility,2024-11-17,20:24:07
-"Bistupur, Jamshedpur",22.805559,86.200018,Utility,2024-12-25,06:04:49
-"Katras Road, Dhanbad",23.824081,86.324801,Disaster,2024-06-10,00:25:23
-"Ringle Road, Ranchi",23.352216,85.315112,Infrastructure,2024-05-01,23:48:07
-"Bank More, Dhanbad",23.78993,86.425015,Utility,2024-02-28,10:17:03
-"Sakchi, Jamshedpur",22.801866,86.193058,Infrastructure,2024-04-10,09:17:23
-Dumka Chowk,24.275762,87.250057,Crime,2024-03-30,14:44:13
-"Katras Road, Dhanbad",23.814368,86.316822,Protest,2024-11-17,06:22:41
-"Main Road, Ranchi",23.379163,85.325782,Utility,2024-10-09,19:37:38
-Chaibasa Market,22.559034,85.80716,Infrastructure,2024-12-11,13:03:39
-"Sakchi, Jamshedpur",22.807664,86.203028,Protest,2024-10-06,10:19:46
-"Bistupur, Jamshedpur",22.796078,86.207361,Disaster,2024-04-26,13:47:41
-"Steel Gate, Bokaro",23.660551,86.145213,Protest,2024-01-06,15:39:11
-"Main Road, Ranchi",23.365075,85.330272,Traffic,2024-01-08,23:38:02
-"Main Road, Ranchi",23.365603,85.327788,Traffic,2024-12-09,04:29:34
-Chaibasa Market,22.549806,85.795013,Crime,2024-07-03,13:30:36
-"Katras Road, Dhanbad",23.819118,86.322265,Infrastructure,2024-05-09,14:36:00
-Dumka Chowk,24.267555,87.252389,Disaster,2024-03-31,19:52:14
-"Katras Road, Dhanbad",23.808525,86.319825,Health,2024-06-24,23:48:24
-Chaibasa Market,22.547551,85.807089,Utility,2024-04-18,15:02:17
-"Katras Road, Dhanbad",23.816438,86.324366,Utility,2024-03-07,21:03:37
-Dumka Chowk,24.262528,87.240532,Infrastructure,2024-10-02,11:05:49
-"Sakchi, Jamshedpur",22.798967,86.211415,Utility,2024-09-13,16:21:04
-"Steel Gate, Bokaro",23.660728,86.152317,Disaster,2024-11-21,06:42:57
-"Main Road, Ranchi",23.368482,85.32647,Infrastructure,2024-01-11,22:30:57
-"Steel Gate, Bokaro",23.663215,86.156778,Health,2024-03-28,02:53:34
-"Katras Road, Dhanbad",23.815977,86.311823,Others,2024-08-30,02:51:22
-"Katras Road, Dhanbad",23.823249,86.324226,Utility,2024-08-28,19:18:51
-"Bistupur, Jamshedpur",22.812723,86.194549,Infrastructure,2024-02-02,22:49:52
-"Sakchi, Jamshedpur",22.797962,86.207232,Protest,2024-08-12,00:46:01
-Dumka Chowk,24.273546,87.238925,Infrastructure,2024-07-19,19:38:11
-Dumka Chowk,24.271957,87.247065,Traffic,2024-10-25,14:48:22
-"Katras Road, Dhanbad",23.808213,86.315714,Utility,2024-04-25,15:27:47
-"Bank More, Dhanbad",23.795906,86.430967,Others,2024-07-10,09:08:27
-"Sakchi, Jamshedpur",22.795952,86.205197,Disaster,2024-05-21,19:55:17
-"Bistupur, Jamshedpur",22.798922,86.194523,Disaster,2024-01-19,09:51:35
-"Sakchi, Jamshedpur",22.792564,86.205595,Infrastructure,2024-06-14,13:34:21
-Chaibasa Market,22.54694,85.797711,Utility,2024-01-31,23:53:52
-"Katras Road, Dhanbad",23.821117,86.308866,Health,2024-08-24,15:28:18
-"Bank More, Dhanbad",23.796165,86.42678,Traffic,2024-10-11,22:05:50
-"Katras Road, Dhanbad",23.811088,86.310754,Health,2024-05-13,15:40:09
-"Sakchi, Jamshedpur",22.800749,86.205399,Protest,2024-08-24,20:01:08
-"Steel Gate, Bokaro",23.662009,86.153238,Disaster,2024-09-18,01:23:07
-"Steel Gate, Bokaro",23.677432,86.142471,Traffic,2024-08-13,23:01:29
-"Main Road, Ranchi",23.37197,85.331035,Traffic,2024-04-02,23:20:34
-Chaibasa Market,22.54636,85.802735,Infrastructure,2024-07-15,22:28:13
-"Bank More, Dhanbad",23.789158,86.431094,Disaster,2024-03-10,06:53:31
-"Bank More, Dhanbad",23.802795,86.432918,Utility,2024-12-04,05:04:47
-"Ringle Road, Ranchi",23.351207,85.318484,Protest,2024-08-02,02:22:38
-Dumka Chowk,24.276203,87.244977,Utility,2024-07-17,20:37:14
-"Bistupur, Jamshedpur",22.814088,86.20222,Others,2024-07-25,12:24:19
-"Bistupur, Jamshedpur",22.810336,86.206506,Traffic,2024-11-27,19:38:54
-"Sakchi, Jamshedpur",22.80637,86.209329,Disaster,2024-11-12,09:01:09
-"Bank More, Dhanbad",23.78926,86.429767,Crime,2024-10-31,06:43:07
-"Sakchi, Jamshedpur",22.808646,86.204877,Crime,2024-08-05,20:00:24
-"Main Road, Ranchi",23.369026,85.331703,Crime,2024-08-17,21:25:50
-"Sakchi, Jamshedpur",22.798446,86.209936,Infrastructure,2024-12-07,10:02:11
-"Ringle Road, Ranchi",23.345908,85.308719,Others,2024-05-21,10:59:29
-"Bistupur, Jamshedpur",22.802863,86.1939,Others,2024-04-18,18:13:49
-Dumka Chowk,24.262048,87.238646,Others,2024-05-03,07:19:27
-"Steel Gate, Bokaro",23.663941,86.154954,Infrastructure,2024-02-07,17:42:32
-"Bistupur, Jamshedpur",22.804916,86.211062,Infrastructure,2024-02-03,05:13:34
-"Main Road, Ranchi",23.369299,85.327792,Disaster,2024-01-30,16:59:56
-"Steel Gate, Bokaro",23.670377,86.153957,Protest,2024-02-28,11:34:15
-"Katras Road, Dhanbad",23.814522,86.309901,Traffic,2024-06-25,14:27:53
-"Harmu, Ranchi",23.359304,85.305052,Disaster,2024-11-18,07:40:10
-Chaibasa Market,22.560542,85.80524,Health,2024-07-12,07:43:09
-"Main Road, Ranchi",23.367596,85.322492,Traffic,2024-12-22,01:18:39
-Chaibasa Market,22.546813,85.804175,Infrastructure,2024-01-14,08:58:39
-"Main Road, Ranchi",23.361103,85.33307,Traffic,2024-12-12,03:54:46
-Dumka Chowk,24.26538,87.257909,Protest,2024-03-27,00:26:14
-"Katras Road, Dhanbad",23.807157,86.324428,Traffic,2024-03-28,15:04:40
-"Bistupur, Jamshedpur",22.809779,86.212122,Infrastructure,2024-04-22,09:58:51
-"Harmu, Ranchi",23.362223,85.303784,Others,2024-07-23,16:21:08
-"Ringle Road, Ranchi",23.346488,85.310057,Health,2024-04-22,18:11:40
-"Bank More, Dhanbad",23.790564,86.434119,Health,2024-10-09,12:02:55
-Dumka Chowk,24.258713,87.242121,Health,2024-11-30,01:41:40
-Chaibasa Market,22.555182,85.811289,Crime,2024-01-30,15:01:36
-"Steel Gate, Bokaro",23.668677,86.142183,Protest,2024-07-13,23:15:15
-Chaibasa Market,22.543889,85.800296,Health,2024-01-30,23:51:02
-Dumka Chowk,24.27024,87.252531,Infrastructure,2024-09-27,06:30:07
-"Harmu, Ranchi",23.353841,85.300229,Disaster,2024-11-27,22:48:46
-"Sakchi, Jamshedpur",22.800217,86.204314,Crime,2024-07-24,23:46:14
-"Harmu, Ranchi",23.363071,85.306479,Health,2024-07-12,17:31:55
-"Harmu, Ranchi",23.357956,85.302549,Infrastructure,2024-12-04,15:23:58
-Dumka Chowk,24.26484,87.258355,Disaster,2024-07-26,17:04:36
-"Ringle Road, Ranchi",23.346679,85.307412,Others,2024-04-14,22:34:17
-Chaibasa Market,22.549913,85.798503,Health,2024-09-15,04:04:18
-"Katras Road, Dhanbad",23.807631,86.306457,Infrastructure,2024-09-04,01:13:39
-"Sakchi, Jamshedpur",22.799559,86.203375,Crime,2024-06-17,04:52:18
-"Main Road, Ranchi",23.362918,85.3329,Others,2024-09-24,12:20:09
-"Main Road, Ranchi",23.367756,85.32431,Infrastructure,2024-01-01,20:24:18
-"Bistupur, Jamshedpur",22.797416,86.196727,Others,2024-10-12,10:52:28
-"Harmu, Ranchi",23.353154,85.29917,Traffic,2024-06-23,11:50:10
-Chaibasa Market,22.548866,85.809328,Others,2024-09-12,19:39:39
-Chaibasa Market,22.554357,85.804861,Infrastructure,2024-04-07,18:53:25
-"Katras Road, Dhanbad",23.819079,86.320088,Others,2024-02-08,05:43:44
-Dumka Chowk,24.265722,87.254524,Protest,2024-02-21,15:23:01
-Chaibasa Market,22.553306,85.807482,Crime,2024-04-18,23:01:55
-"Harmu, Ranchi",23.352215,85.297956,Traffic,2024-05-07,14:28:09
-"Sakchi, Jamshedpur",22.798951,86.193611,Disaster,2024-10-11,17:47:54
-"Katras Road, Dhanbad",23.814314,86.31091,Infrastructure,2024-11-02,14:37:38
-Dumka Chowk,24.270215,87.241325,Protest,2024-08-26,01:13:08
-"Bank More, Dhanbad",23.802364,86.438513,Health,2024-07-03,06:13:16
-"Katras Road, Dhanbad",23.80824,86.305821,Traffic,2024-07-15,20:29:42
-"Main Road, Ranchi",23.376108,85.332346,Infrastructure,2024-03-20,17:30:20
-"Katras Road, Dhanbad",23.806808,86.309663,Protest,2024-05-28,05:59:39
-"Steel Gate, Bokaro",23.677531,86.15884,Infrastructure,2024-08-01,19:08:12
-"Bistupur, Jamshedpur",22.810146,86.210067,Health,2024-10-30,22:07:16
-"Bistupur, Jamshedpur",22.798798,86.211299,Protest,2024-09-05,06:38:21
-Dumka Chowk,24.267772,87.239595,Traffic,2024-05-25,05:22:28
-"Steel Gate, Bokaro",23.660473,86.149491,Others,2024-06-26,10:06:07
-"Main Road, Ranchi",23.371321,85.32194,Crime,2024-09-30,23:19:46
-Dumka Chowk,24.274127,87.244122,Traffic,2024-02-06,11:05:23
-Chaibasa Market,22.549864,85.802223,Crime,2024-02-27,10:10:19
-"Katras Road, Dhanbad",23.821641,86.31196,Infrastructure,2024-09-16,23:17:26
-"Bistupur, Jamshedpur",22.798756,86.206578,Protest,2024-06-13,06:49:23
-"Bank More, Dhanbad",23.789491,86.438579,Crime,2024-05-17,16:15:34
-"Katras Road, Dhanbad",23.812266,86.309245,Utility,2024-10-03,16:38:31
-"Sakchi, Jamshedpur",22.79409,86.201411,Others,2024-10-25,06:46:41
-"Main Road, Ranchi",23.378944,85.31665,Disaster,2024-11-04,03:06:20
-"Bank More, Dhanbad",23.796693,86.429695,Disaster,2024-11-22,07:53:21
-Chaibasa Market,22.55781,85.798291,Crime,2024-07-09,12:01:42
-"Ringle Road, Ranchi",23.339316,85.302577,Utility,2024-01-25,06:06:25
-"Steel Gate, Bokaro",23.662293,86.141635,Infrastructure,2024-06-22,20:47:28
-"Katras Road, Dhanbad",23.822873,86.314729,Others,2024-12-02,10:31:55
-"Ringle Road, Ranchi",23.349838,85.299784,Disaster,2024-07-01,11:06:08
-"Steel Gate, Bokaro",23.675403,86.14709,Disaster,2024-10-24,22:41:46
-Chaibasa Market,22.555871,85.805653,Crime,2024-01-05,15:58:53
-"Katras Road, Dhanbad",23.821638,86.309861,Traffic,2024-05-04,16:25:27
-Chaibasa Market,22.556882,85.805333,Traffic,2024-09-08,06:51:15
-Chaibasa Market,22.542671,85.801122,Traffic,2024-11-30,16:08:10
-"Ringle Road, Ranchi",23.352981,85.301284,Others,2024-07-21,01:06:02
-"Main Road, Ranchi",23.362096,85.331566,Utility,2024-05-07,23:25:55
-"Ringle Road, Ranchi",23.34892,85.308403,Disaster,2024-06-21,23:40:32
-"Bistupur, Jamshedpur",22.801829,86.209601,Others,2024-10-10,10:16:30
-"Main Road, Ranchi",23.364021,85.316613,Disaster,2024-12-09,12:23:57
-Dumka Chowk,24.269636,87.242003,Others,2024-06-28,07:01:55
-"Bistupur, Jamshedpur",22.810042,86.195303,Health,2024-06-24,19:29:56
-"Bistupur, Jamshedpur",22.795548,86.19966,Utility,2024-01-17,19:12:42
-"Katras Road, Dhanbad",23.813316,86.309163,Health,2024-09-16,22:35:31
-"Harmu, Ranchi",23.355967,85.294131,Traffic,2024-04-14,12:53:01
-"Bistupur, Jamshedpur",22.795101,86.198631,Infrastructure,2024-12-18,02:30:19
-"Bistupur, Jamshedpur",22.80974,86.195626,Protest,2024-07-15,15:47:48
-"Bank More, Dhanbad",23.802654,86.434684,Disaster,2024-10-02,19:45:18
-Chaibasa Market,22.558127,85.807219,Utility,2024-05-24,01:36:30
-"Ringle Road, Ranchi",23.337477,85.299628,Health,2024-10-31,11:00:15
-"Sakchi, Jamshedpur",22.807429,86.20002,Disaster,2024-11-28,03:56:46
-"Main Road, Ranchi",23.370607,85.324412,Disaster,2024-01-09,04:38:46
-"Ringle Road, Ranchi",23.335876,85.307953,Infrastructure,2024-11-24,10:17:36
-"Ringle Road, Ranchi",23.341776,85.311145,Crime,2024-03-10,20:36:42
-"Katras Road, Dhanbad",23.811388,86.311008,Health,2024-01-14,05:04:53
-"Bank More, Dhanbad",23.802311,86.440044,Utility,2024-01-01,02:19:18
-Chaibasa Market,22.561038,85.805648,Others,2024-09-02,21:51:16
-Dumka Chowk,24.274582,87.244989,Others,2024-03-03,21:43:48
-"Bank More, Dhanbad",23.793707,86.424233,Protest,2024-02-11,11:40:05
-"Bank More, Dhanbad",23.799456,86.426949,Crime,2024-10-18,08:38:30
-"Steel Gate, Bokaro",23.662908,86.145914,Traffic,2024-08-17,07:24:36
-"Bank More, Dhanbad",23.790689,86.434944,Disaster,2024-03-26,22:46:54
-"Katras Road, Dhanbad",23.818546,86.318324,Others,2024-12-14,00:51:15
+"Main Road, Ranchi",23.362538,85.32891,Infrastructure,2024-06-22,03:15:01
+"Steel Gate, Bokaro",23.666959,86.146565,Others,2024-09-02,19:08:29
+Dumka Chowk,24.269009,87.247487,Infrastructure,2024-03-25,23:28:11
+"Harmu, Ranchi",23.362717,85.300782,Disaster,2024-03-15,23:29:42
+Dumka Chowk,24.259118,87.255756,Health,2024-01-06,03:54:34
+Chaibasa Market,22.554351,85.803049,Disaster,2024-04-30,14:12:22
+"Ringle Road, Ranchi",23.353607,85.305849,Others,2024-03-12,16:12:15
+"Ringle Road, Ranchi",23.346667,85.313837,Health,2024-03-14,16:13:39
+Chaibasa Market,22.558134,85.805523,Crime,2024-03-01,08:05:04
+Chaibasa Market,22.560528,85.79596,Infrastructure,2024-09-30,20:35:17
+"Main Road, Ranchi",23.372034,85.319717,Health,2024-05-06,11:07:23
+Chaibasa Market,22.544611,85.797149,Traffic,2024-04-03,04:24:49
+"Ringle Road, Ranchi",23.340934,85.310885,Protest,2024-10-18,17:05:02
+"Harmu, Ranchi",23.344262,85.300003,Utility,2024-03-09,06:10:01
+"Bank More, Dhanbad",23.792434,86.433945,Others,2024-12-20,15:51:11
+Chaibasa Market,22.544456,85.810214,Health,2024-10-31,22:20:03
+"Bank More, Dhanbad",23.793363,86.432757,Protest,2024-04-13,04:59:47
+"Sakchi, Jamshedpur",22.803995,86.210785,Health,2024-03-24,22:09:56
+Chaibasa Market,22.556084,85.801184,Others,2024-08-10,12:53:16
+"Ringle Road, Ranchi",23.342618,85.31851,Infrastructure,2024-07-14,07:27:01
+"Ringle Road, Ranchi",23.334736,85.31633,Traffic,2024-02-28,22:35:31
+"Steel Gate, Bokaro",23.662437,86.14666,Utility,2024-07-02,18:08:04
+"Bank More, Dhanbad",23.796371,86.431535,Disaster,2024-09-11,01:03:14
+"Sakchi, Jamshedpur",22.798614,86.207131,Utility,2024-03-25,18:50:18
+"Ringle Road, Ranchi",23.349666,85.306114,Protest,2024-10-19,14:49:06
+"Bank More, Dhanbad",23.787074,86.421821,Protest,2024-01-19,23:33:49
+"Katras Road, Dhanbad",23.805251,86.31481,Utility,2024-08-10,04:58:25
+"Steel Gate, Bokaro",23.669976,86.157898,Others,2024-07-20,07:54:14
+"Sakchi, Jamshedpur",22.802807,86.203281,Utility,2024-10-07,10:00:44
+"Bistupur, Jamshedpur",22.805723,86.210947,Utility,2024-10-26,21:09:57
+Dumka Chowk,24.277684,87.256051,Crime,2024-04-26,01:51:41
+"Steel Gate, Bokaro",23.674467,86.151225,Traffic,2024-04-24,21:20:40
+"Steel Gate, Bokaro",23.661548,86.149518,Infrastructure,2024-01-11,17:07:58
+"Sakchi, Jamshedpur",22.795706,86.197089,Protest,2024-01-31,17:28:21
+"Main Road, Ranchi",23.372683,85.320973,Disaster,2024-03-17,07:18:56
+"Bistupur, Jamshedpur",22.804831,86.197265,Infrastructure,2024-05-21,15:53:13
+"Bank More, Dhanbad",23.801345,86.422804,Infrastructure,2024-12-17,09:43:15
+"Bistupur, Jamshedpur",22.809841,86.198275,Infrastructure,2024-08-10,10:07:30
+"Bank More, Dhanbad",23.793686,86.425227,Crime,2024-12-04,07:03:57
+"Ringle Road, Ranchi",23.339539,85.304089,Protest,2024-06-20,15:40:36
+"Steel Gate, Bokaro",23.66634,86.15387,Health,2024-10-09,19:04:58
+"Harmu, Ranchi",23.351873,85.292817,Health,2024-12-25,06:15:26
+"Katras Road, Dhanbad",23.818287,86.310824,Utility,2024-08-19,14:30:08
+"Ringle Road, Ranchi",23.348125,85.302978,Utility,2024-08-10,02:25:17
+"Main Road, Ranchi",23.37683,85.330572,Disaster,2024-07-10,17:44:58
+"Katras Road, Dhanbad",23.815972,86.309072,Health,2024-01-25,11:28:47
+"Bistupur, Jamshedpur",22.809825,86.211615,Crime,2024-09-17,08:08:45
+"Bank More, Dhanbad",23.786803,86.420525,Protest,2024-01-02,11:07:53
+"Katras Road, Dhanbad",23.80525,86.309521,Health,2024-03-14,08:51:49
+"Katras Road, Dhanbad",23.815008,86.309222,Disaster,2024-01-13,11:51:33
+"Sakchi, Jamshedpur",22.792586,86.205419,Others,2024-07-31,04:30:14
+"Ringle Road, Ranchi",23.336943,85.304377,Health,2024-11-20,18:39:21
+"Ringle Road, Ranchi",23.34833,85.318802,Health,2024-10-06,22:08:24
+Dumka Chowk,24.271487,87.251861,Infrastructure,2024-09-24,08:05:45
+"Ringle Road, Ranchi",23.348364,85.312943,Infrastructure,2024-12-13,06:33:21
+Dumka Chowk,24.275521,87.255895,Traffic,2024-07-01,15:17:52
+"Bank More, Dhanbad",23.793021,86.438894,Others,2024-11-02,08:27:11
+"Steel Gate, Bokaro",23.664238,86.157255,Protest,2024-06-12,09:54:34
+"Sakchi, Jamshedpur",22.797454,86.198912,Traffic,2024-10-01,01:29:26
+Dumka Chowk,24.266935,87.254804,Disaster,2024-07-28,23:30:30
+"Katras Road, Dhanbad",23.805719,86.307639,Health,2024-08-20,12:42:26
+"Katras Road, Dhanbad",23.806636,86.32055,Crime,2024-12-21,15:22:09
+Chaibasa Market,22.557957,85.798255,Protest,2024-03-06,14:20:25
+"Bank More, Dhanbad",23.799437,86.428763,Disaster,2024-07-06,20:56:22
+Dumka Chowk,24.267881,87.246339,Others,2024-07-02,19:15:50
+"Bank More, Dhanbad",23.798487,86.426371,Crime,2024-05-05,04:27:06
+"Sakchi, Jamshedpur",22.792918,86.210309,Disaster,2024-11-13,00:55:14
+Chaibasa Market,22.55713,85.806365,Traffic,2024-05-10,22:03:14
+Chaibasa Market,22.542353,85.793703,Infrastructure,2024-08-12,19:19:47
+"Bank More, Dhanbad",23.789999,86.423224,Infrastructure,2024-03-09,20:03:54
+"Main Road, Ranchi",23.379164,85.319327,Infrastructure,2024-03-25,00:53:41
+"Bistupur, Jamshedpur",22.797398,86.205147,Others,2024-07-04,03:35:01
+"Bistupur, Jamshedpur",22.803773,86.201891,Crime,2024-07-25,07:49:59
+"Ringle Road, Ranchi",23.345366,85.312846,Others,2024-01-22,02:06:23
+"Bank More, Dhanbad",23.787892,86.432995,Crime,2024-07-09,16:14:25
+"Bistupur, Jamshedpur",22.799955,86.212008,Disaster,2024-03-19,00:59:01
+"Bank More, Dhanbad",23.79199,86.433008,Others,2024-07-26,04:47:00
+"Bank More, Dhanbad",23.799272,86.437045,Traffic,2024-04-22,08:34:34
+"Bistupur, Jamshedpur",22.801258,86.205894,Crime,2024-03-12,01:39:11
+"Ringle Road, Ranchi",23.348022,85.305212,Traffic,2024-07-03,20:58:47
+"Bank More, Dhanbad",23.795772,86.43929,Traffic,2024-01-01,19:19:06
+"Main Road, Ranchi",23.361352,85.328801,Protest,2024-01-30,11:50:44
+"Steel Gate, Bokaro",23.663945,86.158938,Protest,2024-08-12,06:19:56
+"Sakchi, Jamshedpur",22.803939,86.200266,Traffic,2024-10-03,16:35:16
+"Main Road, Ranchi",23.360327,85.332916,Disaster,2024-03-17,09:07:53
+"Bank More, Dhanbad",23.79437,86.420444,Protest,2024-05-10,18:44:41
+Dumka Chowk,24.272427,87.241789,Others,2024-09-04,16:43:36
+Dumka Chowk,24.272928,87.241761,Utility,2024-07-20,05:18:41
+"Katras Road, Dhanbad",23.815628,86.318359,Crime,2024-11-05,08:12:11
+"Steel Gate, Bokaro",23.672828,86.156895,Health,2024-09-10,00:52:42
+"Katras Road, Dhanbad",23.82234,86.307114,Protest,2024-02-24,16:08:55
+"Main Road, Ranchi",23.370753,85.323289,Utility,2024-02-13,05:49:52
+"Steel Gate, Bokaro",23.675276,86.147621,Others,2024-03-08,17:16:04
+"Bistupur, Jamshedpur",22.805566,86.21053,Disaster,2024-02-24,09:05:29
+"Harmu, Ranchi",23.353474,85.296215,Disaster,2024-09-20,12:13:23
+"Steel Gate, Bokaro",23.675428,86.160031,Others,2024-01-30,22:00:42
+"Steel Gate, Bokaro",23.677939,86.155345,Traffic,2024-05-25,17:44:53
+Dumka Chowk,24.263389,87.252003,Others,2024-06-26,16:53:35
+Chaibasa Market,22.559159,85.804076,Utility,2024-02-13,04:23:13
+"Katras Road, Dhanbad",23.822496,86.322352,Traffic,2024-01-19,02:10:45
+Chaibasa Market,22.542478,85.811132,Others,2024-10-11,13:22:01
+Chaibasa Market,22.546212,85.802993,Utility,2024-05-18,16:09:16
+"Ringle Road, Ranchi",23.339321,85.310629,Infrastructure,2024-01-11,07:34:44
+"Bistupur, Jamshedpur",22.801862,86.201958,Crime,2024-10-15,09:35:38
+"Bank More, Dhanbad",23.795835,86.427941,Protest,2024-10-24,17:10:06
+"Bank More, Dhanbad",23.78931,86.439538,Others,2024-06-19,16:35:11
+"Harmu, Ranchi",23.354868,85.305893,Others,2024-06-02,12:45:58
+"Sakchi, Jamshedpur",22.798547,86.195329,Others,2024-11-07,07:49:17
+Dumka Chowk,24.273212,87.241465,Protest,2024-01-14,03:43:04
+Dumka Chowk,24.262023,87.255875,Protest,2024-04-01,00:06:35
+Dumka Chowk,24.257927,87.25723,Others,2024-03-02,05:06:41
+"Sakchi, Jamshedpur",22.7918,86.195407,Infrastructure,2024-04-26,01:31:07
+Dumka Chowk,24.265399,87.249158,Disaster,2024-07-20,06:07:32
+"Ringle Road, Ranchi",23.353636,85.307781,Health,2024-01-13,17:33:27
+"Bank More, Dhanbad",23.788686,86.432143,Others,2024-06-25,19:08:59
+"Steel Gate, Bokaro",23.67,86.155986,Crime,2024-07-25,11:12:10
+"Bank More, Dhanbad",23.791019,86.432591,Health,2024-05-20,16:16:41
+"Katras Road, Dhanbad",23.813008,86.3234,Protest,2024-07-07,17:39:52
+"Steel Gate, Bokaro",23.659417,86.155136,Others,2024-03-27,00:01:25
+Dumka Chowk,24.261043,87.250905,Protest,2024-08-18,02:17:40
+"Steel Gate, Bokaro",23.663523,86.15027,Disaster,2024-08-07,14:27:33
+"Ringle Road, Ranchi",23.336094,85.309446,Utility,2024-02-06,02:33:27
+"Katras Road, Dhanbad",23.816795,86.306659,Protest,2024-11-03,11:40:04
+"Steel Gate, Bokaro",23.663497,86.1585,Infrastructure,2024-03-25,10:25:17
+"Steel Gate, Bokaro",23.663486,86.156627,Others,2024-06-24,02:40:10
+"Main Road, Ranchi",23.376579,85.330771,Disaster,2024-02-03,23:18:48
+"Bistupur, Jamshedpur",22.81105,86.208917,Health,2024-11-26,20:48:37
+"Ringle Road, Ranchi",23.346641,85.302911,Infrastructure,2024-10-10,06:36:37
+"Steel Gate, Bokaro",23.675238,86.150707,Health,2024-10-22,19:36:05
+"Steel Gate, Bokaro",23.671105,86.158156,Disaster,2024-07-05,11:43:50
+"Ringle Road, Ranchi",23.344575,85.30741,Crime,2024-01-30,14:26:04
+"Bistupur, Jamshedpur",22.803017,86.197908,Crime,2024-05-27,01:25:54
+"Sakchi, Jamshedpur",22.80991,86.20556,Traffic,2024-01-08,04:28:20
+"Bistupur, Jamshedpur",22.808982,86.208876,Disaster,2024-10-17,15:20:21
+"Sakchi, Jamshedpur",22.80948,86.208825,Infrastructure,2024-04-26,10:46:33
+"Katras Road, Dhanbad",23.810665,86.324762,Infrastructure,2024-02-10,23:19:28
+"Main Road, Ranchi",23.365059,85.328566,Health,2024-07-15,22:26:21
+"Harmu, Ranchi",23.358078,85.293736,Health,2024-08-22,18:50:55
+"Ringle Road, Ranchi",23.342246,85.3087,Others,2024-07-04,11:41:05
+Chaibasa Market,22.543487,85.795859,Disaster,2024-07-15,11:57:17
+Chaibasa Market,22.555625,85.800186,Traffic,2024-12-16,07:49:35
+"Sakchi, Jamshedpur",22.798415,86.201375,Health,2024-08-04,13:15:48
+"Harmu, Ranchi",23.3541,85.304289,Traffic,2024-08-09,12:43:24
+"Sakchi, Jamshedpur",22.794692,86.205132,Others,2024-08-11,14:41:21
+"Bistupur, Jamshedpur",22.803568,86.193336,Crime,2024-09-10,12:52:06
+"Bank More, Dhanbad",23.80437,86.43889,Utility,2024-05-05,15:03:01
+"Ringle Road, Ranchi",23.338165,85.307185,Others,2024-06-17,06:40:30
+"Sakchi, Jamshedpur",22.798153,86.199537,Disaster,2024-11-10,00:20:05
+"Steel Gate, Bokaro",23.678592,86.148678,Health,2024-01-17,01:02:25
+"Steel Gate, Bokaro",23.666484,86.160715,Crime,2024-03-15,11:03:07
+"Harmu, Ranchi",23.352169,85.299055,Traffic,2024-01-31,09:25:49
+"Harmu, Ranchi",23.350179,85.301195,Utility,2024-08-31,03:02:52
+"Bistupur, Jamshedpur",22.79552,86.193897,Traffic,2024-01-13,12:18:38
+"Steel Gate, Bokaro",23.670661,86.142678,Protest,2024-04-09,05:58:32
+"Harmu, Ranchi",23.360289,85.301035,Disaster,2024-06-27,17:06:07
+"Katras Road, Dhanbad",23.8101,86.317242,Health,2024-09-26,00:31:18
+"Sakchi, Jamshedpur",22.804305,86.197372,Others,2024-05-13,01:10:08
+"Bistupur, Jamshedpur",22.804956,86.208055,Traffic,2024-11-20,19:36:09
+"Ringle Road, Ranchi",23.337484,85.315701,Others,2024-02-13,22:42:03
+"Steel Gate, Bokaro",23.664685,86.149019,Infrastructure,2024-01-05,09:57:13
+"Katras Road, Dhanbad",23.809988,86.323302,Infrastructure,2024-05-01,09:23:39
+"Harmu, Ranchi",23.360749,85.304643,Infrastructure,2024-06-23,22:27:56
+Chaibasa Market,22.549016,85.803132,Others,2024-06-11,20:14:12
+"Main Road, Ranchi",23.368733,85.329113,Protest,2024-09-07,23:47:56
+"Main Road, Ranchi",23.370599,85.317545,Traffic,2024-10-23,03:07:25
+"Katras Road, Dhanbad",23.810269,86.322016,Protest,2024-08-10,05:32:47
+"Bank More, Dhanbad",23.790491,86.42759,Disaster,2024-07-07,16:59:34
+"Katras Road, Dhanbad",23.821001,86.312979,Protest,2024-02-08,01:47:55
+"Sakchi, Jamshedpur",22.809702,86.196225,Protest,2024-04-03,18:31:27
+"Bistupur, Jamshedpur",22.814075,86.203916,Infrastructure,2024-06-10,05:03:57
+"Main Road, Ranchi",23.378704,85.328363,Traffic,2024-10-17,02:09:09
+"Main Road, Ranchi",23.375986,85.320981,Utility,2024-10-11,14:28:31
+"Sakchi, Jamshedpur",22.79557,86.201321,Protest,2024-11-19,14:50:06
+Dumka Chowk,24.264266,87.251881,Crime,2024-04-28,00:50:14
+"Katras Road, Dhanbad",23.805523,86.313869,Disaster,2024-12-20,15:26:38
+Dumka Chowk,24.262533,87.24667,Others,2024-08-15,22:19:33
+"Bistupur, Jamshedpur",22.801787,86.193255,Crime,2024-04-22,13:59:04
+"Ringle Road, Ranchi",23.341633,85.311029,Health,2024-04-01,03:13:00
+"Main Road, Ranchi",23.367074,85.322532,Health,2024-08-11,21:35:46
+"Bank More, Dhanbad",23.787565,86.421865,Utility,2024-01-04,06:44:37
+"Katras Road, Dhanbad",23.817751,86.306548,Protest,2024-11-28,23:16:01
+Dumka Chowk,24.275207,87.252423,Crime,2024-01-16,02:42:25
+"Harmu, Ranchi",23.357423,85.287659,Traffic,2024-03-16,16:26:28
+"Harmu, Ranchi",23.350718,85.306758,Crime,2024-03-25,22:39:50
+"Main Road, Ranchi",23.378581,85.32721,Others,2024-09-02,23:48:22
+"Ringle Road, Ranchi",23.352903,85.315095,Crime,2024-05-15,14:05:48
+"Steel Gate, Bokaro",23.675745,86.142265,Disaster,2024-09-02,18:40:56
+"Main Road, Ranchi",23.364667,85.330976,Traffic,2024-01-11,12:13:47
+"Steel Gate, Bokaro",23.661317,86.160098,Traffic,2024-11-25,18:30:17
+"Harmu, Ranchi",23.354109,85.300679,Traffic,2024-08-20,15:56:44
+"Harmu, Ranchi",23.361496,85.295184,Infrastructure,2024-01-10,11:19:59
+"Ringle Road, Ranchi",23.339657,85.315951,Utility,2024-10-07,05:58:21
+"Steel Gate, Bokaro",23.663767,86.156852,Traffic,2024-01-12,07:44:40
+"Ringle Road, Ranchi",23.344629,85.312812,Infrastructure,2024-02-18,19:01:03
+"Main Road, Ranchi",23.366155,85.326081,Protest,2024-12-23,08:36:14
+Dumka Chowk,24.277528,87.251471,Disaster,2024-07-24,17:36:20
+"Steel Gate, Bokaro",23.669555,86.152629,Utility,2024-03-23,21:48:03
+Dumka Chowk,24.273957,87.254431,Crime,2024-09-25,23:58:29
+"Ringle Road, Ranchi",23.352883,85.313268,Others,2024-06-05,08:12:17
+"Main Road, Ranchi",23.378068,85.333076,Others,2024-07-30,05:34:35
+Chaibasa Market,22.549764,85.794851,Protest,2024-04-26,18:03:03
+"Bistupur, Jamshedpur",22.795428,86.207558,Others,2024-10-08,14:40:00
+"Harmu, Ranchi",23.352205,85.304121,Protest,2024-05-08,23:20:59
+"Bank More, Dhanbad",23.791765,86.435425,Disaster,2024-09-25,10:46:33
+"Harmu, Ranchi",23.350385,85.300913,Infrastructure,2024-08-21,05:56:57
+"Ringle Road, Ranchi",23.353111,85.305399,Others,2024-06-29,16:40:29
+Dumka Chowk,24.273427,87.254818,Protest,2024-04-14,16:04:56
+"Harmu, Ranchi",23.363897,85.300836,Disaster,2024-07-05,16:48:09
+"Steel Gate, Bokaro",23.669414,86.144041,Utility,2024-08-10,12:43:45
+"Harmu, Ranchi",23.345798,85.302972,Crime,2024-08-26,19:47:54
+"Katras Road, Dhanbad",23.818,86.309175,Others,2024-04-29,07:34:29
+"Main Road, Ranchi",23.375321,85.333664,Disaster,2024-04-17,00:24:18
+"Steel Gate, Bokaro",23.664162,86.149209,Others,2024-11-14,01:18:55
+"Main Road, Ranchi",23.362689,85.320902,Utility,2024-01-13,13:21:33
+"Katras Road, Dhanbad",23.820545,86.317562,Traffic,2024-01-20,11:59:00
+Chaibasa Market,22.550994,85.806892,Disaster,2024-10-13,21:21:15
+Chaibasa Market,22.555223,85.808983,Traffic,2024-08-15,10:35:15
+"Katras Road, Dhanbad",23.82138,86.305054,Infrastructure,2024-10-03,18:16:20
+"Katras Road, Dhanbad",23.817536,86.31904,Utility,2024-09-28,06:46:43
+"Sakchi, Jamshedpur",22.808289,86.209741,Crime,2024-06-17,16:44:24
+"Steel Gate, Bokaro",23.669797,86.146824,Disaster,2024-07-31,14:44:10
+"Main Road, Ranchi",23.366129,85.320584,Protest,2024-11-30,23:27:58
+"Bistupur, Jamshedpur",22.811527,86.197241,Crime,2024-05-19,05:12:05
+Chaibasa Market,22.545855,85.792944,Infrastructure,2024-05-01,10:37:47
+Dumka Chowk,24.277287,87.255304,Traffic,2024-05-17,07:35:56
+"Steel Gate, Bokaro",23.676836,86.154513,Protest,2024-08-06,14:57:52
+Dumka Chowk,24.265591,87.257303,Disaster,2024-12-08,03:08:48
+"Steel Gate, Bokaro",23.668301,86.156315,Traffic,2024-08-30,18:41:23
+"Sakchi, Jamshedpur",22.805778,86.196918,Others,2024-03-21,22:48:56
+"Bistupur, Jamshedpur",22.800453,86.202893,Health,2024-09-02,15:00:04
+"Steel Gate, Bokaro",23.671032,86.142042,Crime,2024-10-17,07:48:27
+"Harmu, Ranchi",23.361916,85.287728,Health,2024-06-25,20:40:25
+"Bistupur, Jamshedpur",22.804822,86.208367,Protest,2024-04-25,02:41:09
+"Katras Road, Dhanbad",23.805231,86.309259,Traffic,2024-04-26,02:52:52
+"Ringle Road, Ranchi",23.340619,85.315518,Others,2024-10-01,03:00:22
+"Katras Road, Dhanbad",23.822765,86.306152,Others,2024-06-03,21:07:08
+"Sakchi, Jamshedpur",22.802756,86.196518,Protest,2024-04-12,20:28:26
+"Ringle Road, Ranchi",23.350541,85.317307,Utility,2024-04-05,15:21:56
+"Ringle Road, Ranchi",23.340063,85.312964,Disaster,2024-09-28,03:44:01
+Chaibasa Market,22.548366,85.810457,Health,2024-04-18,14:28:06
+"Bistupur, Jamshedpur",22.795261,86.197005,Protest,2024-04-24,11:55:28
+"Bistupur, Jamshedpur",22.802917,86.198918,Infrastructure,2024-10-07,10:38:10
+"Bank More, Dhanbad",23.80182,86.427948,Infrastructure,2024-08-23,02:17:40
+"Bank More, Dhanbad",23.798661,86.423056,Crime,2024-03-18,23:03:07
+"Bistupur, Jamshedpur",22.807979,86.211735,Crime,2024-08-18,18:12:46
+"Main Road, Ranchi",23.364303,85.325982,Others,2024-07-13,16:19:55
+Chaibasa Market,22.554439,85.804421,Protest,2024-03-29,16:57:36
+"Sakchi, Jamshedpur",22.80844,86.210034,Others,2024-09-15,12:08:19
+"Ringle Road, Ranchi",23.344976,85.306872,Protest,2024-04-06,19:54:13
+"Ringle Road, Ranchi",23.342599,85.315476,Infrastructure,2024-02-07,00:27:26
+Chaibasa Market,22.557253,85.79491,Protest,2024-04-12,06:49:50
+"Harmu, Ranchi",23.351055,85.304814,Health,2024-08-29,19:26:05
+"Sakchi, Jamshedpur",22.79656,86.209887,Disaster,2024-07-25,03:05:42
+Chaibasa Market,22.542903,85.801358,Protest,2024-12-21,20:02:08
+"Harmu, Ranchi",23.361248,85.299927,Crime,2024-08-10,06:59:05
+"Main Road, Ranchi",23.365879,85.319487,Disaster,2024-11-05,08:06:20
+"Harmu, Ranchi",23.354656,85.30214,Health,2024-05-11,13:55:34
+"Ringle Road, Ranchi",23.340227,85.317778,Health,2024-02-25,20:34:19
+"Steel Gate, Bokaro",23.6643,86.142005,Infrastructure,2024-08-22,17:17:14
+"Sakchi, Jamshedpur",22.804732,86.192479,Utility,2024-03-10,08:59:22
+"Sakchi, Jamshedpur",22.797967,86.210893,Utility,2024-01-27,23:57:15
+Chaibasa Market,22.55067,85.808847,Health,2024-05-13,00:27:20
+"Bank More, Dhanbad",23.801435,86.427953,Crime,2024-01-06,11:11:42
+Chaibasa Market,22.541266,85.804174,Protest,2024-07-21,12:32:08
+"Bistupur, Jamshedpur",22.802866,86.20396,Protest,2024-08-05,02:48:40
+"Bistupur, Jamshedpur",22.813558,86.204909,Protest,2024-01-25,09:52:40
+Dumka Chowk,24.262271,87.255686,Utility,2024-09-17,19:11:34
+Dumka Chowk,24.26992,87.257497,Health,2024-05-15,00:46:46
+"Main Road, Ranchi",23.368912,85.320299,Traffic,2024-07-02,01:46:47
+"Bistupur, Jamshedpur",22.80267,86.202848,Protest,2024-11-11,13:34:06
+"Bistupur, Jamshedpur",22.811128,86.211645,Protest,2024-09-05,23:40:55
+"Katras Road, Dhanbad",23.816987,86.319685,Utility,2024-10-02,23:03:08
+"Bank More, Dhanbad",23.79521,86.440232,Utility,2024-06-10,00:01:21
+Dumka Chowk,24.258838,87.23983,Infrastructure,2024-05-04,18:00:32
+"Katras Road, Dhanbad",23.815014,86.309625,Traffic,2024-09-09,19:46:30
+"Harmu, Ranchi",23.346634,85.305025,Disaster,2024-04-01,21:54:20
+"Bank More, Dhanbad",23.792185,86.435566,Infrastructure,2024-09-13,16:29:59
+Dumka Chowk,24.270412,87.2549,Others,2024-07-09,12:47:16
+"Ringle Road, Ranchi",23.344185,85.31711,Disaster,2024-10-10,13:21:00
+"Katras Road, Dhanbad",23.817415,86.32125,Others,2024-02-29,16:15:57
+"Steel Gate, Bokaro",23.66411,86.145347,Protest,2024-03-23,10:10:38
+"Harmu, Ranchi",23.34529,85.297011,Infrastructure,2024-07-09,02:07:34
+"Steel Gate, Bokaro",23.671961,86.145643,Health,2024-05-15,11:21:27
+"Ringle Road, Ranchi",23.335052,85.312861,Traffic,2024-09-03,00:58:46
+"Bistupur, Jamshedpur",22.809588,86.19323,Traffic,2024-01-08,04:16:52
+"Steel Gate, Bokaro",23.662454,86.160312,Utility,2024-09-12,13:34:27
+"Bank More, Dhanbad",23.799275,86.42555,Disaster,2024-04-10,21:10:24
+"Main Road, Ranchi",23.36467,85.331845,Disaster,2024-02-07,11:36:57
+"Bank More, Dhanbad",23.798929,86.427811,Others,2024-05-05,13:01:55
+Chaibasa Market,22.554267,85.794787,Health,2024-07-12,22:54:37
+"Katras Road, Dhanbad",23.816267,86.306458,Others,2024-08-21,02:16:49
+"Main Road, Ranchi",23.365276,85.332538,Crime,2024-03-03,00:31:54
+"Steel Gate, Bokaro",23.664048,86.14672,Disaster,2024-09-03,01:07:18
+"Sakchi, Jamshedpur",22.793313,86.200796,Health,2024-04-05,07:41:38
+"Katras Road, Dhanbad",23.811873,86.315114,Traffic,2024-05-29,03:06:30
+"Bank More, Dhanbad",23.785727,86.423382,Health,2024-12-02,06:24:24
+"Sakchi, Jamshedpur",22.80037,86.208711,Others,2024-12-17,11:25:46
+"Ringle Road, Ranchi",23.347712,85.301038,Health,2024-05-07,11:19:13
+"Bank More, Dhanbad",23.799954,86.4361,Utility,2024-08-16,20:20:04
+"Steel Gate, Bokaro",23.672145,86.149304,Traffic,2024-09-19,02:23:44
+"Bank More, Dhanbad",23.794702,86.428998,Utility,2024-04-14,13:52:06
+"Steel Gate, Bokaro",23.665703,86.145272,Crime,2024-01-25,12:54:02
+Dumka Chowk,24.269888,87.243924,Disaster,2024-06-06,16:17:02
+"Bank More, Dhanbad",23.797156,86.422552,Protest,2024-12-18,00:39:29
+"Harmu, Ranchi",23.354166,85.293807,Crime,2024-01-02,22:41:13
+"Main Road, Ranchi",23.366215,85.331212,Health,2024-07-30,11:52:10
+"Bank More, Dhanbad",23.789149,86.439495,Others,2024-01-01,20:44:41
+"Bank More, Dhanbad",23.797812,86.425292,Protest,2024-07-15,01:20:51
+"Harmu, Ranchi",23.354251,85.287861,Health,2024-09-27,05:13:03
+"Harmu, Ranchi",23.356611,85.290366,Others,2024-10-05,22:30:49
+Dumka Chowk,24.274935,87.246842,Disaster,2024-10-25,22:11:16
+"Sakchi, Jamshedpur",22.810817,86.207743,Infrastructure,2024-05-01,14:39:25
+"Harmu, Ranchi",23.358268,85.307084,Health,2024-10-05,03:19:18
+"Harmu, Ranchi",23.344049,85.301586,Protest,2024-11-22,00:13:19
+"Katras Road, Dhanbad",23.817601,86.317714,Health,2024-03-06,02:49:42
+"Main Road, Ranchi",23.372498,85.329144,Crime,2024-04-15,01:09:06
+"Steel Gate, Bokaro",23.659459,86.154109,Health,2024-06-14,12:48:42
+"Bistupur, Jamshedpur",22.800104,86.205202,Others,2024-12-19,17:21:28
+"Sakchi, Jamshedpur",22.79973,86.210725,Utility,2024-03-04,18:00:42
+"Katras Road, Dhanbad",23.818134,86.308989,Infrastructure,2024-07-26,14:19:25
+Chaibasa Market,22.547942,85.806449,Traffic,2024-12-15,08:01:57
+"Bistupur, Jamshedpur",22.809568,86.207194,Crime,2024-03-23,10:05:05
+"Katras Road, Dhanbad",23.817166,86.320068,Health,2024-10-01,08:29:28
+Dumka Chowk,24.275369,87.244327,Disaster,2024-10-27,08:58:00
+"Main Road, Ranchi",23.366975,85.334785,Disaster,2024-05-02,13:04:30
+"Sakchi, Jamshedpur",22.807092,86.211764,Crime,2024-05-09,09:11:10
+"Main Road, Ranchi",23.379704,85.329407,Crime,2024-05-27,08:18:12
+"Bank More, Dhanbad",23.799365,86.423233,Traffic,2024-05-22,11:49:21
+"Steel Gate, Bokaro",23.674301,86.141511,Traffic,2024-10-14,12:52:03
+"Sakchi, Jamshedpur",22.80856,86.210204,Crime,2024-09-21,11:42:31
+Dumka Chowk,24.263953,87.253907,Traffic,2024-12-25,13:42:37
+"Sakchi, Jamshedpur",22.807848,86.206842,Protest,2024-02-14,00:10:29
+"Main Road, Ranchi",23.375805,85.327132,Infrastructure,2024-11-14,05:05:24
+"Sakchi, Jamshedpur",22.798083,86.197167,Others,2024-11-10,23:51:24
+"Bistupur, Jamshedpur",22.79896,86.204589,Others,2024-02-20,16:51:04
+Chaibasa Market,22.545449,85.811939,Traffic,2024-10-23,06:41:39
+"Bank More, Dhanbad",23.790402,86.422108,Traffic,2024-10-24,03:09:51
+"Bank More, Dhanbad",23.804632,86.431111,Utility,2024-02-14,03:32:14
+"Bistupur, Jamshedpur",22.804406,86.198812,Protest,2024-06-23,07:59:00
+Dumka Chowk,24.259929,87.25085,Protest,2024-09-05,18:47:08
+"Main Road, Ranchi",23.361636,85.328494,Disaster,2024-07-26,22:28:07
+"Sakchi, Jamshedpur",22.801114,86.201653,Utility,2024-09-24,20:26:46
+"Bistupur, Jamshedpur",22.802492,86.197665,Utility,2024-01-20,08:56:33
+"Ringle Road, Ranchi",23.351152,85.312614,Protest,2024-06-22,15:12:01
+"Steel Gate, Bokaro",23.664998,86.146508,Crime,2024-12-19,13:27:16
+"Bank More, Dhanbad",23.797056,86.430387,Utility,2024-04-11,03:43:25
+Dumka Chowk,24.271201,87.24753,Others,2024-08-24,21:34:00
+"Steel Gate, Bokaro",23.66885,86.156403,Utility,2024-10-10,14:38:32
+"Sakchi, Jamshedpur",22.791982,86.211576,Disaster,2024-12-05,15:38:37
+"Bank More, Dhanbad",23.797958,86.430173,Health,2024-10-23,15:50:36
+"Bank More, Dhanbad",23.791824,86.424445,Protest,2024-11-06,03:42:05
+"Harmu, Ranchi",23.354229,85.300642,Protest,2024-12-10,21:15:58
+"Bistupur, Jamshedpur",22.794862,86.194434,Protest,2024-06-15,06:19:52
+"Harmu, Ranchi",23.347638,85.307098,Health,2024-10-31,18:34:00
+"Harmu, Ranchi",23.355212,85.299803,Traffic,2024-11-29,22:27:46
+"Steel Gate, Bokaro",23.659464,86.150424,Crime,2024-11-22,22:49:39
+"Main Road, Ranchi",23.369803,85.327631,Health,2024-12-26,00:12:02
+"Ringle Road, Ranchi",23.348412,85.306354,Utility,2024-06-27,09:45:58
+"Sakchi, Jamshedpur",22.795122,86.203264,Health,2024-03-21,14:07:16
+Dumka Chowk,24.266857,87.249595,Infrastructure,2024-02-08,11:53:03
+"Sakchi, Jamshedpur",22.808543,86.207405,Health,2024-03-28,11:07:09
+"Bistupur, Jamshedpur",22.801566,86.196265,Crime,2024-04-13,23:35:38
+"Ringle Road, Ranchi",23.34594,85.305777,Traffic,2024-01-31,19:09:33
+"Bistupur, Jamshedpur",22.800529,86.212727,Others,2024-02-13,00:12:44
+"Bistupur, Jamshedpur",22.798563,86.208046,Crime,2024-09-04,18:56:09
+"Main Road, Ranchi",23.369703,85.32967,Crime,2024-10-26,03:27:14
+Chaibasa Market,22.542892,85.794162,Traffic,2024-06-23,00:29:15
+Dumka Chowk,24.264441,87.256047,Disaster,2024-11-21,05:17:04
+"Bank More, Dhanbad",23.797125,86.437934,Utility,2024-06-17,15:32:03
+"Main Road, Ranchi",23.370654,85.328589,Protest,2024-08-09,03:28:04
+Dumka Chowk,24.259839,87.253142,Crime,2024-09-12,06:22:28
+Dumka Chowk,24.275324,87.255963,Infrastructure,2024-09-05,02:02:35
+"Sakchi, Jamshedpur",22.805296,86.198084,Traffic,2024-07-04,13:49:53
+"Katras Road, Dhanbad",23.823041,86.313573,Protest,2024-08-07,03:47:54
+Dumka Chowk,24.263859,87.243046,Others,2024-05-31,21:35:45
+"Katras Road, Dhanbad",23.819934,86.321036,Infrastructure,2024-04-23,02:14:23
+Dumka Chowk,24.27374,87.248375,Others,2024-05-07,16:15:46
+"Katras Road, Dhanbad",23.812983,86.317968,Utility,2024-06-03,23:56:01
+"Bank More, Dhanbad",23.802963,86.438976,Health,2024-03-04,11:26:17
+Chaibasa Market,22.551899,85.797036,Others,2024-05-05,12:53:54
+Chaibasa Market,22.546432,85.798212,Disaster,2024-07-24,08:10:21
+"Harmu, Ranchi",23.345864,85.289355,Crime,2024-11-12,22:48:41
+"Bank More, Dhanbad",23.802394,86.437615,Health,2024-12-25,13:50:43
+"Steel Gate, Bokaro",23.671031,86.156754,Infrastructure,2024-10-13,18:50:06
+Chaibasa Market,22.558159,85.808879,Utility,2024-05-02,01:24:52
+"Steel Gate, Bokaro",23.663734,86.156996,Protest,2024-12-06,21:15:32
+"Bank More, Dhanbad",23.800434,86.431527,Others,2024-05-28,18:19:10
+"Bank More, Dhanbad",23.790821,86.422892,Protest,2024-12-04,19:41:32
+"Harmu, Ranchi",23.356144,85.287959,Utility,2024-12-14,23:09:29
+"Harmu, Ranchi",23.346207,85.305169,Infrastructure,2024-12-12,14:36:41
+Chaibasa Market,22.556344,85.806601,Traffic,2024-09-12,20:49:59
+"Harmu, Ranchi",23.360188,85.299405,Traffic,2024-07-11,15:09:39
+"Harmu, Ranchi",23.355836,85.306999,Disaster,2024-11-17,02:10:04
+"Steel Gate, Bokaro",23.67383,86.142673,Utility,2024-04-29,05:06:32
+Chaibasa Market,22.554171,85.798288,Disaster,2024-09-02,02:35:29
+"Ringle Road, Ranchi",23.340682,85.315033,Protest,2024-11-05,11:21:39
+"Main Road, Ranchi",23.37024,85.318647,Disaster,2024-08-25,20:22:58
+"Harmu, Ranchi",23.353663,85.299673,Crime,2024-12-25,18:44:13
+"Katras Road, Dhanbad",23.815701,86.320225,Crime,2024-10-18,22:40:49
+Dumka Chowk,24.260226,87.250855,Infrastructure,2024-04-24,21:50:03
+"Ringle Road, Ranchi",23.337484,85.304363,Utility,2024-03-11,13:39:56
+"Katras Road, Dhanbad",23.810713,86.320923,Crime,2024-02-05,04:07:44
+"Harmu, Ranchi",23.347737,85.28861,Others,2024-03-23,07:08:00
+"Bistupur, Jamshedpur",22.805524,86.202548,Others,2024-05-20,23:44:07
+Dumka Chowk,24.267044,87.255794,Others,2024-05-31,22:20:00
+"Katras Road, Dhanbad",23.808235,86.323135,Others,2024-08-29,08:41:42
+"Bank More, Dhanbad",23.791358,86.438179,Others,2024-12-29,15:23:06
+Chaibasa Market,22.550969,85.808073,Others,2024-12-12,23:08:12
+"Bank More, Dhanbad",23.797904,86.436198,Infrastructure,2024-10-05,13:01:33
+"Steel Gate, Bokaro",23.672485,86.157422,Traffic,2024-11-19,12:21:23
+"Harmu, Ranchi",23.361294,85.300577,Infrastructure,2024-11-07,09:55:13
+Dumka Chowk,24.274303,87.241495,Others,2024-01-25,03:20:08
+"Ringle Road, Ranchi",23.34803,85.304496,Infrastructure,2024-11-12,16:01:41
+Dumka Chowk,24.271906,87.248705,Others,2024-02-12,21:00:32
+"Bank More, Dhanbad",23.798656,86.438131,Crime,2024-02-26,00:27:09
+"Bank More, Dhanbad",23.78624,86.434138,Traffic,2024-01-15,21:21:52
+"Katras Road, Dhanbad",23.812826,86.314684,Utility,2024-03-24,01:01:09
+"Harmu, Ranchi",23.352985,85.294284,Disaster,2024-08-09,12:40:30
+"Ringle Road, Ranchi",23.33881,85.304078,Disaster,2024-02-09,09:06:21
+Chaibasa Market,22.541581,85.798797,Traffic,2024-07-02,17:23:30
+"Ringle Road, Ranchi",23.336795,85.314444,Others,2024-08-06,20:26:06
+"Steel Gate, Bokaro",23.671475,86.152459,Utility,2024-02-15,18:21:40
+Dumka Chowk,24.275698,87.246818,Infrastructure,2024-03-09,05:49:06
+"Sakchi, Jamshedpur",22.792336,86.20511,Traffic,2024-06-08,15:48:57
+"Bistupur, Jamshedpur",22.799617,86.208039,Utility,2024-02-01,01:27:03
+"Katras Road, Dhanbad",23.809943,86.323578,Crime,2024-02-05,19:39:16
+Chaibasa Market,22.558574,85.807178,Health,2024-04-20,23:45:19
+"Ringle Road, Ranchi",23.338567,85.303862,Health,2024-04-21,12:31:25
+"Harmu, Ranchi",23.362187,85.288626,Utility,2024-05-03,04:52:33
+"Bistupur, Jamshedpur",22.812456,86.205861,Crime,2024-10-01,05:38:01
+"Steel Gate, Bokaro",23.659791,86.154948,Crime,2024-12-16,20:52:50
+"Main Road, Ranchi",23.372283,85.329677,Protest,2024-05-16,21:36:11
+Chaibasa Market,22.545545,85.792236,Protest,2024-07-13,05:15:28
+"Steel Gate, Bokaro",23.671085,86.156425,Disaster,2024-07-13,14:27:08
+"Main Road, Ranchi",23.36988,85.325466,Disaster,2024-06-11,06:38:40
+"Steel Gate, Bokaro",23.660117,86.15254,Crime,2024-05-11,09:43:57
+"Bistupur, Jamshedpur",22.796798,86.210174,Health,2024-08-12,05:18:51
+"Katras Road, Dhanbad",23.815565,86.32308,Utility,2024-08-20,01:14:29
+"Ringle Road, Ranchi",23.344215,85.312033,Infrastructure,2024-02-15,18:16:16
+"Bank More, Dhanbad",23.794733,86.429373,Disaster,2024-01-04,05:07:51
+"Steel Gate, Bokaro",23.678552,86.16061,Disaster,2024-08-24,20:13:13
+"Sakchi, Jamshedpur",22.799875,86.192435,Health,2024-11-12,12:13:44
+Chaibasa Market,22.558132,85.802748,Traffic,2024-04-10,08:09:41
+"Bank More, Dhanbad",23.786129,86.435533,Utility,2024-09-02,07:42:33
+"Harmu, Ranchi",23.343938,85.288853,Utility,2024-11-13,12:43:05
+Chaibasa Market,22.546127,85.806784,Health,2024-01-30,23:29:31
+"Bistupur, Jamshedpur",22.814245,86.208013,Disaster,2024-05-19,19:27:23
+"Sakchi, Jamshedpur",22.807388,86.201928,Health,2024-05-23,14:14:35
+"Katras Road, Dhanbad",23.815628,86.311937,Utility,2024-12-08,16:23:11
+"Ringle Road, Ranchi",23.340344,85.315322,Traffic,2024-01-14,13:20:07
+"Main Road, Ranchi",23.373928,85.327638,Health,2024-01-15,11:45:47
+"Main Road, Ranchi",23.360157,85.317602,Traffic,2024-09-25,19:29:15
+Chaibasa Market,22.553614,85.806028,Infrastructure,2024-09-14,20:02:48
+"Harmu, Ranchi",23.357909,85.30554,Utility,2024-12-16,06:38:30
+"Harmu, Ranchi",23.346088,85.303504,Utility,2024-06-15,08:51:09
+"Ringle Road, Ranchi",23.341561,85.31958,Utility,2024-06-12,17:57:00
+"Ringle Road, Ranchi",23.340254,85.3196,Infrastructure,2024-10-10,19:38:20
+Dumka Chowk,24.273118,87.240756,Traffic,2024-12-07,14:11:59
+Dumka Chowk,24.26988,87.255547,Disaster,2024-02-10,10:55:20
+"Bistupur, Jamshedpur",22.804477,86.19553,Disaster,2024-04-04,00:40:33
+"Ringle Road, Ranchi",23.339442,85.317273,Disaster,2024-01-31,15:02:41
+Dumka Chowk,24.26024,87.250054,Disaster,2024-01-25,16:01:25
+"Harmu, Ranchi",23.363268,85.303425,Utility,2024-07-13,20:27:32
+"Steel Gate, Bokaro",23.660863,86.144025,Health,2024-02-08,03:26:37
+"Harmu, Ranchi",23.359358,85.290229,Disaster,2024-01-14,02:29:32
+"Harmu, Ranchi",23.348824,85.300011,Crime,2024-07-19,17:07:33
+"Harmu, Ranchi",23.344851,85.29486,Crime,2024-09-21,08:06:31
+"Katras Road, Dhanbad",23.807758,86.307517,Traffic,2024-04-25,10:11:31
+Chaibasa Market,22.554178,85.806184,Others,2024-02-15,17:01:11
+"Main Road, Ranchi",23.375288,85.328664,Protest,2024-07-21,10:28:01
+"Katras Road, Dhanbad",23.80632,86.305942,Infrastructure,2024-05-12,03:55:50
+"Ringle Road, Ranchi",23.339672,85.318066,Utility,2024-04-14,12:43:24
+"Steel Gate, Bokaro",23.677361,86.149147,Traffic,2024-01-24,09:47:48
+"Steel Gate, Bokaro",23.660685,86.141822,Infrastructure,2024-10-26,17:48:05
+"Harmu, Ranchi",23.358365,85.289705,Utility,2024-06-29,06:15:00
+Dumka Chowk,24.260762,87.246903,Health,2024-02-05,09:17:56
+Chaibasa Market,22.555967,85.794352,Disaster,2024-10-24,10:01:52
+Dumka Chowk,24.261841,87.257053,Protest,2024-10-18,11:37:08
+"Bank More, Dhanbad",23.799671,86.425073,Others,2024-07-31,15:09:38
+"Main Road, Ranchi",23.378376,85.31693,Health,2024-07-12,11:27:02
+"Harmu, Ranchi",23.352198,85.306956,Traffic,2024-01-25,14:30:13
+"Main Road, Ranchi",23.366076,85.31731,Others,2024-07-27,02:20:45
+"Bank More, Dhanbad",23.796039,86.440144,Crime,2024-06-21,06:39:09
+Chaibasa Market,22.551286,85.803699,Crime,2024-09-02,23:09:47
+Chaibasa Market,22.547865,85.805282,Crime,2024-07-16,19:21:42
+"Bank More, Dhanbad",23.800972,86.435813,Protest,2024-04-28,13:51:36
+"Bistupur, Jamshedpur",22.814028,86.21039,Crime,2024-01-04,18:59:29
+"Main Road, Ranchi",23.366366,85.315603,Protest,2024-11-05,09:17:16
+"Main Road, Ranchi",23.375786,85.322435,Protest,2024-12-13,15:09:20
+Chaibasa Market,22.541637,85.800821,Utility,2024-05-25,11:09:02
+"Steel Gate, Bokaro",23.666092,86.143055,Disaster,2024-08-04,10:29:16
+"Steel Gate, Bokaro",23.664823,86.141759,Others,2024-04-25,23:28:01
+"Katras Road, Dhanbad",23.820258,86.312235,Disaster,2024-03-28,11:13:14
+"Ringle Road, Ranchi",23.340298,85.30133,Disaster,2024-04-10,14:40:06
+"Main Road, Ranchi",23.373902,85.328281,Utility,2024-02-16,03:41:15
+"Main Road, Ranchi",23.36799,85.332404,Crime,2024-06-17,13:11:21
+"Main Road, Ranchi",23.370975,85.329982,Health,2024-03-16,12:30:04
+"Harmu, Ranchi",23.363328,85.294589,Utility,2024-06-26,01:38:41
+"Bank More, Dhanbad",23.80457,86.422092,Others,2024-09-02,16:56:26
+"Bistupur, Jamshedpur",22.811471,86.21089,Traffic,2024-11-25,04:25:45

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { KpiCards } from './kpi-cards';
 import { DisruptionMap } from './disruption-map';
 import { DynamicAlertsFeed } from './dynamic-alerts-feed';
@@ -6,44 +6,7 @@ import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 import { AlertTriangle, Users, Clock } from 'lucide-react';
 import { MapLayersPanel } from './map-layers-panel';
-
-
-
-const additionalMetrics = [
-  {
-    title: 'New Incidents',
-    value: '23',
-    subtitle: 'Last Hour',
-    icon: AlertTriangle,
-    bgGradient: 'from-blue-50 to-cyan-50',
-    darkBgGradient: 'dark:from-blue-900/30 dark:to-cyan-900/30',
-    iconColor: 'text-blue-600',
-    darkIconColor: 'dark:text-blue-400',
-    detail: 'Reported in last 60 minutes',
-  },
-  {
-    title: 'Field Teams Active',
-    value: '18',
-    subtitle: 'Active Now',
-    icon: Users,
-    bgGradient: 'from-green-50 to-emerald-50',
-    darkBgGradient: 'dark:from-green-900/30 dark:to-emerald-900/30',
-    iconColor: 'text-green-600',
-    darkIconColor: 'dark:text-green-400',
-    detail: 'Currently deployed across Jamshedpur',
-  },
-  {
-    title: 'Avg Response Time',
-    value: '3.9m',
-    subtitle: 'Today',
-    icon: Clock,
-    bgGradient: 'from-purple-50 to-pink-50',
-    darkBgGradient: 'dark:from-purple-900/30 dark:to-pink-900/30',
-    iconColor: 'text-purple-600',
-    darkIconColor: 'dark:text-purple-400',
-    detail: 'Target: < 5 minutes',
-  },
-];
+import { subscribeToIncidents, Incident } from '../../firebase/services';
 
 const initialMapLayers = [
   { id: 'traffic', label: 'Traffic', enabled: true, color: 'bg-blue-500' },
@@ -58,6 +21,108 @@ const initialMapLayers = [
 
 export function DashboardView() {
   const [layers, setLayers] = useState(initialMapLayers);
+  const [newIncidentsCount, setNewIncidentsCount] = useState(0);
+  const [activeTeamsCount, setActiveTeamsCount] = useState(0);
+  const [avgResponseTime, setAvgResponseTime] = useState('0m');
+
+  useEffect(() => {
+    const unsubscribe = subscribeToIncidents((incidents: Incident[]) => {
+      const twoHoursAgo = new Date(Date.now() - 2 * 60 * 60 * 1000);
+      const recentCount = incidents.filter(incident => {
+        if (!incident.createdAt) return false;
+        const date = incident.createdAt.toDate ? incident.createdAt.toDate() : new Date(incident.createdAt);
+        return date >= twoHoursAgo;
+      }).length;
+      setNewIncidentsCount(recentCount);
+
+      // Calculate active teams count (incidents in 'in-progress' or 'assigned' status)
+      const activeCount = incidents.filter(incident =>
+        incident.status === 'in-progress' || incident.status === 'assigned'
+      ).length;
+      setActiveTeamsCount(activeCount);
+
+      // Calculate Avg Response Time
+      const resolvedIncidents = incidents.filter(incident =>
+        incident.status === 'resolved' && incident.assignedAt && incident.resolvedAt
+      );
+
+      if (resolvedIncidents.length > 0) {
+        let totalMs = 0;
+        let validCount = 0;
+
+        resolvedIncidents.forEach(incident => {
+          try {
+            const start = incident.assignedAt?.toDate ? incident.assignedAt.toDate() : new Date(incident.assignedAt);
+            const end = incident.resolvedAt?.toDate ? incident.resolvedAt.toDate() : new Date(incident.resolvedAt);
+            const diffMs = end.getTime() - start.getTime();
+
+            if (diffMs >= 0) {
+              totalMs += diffMs;
+              validCount++;
+            }
+          } catch (e) {
+            console.error("Error calculating time diff", e);
+          }
+        });
+
+        if (validCount > 0) {
+          const avgMs = totalMs / validCount;
+          const avgSecs = avgMs / 1000;
+          const avgMins = avgMs / (1000 * 60);
+
+          if (avgSecs < 60) {
+            setAvgResponseTime(`${Math.round(avgSecs)}s`);
+          } else if (avgMins >= 60) {
+            setAvgResponseTime(`${(avgMins / 60).toFixed(1)}h`);
+          } else {
+            setAvgResponseTime(`${Math.round(avgMins)}m`);
+          }
+        } else {
+          setAvgResponseTime('0s');
+        }
+      } else {
+        setAvgResponseTime('0s');
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const additionalMetrics = [
+    {
+      title: 'New Incidents',
+      value: newIncidentsCount.toString(),
+      subtitle: 'Last 2 Hours',
+      icon: AlertTriangle,
+      bgGradient: 'from-blue-50 to-cyan-50',
+      darkBgGradient: 'dark:from-blue-900/30 dark:to-cyan-900/30',
+      iconColor: 'text-blue-600',
+      darkIconColor: 'dark:text-blue-400',
+      detail: 'Reported in last 120 minutes',
+    },
+    {
+      title: 'Field Teams Active',
+      value: activeTeamsCount.toString(),
+      subtitle: 'Active Now',
+      icon: Users,
+      bgGradient: 'from-green-50 to-emerald-50',
+      darkBgGradient: 'dark:from-green-900/30 dark:to-emerald-900/30',
+      iconColor: 'text-green-600',
+      darkIconColor: 'dark:text-green-400',
+      detail: 'Currently deployed across Jamshedpur',
+    },
+    {
+      title: 'Avg Response Time',
+      value: avgResponseTime,
+      subtitle: 'Since Launch',
+      icon: Clock,
+      bgGradient: 'from-purple-50 to-pink-50',
+      darkBgGradient: 'dark:from-purple-900/30 dark:to-pink-900/30',
+      iconColor: 'text-purple-600',
+      darkIconColor: 'dark:text-purple-400',
+      detail: 'Avg. Assign-to-Resolve Duration',
+    },
+  ];
 
   const toggleLayer = (id: string) => {
     setLayers(prev => prev.map(layer =>

@@ -1,8 +1,0 @@
-﻿src/app/components/incidents-dashboard.tsx(11,15): error TS7016: Could not find a declaration file for module 'leaflet'. 'C:/Users/riyan/Downloads/RanchiHacks-main/RanchiHacks-main/node_modules/leaflet/dist/leaflet-src.js' implicitly has an 'any' type.
-  Try `npm i --save-dev @types/leaflet` if it exists or add a new declaration (.d.ts) file containing `declare module 'leaflet';`
-src/app/components/incidents-dashboard.tsx(17,18): error TS2307: Cannot find module 'leaflet/dist/images/marker-icon.png' or its corresponding type declarations.
-src/app/components/incidents-dashboard.tsx(18,24): error TS2307: Cannot find module 'leaflet/dist/images/marker-shadow.png' or its corresponding type declarations.
-src/app/components/incidents-dashboard.tsx(456,19): error TS2322: Type '{ children: (Element | (Element | null)[])[]; center: [number, number]; zoom: number; style: { height: string; width: string; }; scrollWheelZoom: boolean; }' is not assignable to type 'IntrinsicAttributes & MapContainerProps & RefAttributes<LeafletMap>'.
-  Property 'center' does not exist on type 'IntrinsicAttributes & MapContainerProps & RefAttributes<LeafletMap>'.
-src/app/components/incidents-dashboard.tsx(462,21): error TS2322: Type '{ attribution: string; url: string; }' is not assignable to type 'IntrinsicAttributes & TileLayerProps & RefAttributes<LeafletTileLayer>'.
-  Property 'attribution' does not exist on type 'IntrinsicAttributes & TileLayerProps & RefAttributes<LeafletTileLayer>'.
