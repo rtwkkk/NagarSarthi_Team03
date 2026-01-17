@@ -53,14 +53,14 @@ class IncidentProvider with ChangeNotifier {
   }
 
   // Get incidents by severity
-  List<Map<String, dynamic>> getIncidentsBySeverity(String severity) {
-    return _incidents
-        .where(
-          (incident) =>
-              incident['severity']?.toLowerCase() == severity.toLowerCase(),
-        )
-        .toList();
-  }
+  // List<Map<String, dynamic>> getIncidentsBySeverity(String severity) {
+  //   return _incidents
+  //       .where(
+  //         (incident) =>
+  //             incident['severity']?.toLowerCase() == severity.toLowerCase(),
+  //       )
+  //       .toList();
+  // }
 
   // Get incidents by status
   List<Map<String, dynamic>> getIncidentsByStatus(String status) {

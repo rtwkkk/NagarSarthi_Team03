@@ -22,19 +22,17 @@ class _MapScreenState extends State<MapScreen> {
 
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  late Position? _currentPosition = null;
+  Position? _currentPosition;
   final LatLng _fallbackCenter = const LatLng(22.8028, 86.1854);
 
-  // Complete category → icon & color mapping
+  // Category config (safe access)
   final Map<String, Map<String, dynamic>> categoryConfig = {
-    'traffic': {'icon': Icons.traffic, 'color': Colors.red},
-    'utility': {'icon': Icons.power_off, 'color': Colors.orange},
-    'disaster': {'icon': Icons.water_damage, 'color': Colors.blue},
-    'protest': {'icon': Icons.group, 'color': Colors.indigo},
+    'road': {'icon': Icons.traffic, 'color': Colors.red},
+    'garbage': {'icon': Icons.delete, 'color': Colors.indigo},
     'crime': {'icon': Icons.warning_amber_rounded, 'color': Colors.deepOrange},
     'infrastructure': {'icon': Icons.construction, 'color': Colors.amber},
     'health': {'icon': Icons.local_hospital, 'color': Colors.pink},
-    'others': {'icon': Icons.more_horiz, 'color': Colors.grey},
+    'anomaly': {'icon': Icons.help_outline, 'color': Colors.grey},
   };
 
   @override
@@ -46,7 +44,6 @@ class _MapScreenState extends State<MapScreen> {
   Future<void> _getCurrentLocation() async {
     bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      // You can show a dialog here if needed
       setState(() {});
       return;
     }
@@ -70,21 +67,23 @@ class _MapScreenState extends State<MapScreen> {
       });
       _mapController.move(LatLng(position.latitude, position.longitude), 13.0);
     } catch (e) {
-      // Fallback to hardcoded location
       setState(() {});
     }
   }
 
-  Future<void> _launchDirections(double destLat, double destLng) async {
+  Future<void> _launchDirections(double? destLat, double? destLng) async {
+    if (destLat == null || destLng == null) return;
+
     if (_currentPosition == null) {
-      // Fallback: just open the destination if no current location
       final Uri url = Uri.parse(
         'https://www.google.com/maps/search/?api=1&query=$destLat,$destLng',
       );
       if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(const SnackBar(content: Text('Could not open maps')));
+        if (mounted) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(const SnackBar(content: Text('Could not open maps')));
+        }
       }
       return;
     }
@@ -97,14 +96,12 @@ class _MapScreenState extends State<MapScreen> {
       'https://www.google.com/maps/dir/?api=1&origin=$origin&destination=$destination&travelmode=driving',
     );
 
-    // On iOS, Apple Maps is preferred if available
-    final Uri appleUrl = Uri.parse(
-      'https://maps.apple.com/?saddr=$origin&daddr=$destination&dirflg=d',
-    );
-
     try {
       bool launched = false;
       if (Theme.of(context).platform == TargetPlatform.iOS) {
+        final Uri appleUrl = Uri.parse(
+          'https://maps.apple.com/?saddr=$origin&daddr=$destination&dirflg=d',
+        );
         launched = await launchUrl(
           appleUrl,
           mode: LaunchMode.externalApplication,
@@ -116,23 +113,26 @@ class _MapScreenState extends State<MapScreen> {
           mode: LaunchMode.externalApplication,
         );
       }
-      if (!launched) {
+      if (!launched && mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Could not launch maps app')),
         );
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Error launching directions')),
-      );
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Error launching directions')),
+        );
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    LatLng mapCenter = _currentPosition != null
+    final LatLng mapCenter = _currentPosition != null
         ? LatLng(_currentPosition!.latitude, _currentPosition!.longitude)
         : _fallbackCenter;
+
     return Scaffold(
       body: StreamBuilder<QuerySnapshot>(
         stream: _firestore
@@ -148,40 +148,39 @@ class _MapScreenState extends State<MapScreen> {
             return const Center(child: CircularProgressIndicator());
           }
 
-          final docs = snapshot.data!.docs;
+          final docs = snapshot.data?.docs ?? [];
 
-          // Process incidents for map and bottom sheet
+          // Safe data processing
           final List<Map<String, dynamic>> incidents = docs.map((doc) {
-            final data = doc.data() as Map<String, dynamic>;
+            final data = doc.data() as Map<String, dynamic>? ?? {};
+
             data['id'] = doc.id;
 
-            // Extract location
-            final GeoPoint? geoPoint = data['location'];
-            if (geoPoint != null) {
-              data['lat'] = geoPoint.latitude;
-              data['lng'] = geoPoint.longitude;
-            }
+            // Safe location extraction
+            final GeoPoint? geoPoint = data['location'] as GeoPoint?;
+            data['lat'] = geoPoint?.latitude;
+            data['lng'] = geoPoint?.longitude;
 
-            // Category-based icon and color
-            final String categoryKey = (data['category'] ?? 'others')
-                .toString()
-                .toLowerCase();
+            // Safe category config fallback
+            final String categoryKey =
+                (data['category'] as String? ?? 'anomaly').toLowerCase();
             final config =
-                categoryConfig[categoryKey] ?? categoryConfig['others']!;
+                categoryConfig[categoryKey] ?? categoryConfig['anomaly']!;
             data['icon'] = config['icon'];
             data['color'] = config['color'];
 
-            // Time ago
-            if (data['createdAt'] != null) {
-              data['time'] = _formatTimeAgo(
-                (data['createdAt'] as Timestamp).toDate(),
-              );
-            } else {
-              data['time'] = 'Just now';
-            }
+            // Safe time ago
+            final Timestamp? createdAt = data['createdAt'] as Timestamp?;
+            data['time'] = createdAt != null
+                ? _formatTimeAgo(createdAt.toDate())
+                : 'Just now';
 
-            // Title fallback
-            data['title'] = data['title'] ?? 'Untitled Incident';
+            // Safe title fallback
+            data['title'] = data['title']?.toString() ?? 'Untitled Incident';
+
+            // Safe images list
+            data['imageUrls'] =
+                (data['images'] as List<dynamic>?)?.cast<String>() ?? [];
 
             return data;
           }).toList();
@@ -190,19 +189,26 @@ class _MapScreenState extends State<MapScreen> {
           final filteredIncidents = _selectedCategory == 'All'
               ? incidents
               : incidents.where((i) {
-                  final cat = (i['category'] ?? 'others')
-                      .toString()
+                  final cat = (i['category'] as String? ?? 'anomaly')
                       .toLowerCase();
                   return cat == _selectedCategory.toLowerCase();
                 }).toList();
 
-          // Build markers for clustering
-          List<Marker> incidentMarkers = filteredIncidents
+          // Safe markers
+          final List<Marker> incidentMarkers = filteredIncidents
               .where((i) => i['lat'] != null && i['lng'] != null)
               .map((incident) {
                 final bool isVerified = incident['verified'] == true;
+                final Color markerColor =
+                    incident['color'] as Color? ?? Colors.grey;
+                final IconData markerIcon =
+                    incident['icon'] as IconData? ?? Icons.help_outline;
+
                 return Marker(
-                  point: LatLng(incident['lat'], incident['lng']),
+                  point: LatLng(
+                    incident['lat'] as double,
+                    incident['lng'] as double,
+                  ),
                   width: 60,
                   height: 60,
                   child: GestureDetector(
@@ -213,20 +219,18 @@ class _MapScreenState extends State<MapScreen> {
                         Container(
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: incident['color'],
+                            color: markerColor,
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: (incident['color'] as Color).withOpacity(
-                                  0.6,
-                                ),
+                                color: markerColor.withOpacity(0.6),
                                 blurRadius: 12,
                                 spreadRadius: 3,
                               ),
                             ],
                           ),
                           child: Icon(
-                            incident['icon'],
+                            markerIcon,
                             color: Colors.white,
                             size: 28,
                           ),
@@ -261,7 +265,6 @@ class _MapScreenState extends State<MapScreen> {
 
           return Stack(
             children: [
-              // Full Screen Map
               FlutterMap(
                 mapController: _mapController,
                 options: MapOptions(
@@ -276,7 +279,6 @@ class _MapScreenState extends State<MapScreen> {
                         'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                     userAgentPackageName: 'com.example.nagar_alert_app',
                   ),
-
                   const CurrentLocationLayer(),
                   MarkerClusterLayerWidget(
                     options: MarkerClusterLayerOptions(
@@ -307,24 +309,18 @@ class _MapScreenState extends State<MapScreen> {
 
               // Top Bar
               Positioned(top: 0, left: 0, right: 0, child: _buildTopBar()),
-
-              // Category Filters
               Positioned(
                 top: 120,
                 left: 0,
                 right: 0,
                 child: _buildCategoryFilters(filteredIncidents.length),
               ),
-
-              // Bottom Sheet
               Positioned(
                 bottom: 0,
                 left: 0,
                 right: 0,
                 child: _buildIncidentBottomSheet(filteredIncidents),
               ),
-
-              // Floating Buttons
               Positioned(
                 right: 16,
                 bottom: 280,
@@ -334,7 +330,7 @@ class _MapScreenState extends State<MapScreen> {
                       icon: Icons.my_location_rounded,
                       onPressed: () async {
                         await _getCurrentLocation();
-                        if (_currentPosition != null) {
+                        if (_currentPosition != null && mounted) {
                           _mapController.move(
                             LatLng(
                               _currentPosition!.latitude,
@@ -664,6 +660,14 @@ class _MapScreenState extends State<MapScreen> {
   Widget _buildIncidentCard(Map<String, dynamic> incident) {
     final bool isVerified = incident['verified'] == true;
 
+    // Safe null handling (from your previous fixes)
+    final Color color = incident['color'] as Color? ?? Colors.grey;
+    final IconData icon = incident['icon'] as IconData? ?? Icons.help_outline;
+    final String title = incident['title']?.toString() ?? 'Unknown Incident';
+    final String time = incident['time']?.toString() ?? 'Just now';
+    final int reports = (incident['reports'] as num?)?.toInt() ?? 0;
+    final int credibility = (incident['credibility'] as num?)?.toInt() ?? 50;
+
     return GestureDetector(
       onTap: () => _showIncidentDetails(incident),
       child: Container(
@@ -684,14 +688,10 @@ class _MapScreenState extends State<MapScreen> {
                   Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: (incident['color'] as Color).withOpacity(0.1),
+                      color: color.withOpacity(0.1),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Icon(
-                      incident['icon'],
-                      color: incident['color'],
-                      size: 20,
-                    ),
+                    child: Icon(icon, color: color, size: 20),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
@@ -724,7 +724,7 @@ class _MapScreenState extends State<MapScreen> {
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              incident['time'],
+                              time,
                               style: TextStyle(
                                 fontSize: 11,
                                 color: Colors.grey.shade600,
@@ -734,7 +734,7 @@ class _MapScreenState extends State<MapScreen> {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          incident['title'],
+                          title,
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,
@@ -754,7 +754,7 @@ class _MapScreenState extends State<MapScreen> {
                   Icon(Icons.people, size: 14, color: Colors.grey.shade600),
                   const SizedBox(width: 4),
                   Text(
-                    '${incident['reportCount'] ?? 1} reports',
+                    '$reports reports',
                     style: TextStyle(
                       fontSize: 12,
                       color: Colors.grey.shade700,

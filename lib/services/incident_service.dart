@@ -3,17 +3,21 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'dart:io';
 
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 class IncidentService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  final SupabaseClient _supabase = Supabase.instance.client;
 
   // Submit incident report
   Future<String> submitIncident({
     required String category,
     required String title,
     required String description,
-    required String severity,
+    // required String severity,
     required double latitude,
     required double longitude,
     required String locationName,
@@ -26,101 +30,64 @@ class IncidentService {
         throw Exception('User not authenticated');
       }
 
-      // Upload images to Firebase Storage
-      // Upload images to Firebase Storage
-      // Replace the image upload section in submitIncident method:
-
-      // Upload images to Firebase Storage
-      // Upload images to Firebase Storage
+      // Upload images to Supabase Storage
       List<String> imageUrls = [];
       if (imageFiles != null && imageFiles.isNotEmpty) {
-        print('Starting upload of ${imageFiles.length} images...');
-
-        // Verify storage bucket is configured
-        final String bucketName = _storage.bucket;
-        print('Storage bucket: $bucketName');
+        print('Starting upload of ${imageFiles.length} images to Supabase...');
 
         for (int i = 0; i < imageFiles.length; i++) {
           final File file = imageFiles[i];
 
-          // Check if file exists
           if (!await file.exists()) {
             print('File does not exist: ${file.path}');
             continue;
           }
 
-          // Get file size
           final int fileSize = await file.length();
-          print('File size: ${fileSize} bytes');
+          print('File size: $fileSize bytes');
 
-          // Create unique filename with user ID
+          // Unique filename (you can customize)
           final String timestamp = DateTime.now().millisecondsSinceEpoch
               .toString();
-          final String randomId = DateTime.now().microsecondsSinceEpoch
-              .toString();
-          final String fileName = '${timestamp}_${randomId}_$i.jpg';
+          final String fileName = '${timestamp}_${i}.jpg';
 
-          // IMPORTANT: Use this exact path format
-          final String storagePath = 'incidents/$userId/$fileName';
-          final Reference ref = _storage.ref(storagePath);
+          // Bucket name: 'incidents' (create this bucket in Supabase dashboard)
+          // Path: incidents/{userId}/{filename}
+          final String storagePath = 'User_Incident_Images/$userId/$fileName';
 
           print('Uploading to: $storagePath');
 
           try {
-            // Create metadata
-            final metadata = SettableMetadata(
-              contentType: 'image/jpeg',
-              customMetadata: {'uploadedBy': userId, 'uploadedAt': timestamp},
-            );
+            // Upload file to Supabase Storage
+            await _supabase.storage
+                .from('User_Incident_Images') // ← Your bucket name
+                .upload(storagePath, file);
 
-            // Upload file
-            final UploadTask uploadTask = ref.putFile(file, metadata);
+            // Get public URL (make sure bucket is public or use signed URLs)
+            final String publicUrl = _supabase.storage
+                .from('User_Incident_Images')
+                .getPublicUrl(storagePath);
 
-            // Monitor upload progress (optional)
-            uploadTask.snapshotEvents.listen((TaskSnapshot snapshot) {
-              if (snapshot.totalBytes > 0) {
-                final progress =
-                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                print('Upload $i progress: ${progress.toStringAsFixed(2)}%');
-              }
-            });
-
-            // Wait for completion
-            final TaskSnapshot snapshot = await uploadTask;
-
-            // Verify success
-            if (snapshot.state == TaskState.success) {
-              final String downloadUrl = await snapshot.ref.getDownloadURL();
-              imageUrls.add(downloadUrl);
-              print('✅ Successfully uploaded image $i: $downloadUrl');
-            } else {
-              print('❌ Upload failed with state: ${snapshot.state}');
-              throw Exception('Upload failed with state: ${snapshot.state}');
-            }
-          } on FirebaseException catch (e) {
-            print('❌ Firebase error for image $i: ${e.code} - ${e.message}');
-            // Re-throw to stop submission if upload fails
-            rethrow;
+            imageUrls.add(publicUrl);
+            print('✅ Successfully uploaded image $i: $publicUrl');
           } catch (e) {
-            print('❌ Upload error for image $i: $e');
-            rethrow;
+            print('❌ Supabase upload error for image $i: $e');
+            rethrow; // Stop submission if upload fails
           }
         }
 
-        print(
-          'Upload complete. ${imageUrls.length} images uploaded successfully.',
-        );
-
+        print('Upload complete. ${imageUrls.length} images uploaded.');
         if (imageUrls.isEmpty && imageFiles.isNotEmpty) {
           throw Exception('Failed to upload any images');
         }
       }
+
       // Create incident document
       final docRef = await _firestore.collection('incidents').add({
         'category': category,
         'title': title,
         'description': description,
-        'severity': severity,
+        // 'severity': severity,
         'location': GeoPoint(latitude, longitude),
         'locationName': locationName,
         'images': imageUrls,
@@ -364,13 +331,19 @@ class IncidentService {
       // Check if user is owner
       if (data['reportedBy'] == userId || data['reportedBy'] == 'anonymous') {
         // Delete images from storage
+        // Inside deleteIncident method, replace the image deletion part:
         if (data['images'] != null && (data['images'] as List).isNotEmpty) {
           for (String imageUrl in data['images']) {
             try {
-              final ref = _storage.refFromURL(imageUrl);
-              await ref.delete();
+              // Extract path from public URL (example: incidents/userId/filename.jpg)
+              final uri = Uri.parse(imageUrl);
+              final path = uri.pathSegments
+                  .skip(3)
+                  .join('/'); // skip domain + bucket
+              await _supabase.storage.from('incidents').remove([path]);
+              print('Deleted Supabase image: $path');
             } catch (e) {
-              print('Error deleting image: $e');
+              print('Error deleting Supabase image: $e');
             }
           }
         }

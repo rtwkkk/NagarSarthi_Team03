@@ -23,7 +23,7 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
   final ImagePicker _imagePicker = ImagePicker();
 
   String? _selectedCategory;
-  String? _selectedSeverity;
+  // String? _selectedSeverity;
   List<File> _selectedImages = [];
   bool _isAnonymous = false;
   bool _isSubmitting = false;
@@ -34,85 +34,88 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
   double? _longitude;
   String _locationName = 'Fetching location...';
 
+  //error for image upload
+  String? _imageError;
+
   final List<Map<String, dynamic>> categories = [
     {
-      'id': 'traffic',
-      'label': 'Traffic',
+      'id': 'Road',
+      'label': 'Road',
       'icon': Icons.traffic,
       'color': Colors.red,
-      'description': 'Road blockages, accidents, congestion',
+      'description': 'Road damage, potholes, blockages',
     },
+    // {
+    //   'id': 'utility',
+    //   'label': 'Utility',
+    //   'icon': Icons.power,
+    //   'color': Colors.orange,
+    //   'description': 'Power, water, gas issues',
+    // },
+    // {
+    //   'id': 'disaster',
+    //   'label': 'Disaster',
+    //   'icon': Icons.water_damage,
+    //   'color': Colors.blue,
+    //   'description': 'Floods, earthquakes, natural disasters',
+    // },
     {
-      'id': 'utility',
-      'label': 'Utility',
-      'icon': Icons.power,
-      'color': Colors.orange,
-      'description': 'Power, water, gas issues',
-    },
-    {
-      'id': 'disaster',
-      'label': 'Disaster',
-      'icon': Icons.water_damage,
-      'color': Colors.blue,
-      'description': 'Floods, earthquakes, natural disasters',
-    },
-    {
-      'id': 'protest',
-      'label': 'Protest',
+      'id': 'Garbage',
+      'label': 'Garbage',
       'icon': Icons.group,
       'color': Colors.indigo,
-      'description': 'Gatherings, demonstrations',
+      'description': 'Overflowing bins, littering',
     },
     {
-      'id': 'crime',
+      'id': 'Crime',
       'label': 'Crime',
       'icon': Icons.warning_amber_rounded,
       'color': Colors.deepOrange,
       'description': 'Suspicious activity, safety concerns',
     },
     {
-      'id': 'infrastructure',
+      'id': 'Infrastructure',
       'label': 'Infrastructure',
       'icon': Icons.construction,
       'color': Colors.amber,
       'description': 'Damaged roads, bridges, buildings',
     },
     {
-      'id': 'health',
+      'id': 'Health',
       'label': 'Health',
       'icon': Icons.local_hospital,
       'color': Colors.pink,
       'description': 'Medical emergencies, health hazards',
     },
     {
-      'id': 'others',
-      'label': 'Others',
+      'id': 'Anamoly',
+      'label': 'Anomoly',
       'icon': Icons.more_horiz,
       'color': Colors.grey,
-      'description': 'Other civic issues',
+      'description': 'Other suspicious incidents',
     },
   ];
 
-  final List<Map<String, dynamic>> severityLevels = [
-    {
-      'id': 'low',
-      'label': 'Low',
-      'color': Colors.green,
-      'description': 'Minor issue, no immediate action needed',
-    },
-    {
-      'id': 'medium',
-      'label': 'Medium',
-      'color': Colors.orange,
-      'description': 'Requires attention, not urgent',
-    },
-    {
-      'id': 'high',
-      'label': 'High',
-      'color': Colors.red,
-      'description': 'Urgent, immediate attention required',
-    },
-  ];
+  // final List<Map<String, dynamic>> severityLevels = [
+  //   {
+  //     'id': 'low',
+  //     'label': 'Low',
+  //     'color': Colors.green,
+  //     'description': 'Minor issue, no immediate action needed',
+  //   },
+  //   {
+  //     'id': 'medium',
+  //     'label': 'Medium',
+  //     'color': Colors.orange,
+  //     'description': 'Requires attention, not urgent',
+  //   },
+  //   {
+  //     'id': 'high',
+  //     'label': 'High',
+  //     'color': Colors.red,
+  //     'description': 'Urgent, immediate attention required',
+  //   },
+  // ];
 
   @override
   void initState() {
@@ -210,173 +213,156 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
 
       if (image != null) {
         setState(() {
-          _selectedImages.add(File(image.path));
+          if (_selectedImages.length < 5) {
+            _selectedImages.add(File(image.path));
+            _imageError = null; // Clear error when image is added
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Maximum 5 images allowed'),
+                backgroundColor: Colors.orange,
+              ),
+            );
+          }
         });
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text('Image captured successfully'),
-            backgroundColor: Colors.green,
-            behavior: SnackBarBehavior.floating,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-        );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error capturing image: $e'),
           backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
         ),
       );
     }
+  }
+
+  Future<void> _handleSubmit() async {
+    setState(() {
+      _imageError = null;
+    });
+
+    // Form validation
+    if (!(_formKey.currentState?.validate() ?? false)) {
+      _showFormError();
+      return;
+    }
+
+    // Required fields
+    // if (_selectedCategory == null || _selectedSeverity == null) {
+    //   _showFormError();
+    //   return;
+    // }
+
+    if (_latitude == null || _longitude == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Location is required'),
+          backgroundColor: Colors.orange,
+        ),
+      );
+      return;
+    }
+
+    // Image is compulsory
+    if (_selectedImages.isEmpty) {
+      setState(() {
+        _imageError =
+            'You must capture at least one photo to submit the report';
+      });
+      return;
+    }
+
+    setState(() => _isSubmitting = true);
+
+    try {
+      final incidentId = await _incidentService.submitIncident(
+        category: _selectedCategory!,
+        title: _titleController.text.trim(),
+        description: _descriptionController.text.trim(),
+        // severity: _selectedSeverity!,
+        latitude: _latitude!,
+        longitude: _longitude!,
+        locationName: _locationName,
+        isAnonymous: _isAnonymous,
+        imageFiles: _selectedImages, // Always non-empty now
+      );
+
+      if (mounted) {
+        setState(() => _isSubmitting = false);
+        _showSuccessDialog(incidentId);
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() => _isSubmitting = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error: $e'), backgroundColor: Colors.red),
+        );
+      }
+    }
+  }
+
+  void _showFormError() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Please fill all required fields'),
+        backgroundColor: Colors.red,
+      ),
+    );
   }
 
   // Pick images from gallery
-  Future<void> _pickImageFromGallery() async {
-    try {
-      final List<XFile> images = await _imagePicker.pickMultiImage(
-        maxWidth: 1920,
-        maxHeight: 1080,
-        imageQuality: 85,
-      );
+  // Future<void> _pickImageFromGallery() async {
+  //   try {
+  //     final List<XFile> images = await _imagePicker.pickMultiImage(
+  //       maxWidth: 1920,
+  //       maxHeight: 1080,
+  //       imageQuality: 85,
+  //     );
 
-      if (images.isNotEmpty) {
-        int added = 0;
-        for (var image in images) {
-          if (_selectedImages.length < 5) {
-            _selectedImages.add(File(image.path));
-            added++;
-          }
-        }
+  //     if (images.isNotEmpty) {
+  //       int added = 0;
+  //       for (var image in images) {
+  //         if (_selectedImages.length < 5) {
+  //           _selectedImages.add(File(image.path));
+  //           added++;
+  //         }
+  //       }
 
-        setState(() {});
+  //       setState(() {});
 
-        if (added > 0) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('$added image(s) selected'),
-              backgroundColor: Colors.green,
-              behavior: SnackBarBehavior.floating,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-            ),
-          );
-        }
+  //       if (added > 0) {
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           SnackBar(
+  //             content: Text('$added image(s) selected'),
+  //             backgroundColor: Colors.green,
+  //             behavior: SnackBarBehavior.floating,
+  //             shape: RoundedRectangleBorder(
+  //               borderRadius: BorderRadius.circular(10),
+  //             ),
+  //           ),
+  //         );
+  //       }
 
-        if (_selectedImages.length >= 5) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Maximum 5 images allowed'),
-              backgroundColor: Colors.orange,
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
-        }
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Error selecting images: $e'),
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
-        ),
-      );
-    }
-  }
-
-  // Submit incident to Firebase
-  Future<void> _handleSubmit() async {
-    if (_formKey.currentState?.validate() ?? false) {
-      if (_selectedCategory == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Please select a category'),
-            backgroundColor: Colors.orange,
-          ),
-        );
-        return;
-      }
-
-      if (_selectedSeverity == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Please select severity level'),
-            backgroundColor: Colors.orange,
-          ),
-        );
-        return;
-      }
-
-      if (_latitude == null || _longitude == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text(
-              'Please wait for location to be fetched or refresh location',
-            ),
-            backgroundColor: Colors.orange,
-          ),
-        );
-        return;
-      }
-
-      setState(() {
-        _isSubmitting = true;
-      });
-
-      try {
-        final incidentId = await _incidentService.submitIncident(
-          category: _selectedCategory!,
-          title: _titleController.text.trim(),
-          description: _descriptionController.text.trim(),
-          severity: _selectedSeverity!,
-          latitude: _latitude!,
-          longitude: _longitude!,
-          locationName: _locationName,
-          isAnonymous: _isAnonymous,
-          imageFiles: _selectedImages.isEmpty ? null : _selectedImages,
-        );
-
-        if (mounted) {
-          setState(() {
-            _isSubmitting = false;
-          });
-
-          _showSuccessDialog(incidentId);
-        }
-      } catch (e) {
-        if (mounted) {
-          setState(() {
-            _isSubmitting = false;
-          });
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Error submitting report: $e'),
-              backgroundColor: Colors.red,
-              behavior: SnackBarBehavior.floating,
-              duration: const Duration(seconds: 5),
-            ),
-          );
-        }
-      }
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: const Text('Please fill all required fields correctly'),
-          backgroundColor: Colors.red,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      );
-    }
-  }
+  //       if (_selectedImages.length >= 5) {
+  //         ScaffoldMessenger.of(context).showSnackBar(
+  //           const SnackBar(
+  //             content: Text('Maximum 5 images allowed'),
+  //             backgroundColor: Colors.orange,
+  //             behavior: SnackBarBehavior.floating,
+  //           ),
+  //         );
+  //       }
+  //     }
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       SnackBar(
+  //         content: Text('Error selecting images: $e'),
+  //         backgroundColor: Colors.red,
+  //         behavior: SnackBarBehavior.floating,
+  //       ),
+  //     );
+  //   }
+  // }
 
   void _showSuccessDialog(String incidentId) {
     showDialog(
@@ -499,7 +485,7 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
               _formKey.currentState?.reset();
               setState(() {
                 _selectedCategory = null;
-                _selectedSeverity = null;
+                // _selectedSeverity = null;
                 _selectedImages.clear();
                 _titleController.clear();
                 _descriptionController.clear();
@@ -538,16 +524,16 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
               const SizedBox(height: 32),
 
               // Severity Level
-              if (_selectedCategory != null) ...[
-                _buildSectionTitle(
-                  'Severity Level',
-                  'How urgent is this?',
-                  true,
-                ),
-                const SizedBox(height: 16),
-                _buildSeveritySelector(),
-                const SizedBox(height: 32),
-              ],
+              // if (_selectedCategory != null) ...[
+              //   _buildSectionTitle(
+              //     'Severity Level',
+              //     'How urgent is this?',
+              //     true,
+              //   ),
+              //   const SizedBox(height: 16),
+              //   _buildSeveritySelector(),
+              //   const SizedBox(height: 32),
+              // ],
 
               // Title
               if (_selectedCategory != null) ...[
@@ -576,8 +562,8 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
               // Image Attachments
               if (_selectedCategory != null) ...[
                 _buildSectionTitle(
-                  'Attach Images',
-                  'Add photos for better context (Optional)',
+                  'Capture Photo',
+                  'Take live photo of the incident (Compulsory)',
                   false,
                 ),
                 const SizedBox(height: 12),
@@ -784,66 +770,66 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
     );
   }
 
-  Widget _buildSeveritySelector() {
-    return Row(
-      children: severityLevels.map((severity) {
-        final isSelected = _selectedSeverity == severity['id'];
-        return Expanded(
-          child: GestureDetector(
-            onTap: () {
-              setState(() {
-                _selectedSeverity = severity['id'];
-              });
-            },
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 4),
-              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? (severity['color'] as Color).withOpacity(0.1)
-                    : Colors.white,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: isSelected
-                      ? (severity['color'] as Color)
-                      : Colors.grey.shade300,
-                  width: isSelected ? 2 : 1.5,
-                ),
-              ),
-              child: Column(
-                children: [
-                  Container(
-                    width: 12,
-                    height: 12,
-                    decoration: BoxDecoration(
-                      color: severity['color'],
-                      shape: BoxShape.circle,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    severity['label'],
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: isSelected ? severity['color'] : Colors.black87,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    severity['description'],
-                    style: TextStyle(fontSize: 9, color: Colors.grey.shade600),
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      }).toList(),
-    );
-  }
+  // Widget _buildSeveritySelector() {
+  //   return Row(
+  //     children: severityLevels.map((severity) {
+  //       final isSelected = _selectedSeverity == severity['id'];
+  //       return Expanded(
+  //         child: GestureDetector(
+  //           onTap: () {
+  //             setState(() {
+  //               _selectedSeverity = severity['id'];
+  //             });
+  //           },
+  //           child: Container(
+  //             margin: const EdgeInsets.symmetric(horizontal: 4),
+  //             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+  //             decoration: BoxDecoration(
+  //               color: isSelected
+  //                   ? (severity['color'] as Color).withOpacity(0.1)
+  //                   : Colors.white,
+  //               borderRadius: BorderRadius.circular(12),
+  //               border: Border.all(
+  //                 color: isSelected
+  //                     ? (severity['color'] as Color)
+  //                     : Colors.grey.shade300,
+  //                 width: isSelected ? 2 : 1.5,
+  //               ),
+  //             ),
+  //             child: Column(
+  //               children: [
+  //                 Container(
+  //                   width: 12,
+  //                   height: 12,
+  //                   decoration: BoxDecoration(
+  //                     color: severity['color'],
+  //                     shape: BoxShape.circle,
+  //                   ),
+  //                 ),
+  //                 const SizedBox(height: 8),
+  //                 Text(
+  //                   severity['label'],
+  //                   style: TextStyle(
+  //                     fontSize: 14,
+  //                     fontWeight: FontWeight.w700,
+  //                     color: isSelected ? severity['color'] : Colors.black87,
+  //                   ),
+  //                 ),
+  //                 const SizedBox(height: 4),
+  //                 Text(
+  //                   severity['description'],
+  //                   style: TextStyle(fontSize: 9, color: Colors.grey.shade600),
+  //                   textAlign: TextAlign.center,
+  //                   maxLines: 2,
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     }).toList(),
+  //   );
+  // }
 
   Widget _buildTitleField() {
     return Container(
@@ -948,6 +934,10 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
                           onTap: () {
                             setState(() {
                               _selectedImages.removeAt(index);
+                              if (_selectedImages.isEmpty) {
+                                _imageError =
+                                    'You must capture at least one photo to submit the report';
+                              }
                             });
                           },
                           child: Container(
@@ -993,24 +983,24 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
               ),
             ),
             const SizedBox(width: 12),
-            Expanded(
-              child: OutlinedButton.icon(
-                onPressed: _selectedImages.length < 5
-                    ? _pickImageFromGallery
-                    : null,
-                icon: const Icon(Icons.photo_library_rounded),
-                label: const Text('From Gallery'),
-                style: OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  side: BorderSide(color: Colors.blue.shade600, width: 1.5),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  foregroundColor: Colors.blue.shade600,
-                  disabledForegroundColor: Colors.grey,
-                ),
-              ),
-            ),
+            // Expanded(
+            //   child: OutlinedButton.icon(
+            //     onPressed: _selectedImages.length < 5
+            //         ? _pickImageFromGallery
+            //         : null,
+            //     icon: const Icon(Icons.photo_library_rounded),
+            //     label: const Text('From Gallery'),
+            //     style: OutlinedButton.styleFrom(
+            //       padding: const EdgeInsets.symmetric(vertical: 14),
+            //       side: BorderSide(color: Colors.blue.shade600, width: 1.5),
+            //       shape: RoundedRectangleBorder(
+            //         borderRadius: BorderRadius.circular(12),
+            //       ),
+            //       foregroundColor: Colors.blue.shade600,
+            //       disabledForegroundColor: Colors.grey,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
         if (_selectedImages.length >= 5) ...[
@@ -1202,11 +1192,13 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
   Widget _buildSubmitButton() {
     final canSubmit =
         _selectedCategory != null &&
-        _selectedSeverity != null &&
-        _titleController.text.isNotEmpty &&
-        _descriptionController.text.isNotEmpty &&
+        // _selectedSeverity != null &&
+        _titleController.text.trim().isNotEmpty &&
+        _descriptionController.text.trim().isNotEmpty &&
         _latitude != null &&
-        _longitude != null;
+        _longitude != null &&
+        _selectedImages.isNotEmpty &&
+        !_isSubmitting;
 
     return Container(
       width: double.infinity,

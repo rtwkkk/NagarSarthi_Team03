@@ -16,14 +16,14 @@ class _PastIncidentsScreenState extends State<PastIncidentsScreen> {
   DateTime? endDate;
 
   final Map<String, Map<String, dynamic>> categoryConfig = {
-    'traffic': {'icon': Icons.traffic, 'color': Colors.red},
-    'utility': {'icon': Icons.power_off, 'color': Colors.orange},
-    'disaster': {'icon': Icons.water_damage, 'color': Colors.blue},
-    'protest': {'icon': Icons.group, 'color': Colors.indigo},
+    'road': {'icon': Icons.traffic, 'color': Colors.red},
+    // 'utility': {'icon': Icons.power_off, 'color': Colors.orange},
+    // 'disaster': {'icon': Icons.water_damage, 'color': Colors.blue},
+    'garbage': {'icon': Icons.group, 'color': Colors.indigo},
     'crime': {'icon': Icons.warning_amber_rounded, 'color': Colors.deepOrange},
     'infrastructure': {'icon': Icons.construction, 'color': Colors.amber},
     'health': {'icon': Icons.local_hospital, 'color': Colors.pink},
-    'others': {'icon': Icons.more_horiz, 'color': Colors.grey},
+    'anomaly': {'icon': Icons.more_horiz, 'color': Colors.grey},
   };
 
   Future<void> _selectDateRange(BuildContext context) async {

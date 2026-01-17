@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:nagar_alert_app/screens/ai_chat_screen.dart';
-import 'package:nagar_alert_app/screens/past_incident.dart';
+// import 'package:nagar_alert_app/screens/past_incident.dart';
 import 'package:nagar_alert_app/screens/report_incidents_page.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -16,14 +16,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   // Updated mapping using 'category' field from Firestore
   final Map<String, Map<String, dynamic>> categoryConfig = {
-    'traffic': {'icon': Icons.traffic, 'color': Colors.red},
-    'utility': {'icon': Icons.power_off, 'color': Colors.orange},
-    'disaster': {'icon': Icons.water_damage, 'color': Colors.blue},
-    'protest': {'icon': Icons.group, 'color': Colors.indigo},
+    'road': {'icon': Icons.traffic, 'color': Colors.red},
+    // 'utility': {'icon': Icons.power_off, 'color': Colors.orange},
+    // 'disaster': {'icon': Icons.water_damage, 'color': Colors.blue},
+    'garbage': {'icon': Icons.group, 'color': Colors.indigo},
     'crime': {'icon': Icons.warning_amber_rounded, 'color': Colors.deepOrange},
     'infrastructure': {'icon': Icons.construction, 'color': Colors.amber},
     'health': {'icon': Icons.local_hospital, 'color': Colors.pink},
-    'others': {'icon': Icons.more_horiz, 'color': Colors.grey},
+    'anomaly': {'icon': Icons.more_horiz, 'color': Colors.grey},
   };
 
   DateTime get twoHoursAgo => DateTime.now().subtract(const Duration(hours: 2));
@@ -213,12 +213,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
             return timestamp != null && timestamp.toDate().isAfter(twoHoursAgo);
           }).toList();
 
-          final pastIncidents = incidents.where((doc) {
-            final data = doc.data() as Map<String, dynamic>;
-            final Timestamp? timestamp = data['createdAt'];
-            return timestamp != null &&
-                timestamp.toDate().isBefore(twoHoursAgo);
-          }).toList();
+          // final pastIncidents = incidents.where((doc) {
+          //   final data = doc.data() as Map<String, dynamic>;
+          //   final Timestamp? timestamp = data['createdAt'];
+          //   return timestamp != null &&
+          //       timestamp.toDate().isBefore(twoHoursAgo);
+          // }).toList();
 
           // Dynamic stats
           final int activeAlerts = incidents.length;
