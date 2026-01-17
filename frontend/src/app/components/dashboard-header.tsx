@@ -21,7 +21,7 @@ export function DashboardHeader({ onNavigateToSettings, onSearch }: DashboardHea
   const suggestions = [
     { type: 'Status', values: ['Verified', 'Pending', 'Dismissed', 'Assigned', 'Resolved', 'In Progress'] },
     { type: 'Location', values: ['Bistupur', 'Sakchi', 'Kadma', 'Sonari', 'Mango', 'Telco', 'Jugsalai', 'Adityapur'] },
-    { type: 'Category', values: ['Traffic', 'Utility', 'Protest', 'Crime', 'Infrastructure', 'Health', 'Others'] },
+    { type: 'Category', values: ['Road', 'Infrastructure', 'Crime', 'Health', 'Anomaly', 'Garbage'] },
   ];
 
   const getFilteredSuggestions = () => {
@@ -52,7 +52,7 @@ export function DashboardHeader({ onNavigateToSettings, onSearch }: DashboardHea
   const filteredList = getFilteredSuggestions();
 
   const handleSearchKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && searchQuery.trim()) {
+    if (e.key === 'Enter') {
       onSearch(searchQuery.trim());
       setShowSuggestions(false);
     }
@@ -148,22 +148,18 @@ export function DashboardHeader({ onNavigateToSettings, onSearch }: DashboardHea
             />
           </div>
 
-          {/* Dark Mode Toggle - Adjusted Size */}
-          <div className="flex items-center gap-3 px-4 py-2 bg-gray-50 dark:bg-[#1a1a2e] rounded-lg border border-gray-200 dark:border-[#f3f3f5]/20">
-            <Sun className={`w-5 h-5 transition-colors ${darkMode ? 'text-gray-400' : 'text-yellow-600'}`} />
-            <button
-              onClick={toggleDarkMode}
-              className={`relative w-14 h-7 rounded-full transition-all duration-300 ${darkMode ? 'bg-blue-600 shadow-lg shadow-blue-500/50' : 'bg-gray-300'
-                }`}
-              aria-label="Toggle dark mode"
-            >
-              <div
-                className={`absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full transition-transform duration-300 shadow-md ${darkMode ? 'translate-x-7' : 'translate-x-0'
-                  }`}
-              ></div>
-            </button>
-            <Moon className={`w-5 h-5 transition-colors ${darkMode ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400'}`} />
-          </div>
+          {/* Dark Mode Toggle - Single Action Button */}
+          <button
+            onClick={toggleDarkMode}
+            className="p-2.5 rounded-full bg-gray-50 dark:bg-[#1a1a2e] hover:bg-gray-100 dark:hover:bg-[#2a2a3e] border border-gray-200 dark:border-[#f3f3f5]/20 text-gray-600 dark:text-[#f3f3f5] transition-all duration-200"
+            aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {darkMode ? (
+              <Sun className="w-5 h-5 text-yellow-500" />
+            ) : (
+              <Moon className="w-5 h-5 text-blue-600" />
+            )}
+          </button>
 
           {/* Profile Section - Clickable with Hover State */}
           <button

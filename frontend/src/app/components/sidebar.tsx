@@ -43,7 +43,6 @@ export function Sidebar({ activeSection, onSectionChange, onCollapsedChange }: S
         {!isCollapsed && (
           <div className="ml-3">
             <h2 className="text-white font-bold text-sm tracking-wide leading-none">NAGAR SARTHI</h2>
-            <p className="text-blue-200 dark:text-blue-300 text-[10px] mt-1 font-medium uppercase tracking-tighter">Official Portal</p>
           </div>
         )}
       </div>

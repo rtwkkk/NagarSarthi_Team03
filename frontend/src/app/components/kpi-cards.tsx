@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { TrendingUp, CheckCircle, Clock, XCircle } from 'lucide-react';
 import { Card, CardContent } from './ui/card';
+import { Badge } from './ui/badge';
 import { subscribeToIncidents } from '../../firebase/services';
 
 export function KpiCards() {
@@ -14,7 +15,6 @@ export function KpiCards() {
   useEffect(() => {
     const unsubscribe = subscribeToIncidents((reports) => {
       const total = reports.length;
-      // Flutter logic: verified is a boolean field, but status also tracks 'verified'
       const verified = reports.filter(r => r.verified || r.status === 'verified').length;
       const pending = reports.filter(r => r.status === 'pending').length;
       const rejected = reports.filter(r => r.status === 'rejected' || r.status === 'dismissed').length;
@@ -28,54 +28,50 @@ export function KpiCards() {
     {
       title: 'Total Incidents',
       value: stats.total.toLocaleString(),
-      change: 'Live',
-      trend: 'up',
-      subtitle: 'Total Reports',
-      detail: 'Registered incidents',
+      subtitle: 'All Time',
+      detail: 'Cumulative reports registered',
       icon: TrendingUp,
-      bgGradient: 'from-blue-500 to-blue-700',
-      bgLight: 'from-blue-50 to-blue-100',
-      darkBgLight: 'dark:from-blue-950/40 dark:to-slate-900/60',
+      bgGradient: 'from-blue-50 to-blue-100',
+      darkBgGradient: 'dark:from-blue-900/30 dark:to-blue-900/10',
       iconColor: 'text-blue-600',
+      darkIconColor: 'dark:text-blue-400',
+      badgeColor: 'bg-blue-500',
     },
     {
       title: 'Total Verified',
       value: stats.verified.toLocaleString(),
-      change: stats.total > 0 ? `${((stats.verified / stats.total) * 100).toFixed(1)}%` : '0%',
-      trend: 'up',
-      subtitle: 'Verification Rate',
-      detail: 'Verified reports',
+      subtitle: stats.total > 0 ? `${((stats.verified / stats.total) * 100).toFixed(0)}% Rate` : '0% Rate',
+      detail: 'Successfully verified incidents',
       icon: CheckCircle,
-      bgGradient: 'from-green-500 to-green-700',
-      bgLight: 'from-green-50 to-green-100',
-      darkBgLight: 'dark:from-green-950/40 dark:to-slate-900/60',
+      bgGradient: 'from-green-50 to-green-100',
+      darkBgGradient: 'dark:from-green-900/30 dark:to-green-900/10',
       iconColor: 'text-green-600',
+      darkIconColor: 'dark:text-green-400',
+      badgeColor: 'bg-green-600',
     },
     {
-      title: 'Pending',
+      title: 'Pending Action',
       value: stats.pending.toLocaleString(),
-      change: stats.total > 0 ? `${((stats.pending / stats.total) * 100).toFixed(1)}%` : '0%',
-      trend: 'down',
-      subtitle: 'Pending Action',
-      detail: 'Awaiting verification',
+      subtitle: 'Review Queue',
+      detail: 'Awaiting authority check',
       icon: Clock,
-      bgGradient: 'from-orange-500 to-orange-700',
-      bgLight: 'from-orange-50 to-orange-100',
-      darkBgLight: 'dark:from-orange-950/40 dark:to-slate-900/60',
+      bgGradient: 'from-orange-50 to-orange-100',
+      darkBgGradient: 'dark:from-orange-900/30 dark:to-orange-900/10',
       iconColor: 'text-orange-600',
+      darkIconColor: 'dark:text-orange-400',
+      badgeColor: 'bg-orange-500',
     },
     {
-      title: 'Rejected',
+      title: 'Dismissed',
       value: stats.rejected.toLocaleString(),
-      change: stats.total > 0 ? `${((stats.rejected / stats.total) * 100).toFixed(1)}%` : '0%',
-      trend: 'down',
-      subtitle: 'Rejected Reports',
-      detail: 'Dismissed or false',
+      subtitle: 'Dismissed',
+      detail: 'Invalid or flagged reports',
       icon: XCircle,
-      bgGradient: 'from-red-500 to-red-700',
-      bgLight: 'from-red-50 to-red-100',
-      darkBgLight: 'dark:from-red-950/40 dark:to-slate-900/60',
+      bgGradient: 'from-red-50 to-red-100',
+      darkBgGradient: 'dark:from-red-900/30 dark:to-red-900/10',
       iconColor: 'text-red-600',
+      darkIconColor: 'dark:text-red-400',
+      badgeColor: 'bg-red-500',
     },
   ];
 
@@ -84,32 +80,22 @@ export function KpiCards() {
       {kpiData.map((kpi, index) => {
         const Icon = kpi.icon;
         return (
-          <div key={index} className="relative">
-            <Card className="border border-gray-200 dark:border-blue-900/50 shadow-md overflow-hidden">
-              <CardContent className="p-0">
-                <div className={`p-4 bg-gradient-to-br ${kpi.bgLight} ${kpi.darkBgLight}`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <div className={`w-12 h-12 bg-gradient-to-br ${kpi.bgGradient} rounded-xl flex items-center justify-center shadow-lg`}>
-                      <Icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div className={`flex items-center gap-1 px-2 py-1 rounded-full ${kpi.trend === 'up' ? 'bg-green-100 dark:bg-green-900/30' : 'bg-red-100 dark:bg-red-900/30'
-                      }`}>
-                      <TrendingUp className={`w-3 h-3 ${kpi.trend === 'up' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400 rotate-180'
-                        }`} />
-                      <span className={`text-xs font-bold ${kpi.trend === 'up' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'
-                        }`}>
-                        {kpi.change}
-                      </span>
-                    </div>
-                  </div>
-
-                  <p className="text-xs font-semibold text-gray-700 dark:text-slate-300 mb-2 uppercase tracking-wide">{kpi.title}</p>
-
-                  <p className="text-3xl font-bold text-gray-900 dark:text-white">{kpi.value}</p>
+          <Card
+            key={index}
+            className="border border-gray-200 dark:border-blue-900/50 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 hover:border-blue-400 dark:hover:border-blue-500 cursor-pointer overflow-hidden group"
+          >
+            <CardContent className={`p-6 bg-gradient-to-br ${kpi.bgGradient} ${kpi.darkBgGradient}`}>
+              <div className="flex items-center justify-between mb-3">
+                <div className={`w-12 h-12 bg-white dark:bg-slate-800 rounded-lg flex items-center justify-center shadow-md group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon className={`w-6 h-6 ${kpi.iconColor} ${kpi.darkIconColor}`} />
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+                <Badge className={`${kpi.badgeColor} text-white text-[10px]`}>{kpi.subtitle}</Badge>
+              </div>
+              <p className="text-xs font-semibold text-gray-700 dark:text-slate-300 mb-1 uppercase tracking-wide">{kpi.title}</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{kpi.value}</p>
+              <p className="text-[10px] text-gray-600 dark:text-slate-400 line-clamp-1">{kpi.detail}</p>
+            </CardContent>
+          </Card>
         );
       })}
     </div>

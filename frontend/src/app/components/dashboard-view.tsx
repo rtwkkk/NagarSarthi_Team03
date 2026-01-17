@@ -9,17 +9,20 @@ import { MapLayersPanel } from './map-layers-panel';
 import { subscribeToIncidents, Incident } from '../../firebase/services';
 
 const initialMapLayers = [
-  { id: 'traffic', label: 'Traffic', enabled: true, color: 'bg-blue-500' },
-  { id: 'utility', label: 'Utility', enabled: true, color: 'bg-purple-500' },
-  { id: 'disasters', label: 'Disasters', enabled: false, color: 'bg-red-500' },
-  { id: 'protest', label: 'Protest', enabled: false, color: 'bg-orange-500' },
-  { id: 'crime', label: 'Crime', enabled: false, color: 'bg-gray-700' },
-  { id: 'infrastructure', label: 'Infrastructure', enabled: true, color: 'bg-yellow-500' },
-  { id: 'health', label: 'Health', enabled: false, color: 'bg-pink-500' },
-  { id: 'others', label: 'Others', enabled: true, color: 'bg-cyan-500' },
+  { id: 'road', label: 'Road', enabled: true, color: 'bg-orange-500' },
+  { id: 'infrastructure', label: 'Infrastructure', enabled: true, color: 'bg-blue-500' },
+  { id: 'crime', label: 'Crime', enabled: false, color: 'bg-red-600' },
+  { id: 'health', label: 'Health', enabled: false, color: 'bg-rose-500' },
+  { id: 'anomaly', label: 'Anomaly', enabled: true, color: 'bg-purple-600' },
+  { id: 'garbage', label: 'Garbage', enabled: true, color: 'bg-emerald-500' },
+  { id: 'ai-prediction', label: 'AI Prediction', enabled: true, color: 'bg-indigo-600' },
 ];
 
-export function DashboardView() {
+interface DashboardViewProps {
+  onNavigate?: (section: string) => void;
+}
+
+export function DashboardView({ onNavigate }: DashboardViewProps) {
   const [layers, setLayers] = useState(initialMapLayers);
   const [newIncidentsCount, setNewIncidentsCount] = useState(0);
   const [activeTeamsCount, setActiveTeamsCount] = useState(0);
@@ -173,7 +176,7 @@ export function DashboardView() {
       </div>
 
       {/* New & High-Priority Alerts - Below Map */}
-      <DynamicAlertsFeed />
+      <DynamicAlertsFeed onNavigate={onNavigate} />
     </div>
   );
 }

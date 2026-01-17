@@ -2,71 +2,108 @@
 
 :root {
   --font-size: 16px;
-  --background: #ffffff;
-  --foreground: oklch(0.145 0 0);
-  --card: #ffffff;
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: #030213;
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.95 0.0058 264.53);
-  --secondary-foreground: #030213;
-  --muted: #ececf0;
-  --muted-foreground: #717182;
-  --accent: #e9ebef;
-  --accent-foreground: #030213;
-  --destructive: #d4183d;
-  --destructive-foreground: #ffffff;
-  --border: rgba(0, 0, 0, 0.1);
+
+  /* Soft Green Color Palette - Light Mode */
+  --background: #F8FAF9;
+  /* Soft light background with subtle green tint */
+  --foreground: #1E5A3A;
+  /* Dark green for primary text */
+  --card: #FFFFFF;
+  /* Pure white cards for high contrast */
+  --card-foreground: #1E5A3A;
+  /* Dark green text on cards */
+  --popover: #FFFFFF;
+  --popover-foreground: #1E5A3A;
+  --primary: #2D7A4F;
+  /* Rich green primary color */
+  --primary-foreground: #FFFFFF;
+  /* White text on primary */
+  --secondary: #E8F5E9;
+  /* Very light green */
+  --secondary-foreground: #1E5A3A;
+  /* Dark green on light green */
+  --muted: #F0F4F2;
+  /* Muted light green-gray */
+  --muted-foreground: #6B7280;
+  /* Muted gray for labels and secondary text */
+  --accent: #34A853;
+  /* Vibrant accent green */
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC3545;
+  --destructive-foreground: #FFFFFF;
+  --border: rgba(45, 122, 79, 0.15);
+  /* Soft green-tinted border */
   --input: transparent;
-  --input-background: #f3f3f5;
-  --switch-background: #cbced4;
+  --input-background: #F0F4F2;
+  /* Light green-gray input background */
+  --switch-background: #C8E6C9;
+  /* Soft green switch */
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: #030213;
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-  
-  /* Figma Design System Colors */
-  --color-primary-blue: #0061FF;
+  --ring: #2D7A4F;
+  /* Green focus ring */
+  --chart-1: #2D7A4F;
+  --chart-2: #34A853;
+  --chart-3: #81C784;
+  --chart-4: #A5D6A7;
+  --chart-5: #C8E6C9;
+  --radius: 0.75rem;
+  /* Slightly more rounded for modern feel */
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1E5A3A;
+  --sidebar-primary: #2D7A4F;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F0F4F2;
+  --sidebar-accent-foreground: #1E5A3A;
+  --sidebar-border: rgba(45, 122, 79, 0.12);
+  --sidebar-ring: #2D7A4F;
+
+  /* Soft Green Design System Colors */
+  --color-primary-green: #2D7A4F;
+  /* Primary green */
+  --color-accent-green: #34A853;
+  /* Accent green */
   --color-success-green: #28A745;
   --color-warning-orange: #FFC107;
   --color-danger-red: #DC3545;
-  
-  /* Blue Gradients */
-  --gradient-blue-start: #0061FF;
-  --gradient-blue-end: #00D4FF;
-  
+
   /* Green Gradients */
-  --gradient-green-start: #28A745;
-  --gradient-green-end: #20C997;
-  
+  --gradient-green-start: #2D7A4F;
+  --gradient-green-end: #1E5A3A;
+  --gradient-green-light-start: #34A853;
+  --gradient-green-light-end: #2D7A4F;
+
+  /* Accent Gradients */
+  --gradient-accent-start: #34A853;
+  --gradient-accent-end: #81C784;
+
   /* Orange Gradients */
   --gradient-orange-start: #FFC107;
   --gradient-orange-end: #FF6B35;
-  
+
   /* Red Gradients */
   --gradient-red-start: #DC3545;
   --gradient-red-end: #C92A2A;
-  
-  /* Light Mode Background Colors for Inverted Dark Mode */
-  --input-bg-light: #f3f3f5;
-  --card-bg-light: #ffffff;
-  --gray-50: #f9fafb;
-  --gray-100: #f3f4f6;
+
+  /* Light Mode Background Colors */
+  --input-bg-light: #F0F4F2;
+  --card-bg-light: #FFFFFF;
+  --gray-50: #F8FAF9;
+  --gray-100: #F0F4F2;
+  --gray-200: #E0E7E4;
+  --gray-300: #C1CFC7;
+  --gray-400: #9CA3AF;
+  --gray-500: #6B7280;
+  --gray-600: #4B5563;
+  --gray-700: #374151;
+  --gray-800: #1F2937;
+  --gray-900: #1E5A3A;
+
+  /* Enhanced shadows for modern feel */
+  --shadow-sm: 0 1px 2px 0 rgba(45, 122, 79, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(45, 122, 79, 0.08), 0 2px 4px -1px rgba(45, 122, 79, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(45, 122, 79, 0.1), 0 4px 6px -2px rgba(45, 122, 79, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(45, 122, 79, 0.1), 0 10px 10px -5px rgba(45, 122, 79, 0.04);
 }
 
 .dark {
@@ -104,13 +141,16 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(0.269 0 0);
   --sidebar-ring: oklch(0.439 0 0);
-  
+
   /* Dark Mode with Inverted Colors Rule */
   /* Input fields and boxes: dark background with light mode color as border */
   --input-background-dark: #2a2a3e;
-  --input-border-inverted: #f3f3f5; /* Uses light mode input background as border */
-  --card-border-inverted: #ffffff; /* Uses light mode card background as border */
-  --placeholder-inverted: #f3f3f5; /* Inverted placeholder color */
+  --input-border-inverted: #f3f3f5;
+  /* Uses light mode input background as border */
+  --card-border-inverted: #ffffff;
+  /* Uses light mode card background as border */
+  --placeholder-inverted: #f3f3f5;
+  /* Inverted placeholder color */
 }
 
 @theme inline {

@@ -12,14 +12,20 @@ import {
   Calendar,
   Eye,
   FileDown,
-  FileText,
-  XCircle
+  ShieldAlert,
+  Construction,
+  Building2,
+  HeartPulse,
+  Activity,
+  Trash2
 } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { AlertDetailsModal } from './alert-details-modal';
 import { useDarkMode } from '../contexts/dark-mode-context';
 import { subscribeToIncidents, Incident } from '../../firebase/services';
 import { formatDistanceToNow } from 'date-fns';
+import { generateWeeklyIncidentReport } from '../services/report-generator';
+import { getTeamForCategory } from '../services/incident-utils';
 
 export function ReportsView() {
   const { darkMode } = useDarkMode();
@@ -38,6 +44,12 @@ export function ReportsView() {
   }, []);
 
   const handleDownloadReport = (type: string) => {
+    if (type === 'Weekly PDF Report') {
+      generateWeeklyIncidentReport(incidents);
+      alert(`${type} has been generated and downloaded successfully.`);
+      return;
+    }
+
     const timestamp = new Date().toLocaleString();
     const reportTitle = type.toUpperCase();
     const content = `
@@ -101,8 +113,8 @@ In a production environment, this would be a formatted PDF or XLSX document.
 
       {/* Export Center */}
       <Card className={`shadow-lg transition-all duration-300 border-2 ${darkMode
-          ? 'bg-gradient-to-r from-slate-800 to-blue-950 border-blue-900/50'
-          : 'bg-gradient-to-r from-blue-50 to-cyan-50 border-gray-200'
+        ? 'bg-gradient-to-r from-slate-800 to-blue-950 border-blue-900/50'
+        : 'bg-gradient-to-r from-blue-50 to-cyan-50 border-gray-200'
         }`}>
         <CardContent className={`p-6 ${darkMode ? 'bg-transparent' : ''}`}>
           <div className="flex items-center justify-between">
@@ -123,17 +135,38 @@ In a production environment, this would be a formatted PDF or XLSX document.
                 <Download className="w-4 h-4" />
                 Download Weekly PDF Report
               </Button>
-              <Button
-                onClick={() => handleDownloadReport('Custom Report')}
-                className="gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 dark:from-blue-500 dark:to-cyan-500 dark:hover:from-blue-600 dark:hover:to-cyan-600"
-              >
-                <FileText className="w-4 h-4" />
-                Generate Custom Report
-              </Button>
             </div>
           </div>
         </CardContent>
       </Card>
+
+      {/* Team / Category Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {[
+          { label: 'Road', team: 'Team Alpha', icon: Construction, color: 'text-orange-600', bg: 'bg-orange-50', darkBg: 'dark:bg-orange-950/20' },
+          { label: 'Infrastructure', team: 'Team Delta', icon: Building2, color: 'text-blue-600', bg: 'bg-blue-50', darkBg: 'dark:bg-blue-950/20' },
+          { label: 'Crime', team: 'Team Sigma', icon: ShieldAlert, color: 'text-red-600', bg: 'bg-red-50', darkBg: 'dark:bg-red-950/20' },
+          { label: 'Health', team: 'Team Medic', icon: HeartPulse, color: 'text-rose-600', bg: 'bg-rose-50', darkBg: 'dark:bg-rose-950/20' },
+          { label: 'Anomaly', team: 'Team Intel', icon: Activity, color: 'text-purple-600', bg: 'bg-purple-50', darkBg: 'dark:bg-purple-950/20' },
+          { label: 'Garbage', team: 'Team Green', icon: Trash2, color: 'text-emerald-600', bg: 'bg-emerald-50', darkBg: 'dark:bg-emerald-950/20' },
+        ].map((cat) => {
+          const count = incidents.filter(i => i.category?.toLowerCase() === cat.label.toLowerCase()).length;
+          const Icon = cat.icon;
+          return (
+            <Card key={cat.label} className={`border-none shadow-md ${cat.bg} ${cat.darkBg} transition-all hover:scale-105 duration-300`}>
+              <CardContent className="p-4 flex flex-col items-center text-center">
+                <div className={`p-2 rounded-full bg-white dark:bg-slate-800 shadow-sm mb-2 ${cat.color}`}>
+                  <Icon className="w-5 h-5" />
+                </div>
+                <h4 className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-tighter mb-1">{cat.team}</h4>
+                <h4 className="text-xs font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">{cat.label}</h4>
+                <p className={`text-2xl font-black mt-1 ${cat.color}`}>{count}</p>
+                <p className="text-[10px] text-gray-500 dark:text-gray-400 font-medium mt-1">Total Incidents</p>
+              </CardContent>
+            </Card>
+          );
+        })}
+      </div>
 
       {/* Incident Log Table */}
       <Card className="border-gray-200 shadow-lg dark:bg-slate-900 dark:border-slate-700">
@@ -162,7 +195,7 @@ In a production environment, this would be a formatted PDF or XLSX document.
                   <SelectItem value="in-progress">In Progress</SelectItem>
                   <SelectItem value="pending">Pending</SelectItem>
                   <SelectItem value="verified">Verified</SelectItem>
-                  <SelectItem value="rejected">Rejected</SelectItem>
+                  <SelectItem value="rejected">Dismissed</SelectItem>
                 </SelectContent>
               </Select>
 
@@ -251,7 +284,10 @@ In a production environment, this would be a formatted PDF or XLSX document.
                         {log.resolvedBy ? (
                           <span className="text-sm font-medium text-gray-900 dark:text-white">{log.resolvedBy}</span>
                         ) : (
-                          <span className="text-sm text-gray-500 italic dark:text-gray-400">Unassigned</span>
+                          <div className="flex flex-col">
+                            <span className="text-[10px] text-gray-400 dark:text-gray-500 uppercase font-bold leading-none mb-1">Proposed Team</span>
+                            <span className="text-sm font-semibold text-blue-600 dark:text-blue-400">{getTeamForCategory(log.category)}</span>
+                          </div>
                         )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -291,7 +327,26 @@ In a production environment, this would be a formatted PDF or XLSX document.
       </Card>
 
       <AlertDetailsModal
-        alert={selectedIncident}
+        alert={selectedIncident ? {
+          id: selectedIncident.id || '',
+          title: selectedIncident.title,
+          location: selectedIncident.locationName || 'N/A',
+          time: (() => {
+            try {
+              const date = selectedIncident.createdAt?.toDate ? selectedIncident.createdAt.toDate() : new Date(selectedIncident.createdAt);
+              return formatDistanceToNow(date, { addSuffix: true });
+            } catch (e) {
+              return 'N/A';
+            }
+          })(),
+          severity: selectedIncident.severity?.toLowerCase() as any || 'medium',
+          type: selectedIncident.category,
+          status: selectedIncident.status as any || 'pending',
+          reportedBy: selectedIncident.reporterName || 'Citizen',
+          phone: 'N/A', // Not available in incident data
+          summary: selectedIncident.description,
+          assignedTeam: selectedIncident.resolvedBy || getTeamForCategory(selectedIncident.category)
+        } : null}
         onClose={() => setSelectedIncident(null)}
       />
     </div>

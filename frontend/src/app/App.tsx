@@ -26,7 +26,7 @@ function AppContent() {
   const renderContent = () => {
     switch (activeSection) {
       case 'dashboard':
-        return <DashboardView />;
+        return <DashboardView onNavigate={setActiveSection} />;
       case 'incidents':
         return <IncidentsDashboard />;
       case 'reports':
@@ -108,7 +108,11 @@ function AppContent() {
               renderContent={renderContent}
               onSearch={(query: string) => {
                 setSearchQuery(query);
-                setActiveSection('search');
+                if (query.trim()) {
+                  setActiveSection('search');
+                } else {
+                  setActiveSection('dashboard');
+                }
               }}
             />
           }
@@ -128,7 +132,11 @@ function AppContent() {
               renderContent={renderContent}
               onSearch={(query: string) => {
                 setSearchQuery(query);
-                setActiveSection('search');
+                if (query.trim()) {
+                  setActiveSection('search');
+                } else {
+                  setActiveSection('dashboard');
+                }
               }}
             />
           }
@@ -166,15 +174,15 @@ function MainDashboard({ activeSection, setActiveSection, isSidebarCollapsed, se
         {/* Main Content */}
         <main className="flex-1 p-6 pr-12 space-y-6 overflow-y-auto scrollbar-hide">
           {/* Welcome Banner */}
-          <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 rounded-2xl p-6 shadow-xl dark:bg-gradient-to-r dark:from-blue-950 dark:via-blue-900 dark:to-cyan-950 dark:border-2 dark:border-blue-700/50 dark:shadow-2xl dark:shadow-blue-900/50">
+          <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-cyan-600 rounded-2xl p-4 shadow-xl dark:bg-gradient-to-r dark:from-blue-950 dark:via-blue-900 dark:to-cyan-950 dark:border-2 dark:border-blue-700/50 dark:shadow-2xl dark:shadow-blue-900/50">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center dark:bg-blue-500/30 dark:border dark:border-blue-400/30">
-                  <Sparkles className="w-8 h-8 text-white animate-pulse dark:text-blue-200" />
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center dark:bg-blue-500/30 dark:border dark:border-blue-400/30">
+                  <Sparkles className="w-6 h-6 text-white animate-pulse dark:text-blue-200" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white mb-1">{getSectionTitle()}</h2>
-                  <p className="text-blue-100 text-sm dark:text-blue-300">{getSectionDescription()}</p>
+                  <h2 className="text-xl font-bold text-white mb-0.5">{getSectionTitle()}</h2>
+                  <p className="text-blue-100 text-xs dark:text-blue-300">{getSectionDescription()}</p>
                 </div>
               </div>
 

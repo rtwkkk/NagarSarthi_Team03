@@ -34,7 +34,7 @@ export const nagarApi = {
         const response = await fetch(`${API_BASE_URL}/predict-future-alerts`, {
             method: 'GET',
             headers: {
-                'X-API-KEY': API_KEY,
+                'X-API-KEY': 'NAGAR_ALERT_SECRET_123',
                 'Content-Type': 'application/json',
             },
         });

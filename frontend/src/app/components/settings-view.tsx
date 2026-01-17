@@ -335,23 +335,24 @@ export function SettingsView() {
                       : 'bg-gray-50 border-gray-200'
                       }`}>
                       <div className="flex items-center gap-3">
-                        {darkMode ? <Moon className="w-5 h-5 text-purple-400" /> : <Sun className="w-5 h-5 text-orange-500" />}
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${darkMode ? 'bg-yellow-100/10' : 'bg-blue-100'}`}>
+                          {darkMode ? <Sun className="w-5 h-5 text-yellow-500" /> : <Moon className="w-5 h-5 text-blue-600" />}
+                        </div>
                         <div>
                           <p className={`font-semibold ${darkMode ? 'text-white' : 'text-gray-900'
                             }`}>Dark Mode</p>
                           <p className={`text-xs ${darkMode ? 'text-slate-300' : 'text-gray-600'
-                            }`}>Switch to dark theme</p>
+                            }`}>{darkMode ? 'Switch to light mode' : 'Switch to dark mode'}</p>
                         </div>
                       </div>
                       <button
                         onClick={toggleDarkMode}
-                        className={`relative w-14 h-7 rounded-full transition-colors ${darkMode ? 'bg-purple-500' : 'bg-gray-300'
+                        className={`p-2.5 rounded-full border transition-all duration-200 ${darkMode
+                          ? 'bg-slate-700 hover:bg-slate-600 border-slate-600 text-yellow-500'
+                          : 'bg-white hover:bg-gray-50 border-gray-200 text-blue-600'
                           }`}
                       >
-                        <div
-                          className={`absolute top-0.5 left-0.5 w-6 h-6 bg-white rounded-full transition-transform ${darkMode ? 'translate-x-7' : 'translate-x-0'
-                            }`}
-                        ></div>
+                        {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                       </button>
                     </div>
                   </div>

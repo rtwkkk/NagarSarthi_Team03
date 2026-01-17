@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { Clock, TrendingUp, Calendar } from 'lucide-react';
+import { useDarkMode } from '../contexts/dark-mode-context';
 import {
   AreaChart,
   Area,
@@ -30,31 +31,32 @@ const hourlyData = [
 ];
 
 export function IncidentTimeline() {
+  const { darkMode } = useDarkMode();
   const [timeView, setTimeView] = useState<'hourly' | 'daily'>('hourly');
   const peakHour = '18:00';
   const peakIncidents = 68;
 
   return (
-    <Card className="border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-white to-blue-50/30">
-      <CardHeader className="border-b border-gray-100 bg-white/80 backdrop-blur-sm">
+    <Card className="border-gray-200 dark:border-slate-800 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-white to-blue-50/30 dark:from-slate-900 dark:to-blue-950/20">
+      <CardHeader className="border-b border-gray-100 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-xl flex items-center justify-center shadow-lg">
               <Clock className="w-6 h-6 text-white" />
             </div>
             <div>
-              <CardTitle className="text-blue-900">Incident Timeline Analysis</CardTitle>
-              <p className="text-xs text-gray-500 mt-1">Real-time pattern detection</p>
+              <CardTitle className="text-blue-900 dark:text-blue-400">Incident Timeline Analysis</CardTitle>
+              <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">Real-time pattern detection</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 bg-white rounded-lg p-1 border border-gray-200 shadow-sm">
+            <div className="flex items-center gap-2 bg-white dark:bg-slate-800 rounded-lg p-1 border border-gray-200 dark:border-slate-700 shadow-sm">
               <Button
                 size="sm"
                 variant={timeView === 'hourly' ? 'default' : 'ghost'}
                 onClick={() => setTimeView('hourly')}
-                className={timeView === 'hourly' ? 'bg-blue-600 hover:bg-blue-700' : ''}
+                className={timeView === 'hourly' ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'dark:text-slate-300'}
               >
                 Hourly
               </Button>
@@ -62,7 +64,7 @@ export function IncidentTimeline() {
                 size="sm"
                 variant={timeView === 'daily' ? 'default' : 'ghost'}
                 onClick={() => setTimeView('daily')}
-                className={timeView === 'daily' ? 'bg-blue-600 hover:bg-blue-700' : ''}
+                className={timeView === 'daily' ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'dark:text-slate-300'}
               >
                 Daily
               </Button>
@@ -77,34 +79,34 @@ export function IncidentTimeline() {
 
       <CardContent className="p-6">
         {/* Stats Row */}
-        <div className="grid grid-cols-4 gap-4 mb-6">
-          <div className="p-4 bg-gradient-to-br from-orange-50 to-orange-100/50 rounded-xl border border-orange-200 shadow-sm">
-            <p className="text-xs text-orange-700 font-medium mb-1">Peak Hour</p>
-            <p className="text-2xl font-bold text-orange-900">{peakHour}</p>
-            <p className="text-xs text-orange-600 mt-1">{peakIncidents} incidents</p>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+          <div className="p-4 bg-gradient-to-br from-orange-50 to-orange-100/50 dark:from-orange-900/20 dark:to-orange-800/10 rounded-xl border border-orange-200 dark:border-orange-800 shadow-sm">
+            <p className="text-xs text-orange-700 dark:text-orange-400 font-medium mb-1">Peak Hour</p>
+            <p className="text-2xl font-bold text-orange-900 dark:text-orange-100">{peakHour}</p>
+            <p className="text-xs text-orange-600 dark:text-orange-500 mt-1">{peakIncidents} incidents</p>
           </div>
 
-          <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100/50 rounded-xl border border-blue-200 shadow-sm">
-            <p className="text-xs text-blue-700 font-medium mb-1">Avg per Hour</p>
-            <p className="text-2xl font-bold text-blue-900">34.5</p>
-            <p className="text-xs text-blue-600 mt-1">Last 24 hours</p>
+          <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100/50 dark:from-blue-900/20 dark:to-blue-800/10 rounded-xl border border-blue-200 dark:border-blue-800 shadow-sm">
+            <p className="text-xs text-blue-700 dark:text-blue-400 font-medium mb-1">Avg per Hour</p>
+            <p className="text-2xl font-bold text-blue-900 dark:text-blue-100">34.5</p>
+            <p className="text-xs text-blue-600 dark:text-blue-500 mt-1">Last 24 hours</p>
           </div>
 
-          <div className="p-4 bg-gradient-to-br from-green-50 to-green-100/50 rounded-xl border border-green-200 shadow-sm">
-            <p className="text-xs text-green-700 font-medium mb-1">Quietest Hour</p>
-            <p className="text-2xl font-bold text-green-900">04:00</p>
-            <p className="text-xs text-green-600 mt-1">6 incidents</p>
+          <div className="p-4 bg-gradient-to-br from-green-50 to-green-100/50 dark:from-green-900/20 dark:to-green-800/10 rounded-xl border border-green-200 dark:border-green-800 shadow-sm">
+            <p className="text-xs text-green-700 dark:text-green-400 font-medium mb-1">Quietest Hour</p>
+            <p className="text-2xl font-bold text-green-900 dark:text-green-100">04:00</p>
+            <p className="text-xs text-green-600 dark:text-green-500 mt-1">6 incidents</p>
           </div>
 
-          <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100/50 rounded-xl border border-purple-200 shadow-sm">
-            <p className="text-xs text-purple-700 font-medium mb-1">Rush Hours</p>
-            <p className="text-2xl font-bold text-purple-900">3</p>
-            <p className="text-xs text-purple-600 mt-1">8AM, 12PM, 6PM</p>
+          <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/20 dark:to-purple-800/10 rounded-xl border border-purple-200 dark:border-purple-800 shadow-sm">
+            <p className="text-xs text-purple-700 dark:text-purple-400 font-medium mb-1">Rush Hours</p>
+            <p className="text-2xl font-bold text-purple-900 dark:text-purple-100">3</p>
+            <p className="text-xs text-purple-600 dark:text-purple-500 mt-1">8AM, 12PM, 6PM</p>
           </div>
         </div>
 
         {/* Main Chart */}
-        <div className="h-80 min-h-[320px] bg-white rounded-xl p-4 border border-gray-200 shadow-inner">
+        <div className="h-80 min-h-[320px] bg-white dark:bg-slate-900 rounded-xl p-4 border border-gray-200 dark:border-slate-800 shadow-inner">
           <ResponsiveContainer width="100%" height="100%">
             <AreaChart data={hourlyData}>
               <defs>
@@ -121,25 +123,27 @@ export function IncidentTimeline() {
                   <stop offset="95%" stopColor="#eab308" stopOpacity={0.1} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <CartesianGrid strokeDasharray="3 3" stroke={darkMode ? "#1e293b" : "#e5e7eb"} />
               <XAxis
                 dataKey="hour"
-                stroke="#6b7280"
+                stroke={darkMode ? "#94a3b8" : "#6b7280"}
                 style={{ fontSize: '12px' }}
               />
               <YAxis
-                stroke="#6b7280"
+                stroke={darkMode ? "#94a3b8" : "#6b7280"}
                 style={{ fontSize: '12px' }}
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: 'white',
-                  border: '1px solid #e5e7eb',
+                  backgroundColor: darkMode ? '#0f172a' : 'white',
+                  border: `1px solid ${darkMode ? '#1e293b' : '#e5e7eb'}`,
                   borderRadius: '8px',
                   boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+                  color: darkMode ? '#f1f5f9' : '#1e293b'
                 }}
+                itemStyle={{ color: darkMode ? '#cbd5e1' : '#475569' }}
               />
-              <Legend />
+              <Legend wrapperStyle={{ color: darkMode ? '#94a3b8' : '#475569' }} />
               <Area
                 type="monotone"
                 dataKey="incidents"
@@ -172,25 +176,25 @@ export function IncidentTimeline() {
         </div>
 
         {/* Insights */}
-        <div className="mt-6 grid grid-cols-2 gap-4">
-          <div className="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg border border-blue-200">
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/10 dark:to-cyan-900/10 rounded-lg border border-blue-200 dark:border-blue-800">
             <div className="flex items-start gap-3">
-              <Calendar className="w-5 h-5 text-blue-600 mt-1" />
+              <Calendar className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-1" />
               <div>
-                <p className="text-sm font-semibold text-blue-900 mb-1">Morning Rush Pattern</p>
-                <p className="text-xs text-blue-700">
+                <p className="text-sm font-semibold text-blue-900 dark:text-blue-300 mb-1">Morning Rush Pattern</p>
+                <p className="text-xs text-blue-700 dark:text-blue-400">
                   Traffic incidents spike 300% between 6AM-9AM during weekdays
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg border border-purple-200">
+          <div className="p-4 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/10 dark:to-pink-900/10 rounded-lg border border-purple-200 dark:border-purple-800">
             <div className="flex items-start gap-3">
-              <TrendingUp className="w-5 h-5 text-purple-600 mt-1" />
+              <TrendingUp className="w-5 h-5 text-purple-600 dark:text-purple-400 mt-1" />
               <div>
-                <p className="text-sm font-semibold text-purple-900 mb-1">Evening Peak Alert</p>
-                <p className="text-xs text-purple-700">
+                <p className="text-sm font-semibold text-purple-900 dark:text-purple-300 mb-1">Evening Peak Alert</p>
+                <p className="text-xs text-purple-700 dark:text-purple-400">
                   6PM shows highest incident rate - consider increased monitoring
                 </p>
               </div>

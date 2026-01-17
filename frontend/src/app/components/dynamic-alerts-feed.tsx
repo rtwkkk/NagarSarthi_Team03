@@ -1,20 +1,39 @@
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
-import { AlertTriangle, MapPin, Clock, CheckCircle, XCircle, Eye, CheckSquare } from 'lucide-react';
+import { AlertTriangle, MapPin, Clock, CheckCircle, XCircle, Eye, CheckSquare, ChevronRight } from 'lucide-react';
 import { AlertDetailsModal, Alert as AlertType, AlertStatus } from './alert-details-modal';
 import { subscribeToIncidents, updateIncident, Incident } from '../../firebase/services';
 import { serverTimestamp } from 'firebase/firestore';
 import { formatDistanceToNow } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
+import { getTeamForCategory } from '../services/incident-utils';
 
-export function DynamicAlertsFeed() {
+interface DynamicAlertsFeedProps {
+  onNavigate?: (section: string) => void;
+}
+
+export function DynamicAlertsFeed({ onNavigate }: DynamicAlertsFeedProps) {
   const [alerts, setAlerts] = useState<AlertType[]>([]);
   const [selectedAlert, setSelectedAlert] = useState<AlertType | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = subscribeToIncidents((incidents: Incident[]) => {
-      const mappedAlerts: AlertType[] = incidents.map(incident => {
+      // Filter for last 24 hours
+      const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+
+      const filteredIncidents = incidents.filter(incident => {
+        try {
+          const date = incident.createdAt?.toDate ? incident.createdAt.toDate() : new Date(incident.createdAt);
+          return date >= twentyFourHoursAgo;
+        } catch (e) {
+          return true; // Keep if date is invalid to avoid missing data, or false to be strict
+        }
+      });
+
+      const mappedAlerts: AlertType[] = filteredIncidents.map(incident => {
         // Handle Timestamp or date string
         let timeString = 'Just now';
         try {
@@ -82,18 +101,10 @@ export function DynamicAlertsFeed() {
     updateAlertStatus(id, 'rejected');
   };
 
+
   const handleAssign = (id: string) => {
     const alert = alerts.find(a => a.id === id);
-    let teamName = 'Team Beta'; // Default
-
-    if (alert) {
-      if (alert.type === 'Traffic') teamName = 'Team Alpha';
-      else if (alert.type === 'Power') teamName = 'Team Beta';
-      else if (alert.type === 'Water') teamName = 'Team Gamma';
-      else if (alert.type === 'Infrastructure' || alert.type === 'Roadblock') teamName = 'Team Delta';
-      else if (alert.type === 'Sanitation' || alert.type === 'Health' || alert.type === 'Others') teamName = 'Team Epsilon';
-    }
-
+    const teamName = getTeamForCategory(alert?.type);
     updateAlertStatus(id, 'in-progress', teamName);
   };
 
@@ -101,20 +112,10 @@ export function DynamicAlertsFeed() {
     updateAlertStatus(id, 'resolved');
   };
 
-  const getCardBackground = (status: string) => {
-    switch (status) {
-      case 'verified':
-        return 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-300';
-      case 'rejected':
-        return 'bg-gradient-to-br from-red-50 to-pink-50 border-red-300';
-      case 'assigned':
-      case 'in-progress':
-        return 'bg-gradient-to-br from-blue-50 to-cyan-50 border-blue-300';
-      case 'resolved':
-        return 'bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-300';
-      default:
-        return 'bg-white border-gray-200';
-    }
+  const getCardBackground = () => {
+    // Light mode: white background with gray border
+    // Dark mode: slate/zinc background with darker border
+    return 'bg-white border-gray-400 dark:bg-slate-800 dark:border-slate-700';
   };
 
   return (
@@ -140,68 +141,58 @@ export function DynamicAlertsFeed() {
               alerts.map((alert) => (
                 <div
                   key={alert.id}
-                  className={`p-4 rounded-lg border-2 transition-all duration-300 ${getCardBackground(alert.status)} hover:shadow-lg dark:border-slate-600 ${alert.status === 'verified'
-                    ? 'dark:bg-gradient-to-br dark:from-green-950/40 dark:to-emerald-950/40 dark:border-green-800'
-                    : alert.status === 'rejected'
-                      ? 'dark:bg-gradient-to-br dark:from-red-950/40 dark:to-pink-950/40 dark:border-red-800'
-                      : (alert.status === 'assigned' || alert.status === 'in-progress')
-                        ? 'dark:bg-gradient-to-br dark:from-blue-950/40 dark:to-cyan-950/40 dark:border-blue-800'
-                        : alert.status === 'resolved'
-                          ? 'dark:bg-gradient-to-br dark:from-indigo-950/40 dark:to-purple-950/40 dark:border-indigo-800'
-                          : 'dark:bg-slate-800 dark:border-slate-600'
-                    }`}
+                  className={`p-2 rounded-lg border-2 transition-all duration-300 ${getCardBackground()} shadow-gray-300/60 shadow-md hover:shadow-gray-400/70 hover:shadow-lg`}
                 >
-                  <div className="flex items-start justify-between mb-2">
+                  <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <Badge
-                          className={
-                            alert.severity.toLowerCase() === 'critical'
-                              ? 'bg-red-600 text-white'
-                              : alert.severity.toLowerCase() === 'high'
-                                ? 'bg-orange-500 text-white'
-                                : alert.severity.toLowerCase() === 'medium'
-                                  ? 'bg-yellow-500 text-white'
-                                  : 'bg-blue-500 text-white'
-                          }
-                        >
-                          {alert.severity.toUpperCase()}
-                        </Badge>
-                        <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800">
-                          {alert.type}
-                        </Badge>
-                        {alert.status === 'resolved' && (
-                          <Badge className="bg-purple-600 text-white flex items-center gap-1">
-                            <CheckSquare className="w-3 h-3" /> Resolved
+                      <div className="flex items-center justify-between mb-1.5">
+                        <div className="flex items-center gap-1.5">
+                          <Badge
+                            className={
+                              alert.severity.toLowerCase() === 'critical'
+                                ? 'bg-red-600 text-white text-[10px] px-1.5 py-0'
+                                : alert.severity.toLowerCase() === 'high'
+                                  ? 'bg-orange-500 text-white text-[10px] px-1.5 py-0'
+                                  : alert.severity.toLowerCase() === 'medium'
+                                    ? 'bg-yellow-500 text-white text-[10px] px-1.5 py-0'
+                                    : 'bg-blue-500 text-white text-[10px] px-1.5 py-0'
+                            }
+                          >
+                            {alert.severity.toUpperCase()}
                           </Badge>
-                        )}
+                          <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950 dark:text-blue-300 dark:border-blue-800 text-[10px] px-1.5 py-0">
+                            {alert.type}
+                          </Badge>
+                        </div>
+                        <div className="flex items-center gap-1 text-[9px] text-gray-500 dark:text-gray-400 font-bold bg-gray-50 dark:bg-slate-800/50 px-2 py-0.5 rounded-full border border-gray-100 dark:border-slate-700">
+                          <Clock className="w-2.5 h-2.5 text-blue-600" />
+                          {alert.time}
+                        </div>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <h4 className="font-semibold text-gray-900 text-sm mb-1 dark:text-white">
-                          {alert.title}
-                        </h4>
+
+                      <h4 className="font-bold text-gray-900 text-xs mb-0.5 dark:text-slate-100 leading-tight">
+                        {alert.title}
+                      </h4>
+
+                      <div className="flex items-center gap-1 text-[10px] text-gray-600 mb-1 dark:text-slate-400">
+                        <MapPin className="w-2.5 h-2.5 text-red-500" />
+                        <span className="truncate">{alert.location}</span>
                       </div>
-                      <div className="flex items-center gap-1 text-xs text-gray-600 mb-1 dark:text-gray-300">
-                        <MapPin className="w-3 h-3 dark:text-blue-400" />
-                        {alert.location}
-                      </div>
+
                       {alert.summary && (
-                        <p className="text-[11px] text-gray-500 dark:text-gray-400 line-clamp-1 italic mb-2 px-1 border-l-2 border-blue-200 dark:border-blue-800">
+                        <p className="text-[10px] text-gray-500 dark:text-slate-300 line-clamp-1 italic mb-1 px-1 border-l-2 border-blue-200">
                           "{alert.summary}"
                         </p>
                       )}
-                      <div className="flex items-center justify-between mt-2">
-                        <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-                          <Clock className="w-3 h-3 dark:text-blue-400" />
-                          {alert.time}
-                        </div>
+
+                      <div className="flex items-center justify-end mt-1">
                         <Button
-                          variant="ghost"
+                          variant="outline"
                           size="sm"
-                          className="h-7 px-2 text-[10px] text-blue-600 hover:text-blue-700 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900/20 font-bold uppercase tracking-wider gap-1"
+                          className="h-7.5 px-3 text-[10px] bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-600 hover:text-white dark:bg-blue-900/40 dark:border-blue-700 dark:text-blue-300 font-bold uppercase transition-all shadow-sm"
                           onClick={() => setSelectedAlert(alert)}
                         >
-                          <Eye className="w-3 h-3" />
+                          <Eye className="w-3.5 h-3.5 mr-1.5" />
                           {alert.summary ? 'View Summary' : 'View Details'}
                         </Button>
                       </div>
@@ -226,7 +217,7 @@ export function DynamicAlertsFeed() {
                         onClick={() => handleReject(alert.id)}
                       >
                         <XCircle className="w-4 h-4 mr-1" />
-                        Reject
+                        Dismiss
                       </Button>
                     </div>
                   )}
@@ -235,10 +226,10 @@ export function DynamicAlertsFeed() {
                   {alert.status === 'verified' && (
                     <Button
                       size="sm"
-                      className="w-full mt-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700"
+                      className="w-full mt-3 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 font-bold"
                       onClick={() => handleAssign(alert.id)}
                     >
-                      Assign Team
+                      Assign {getTeamForCategory(alert.type)}
                     </Button>
                   )}
 
@@ -265,7 +256,7 @@ export function DynamicAlertsFeed() {
                   {/* State 4: Resolved */}
                   {alert.status === 'resolved' && (
                     <div className="mt-3 p-3 bg-green-100 border border-green-300 rounded-lg dark:bg-green-950/30 dark:border-green-800">
-                      <p className="text-sm font-semibold text-green-800 flex items-center gap-2 dark:text-green-300">
+                      <p className="text-sm font-semibold text-green-800 flex items-center gap-2 dark:text-blue-300">
                         <CheckCircle className="w-4 h-4" />
                         Incident Resolved
                       </p>
@@ -275,7 +266,7 @@ export function DynamicAlertsFeed() {
                   {/* State 5: Rejected - Dismissed */}
                   {alert.status === 'rejected' && (
                     <div className="mt-3 p-3 bg-red-100 border border-red-300 rounded-lg dark:bg-red-950/30 dark:border-red-800">
-                      <p className="text-sm font-semibold text-red-800 flex items-center gap-2 dark:text-red-300">
+                      <p className="text-sm font-semibold text-red-800 flex items-center gap-2 dark:text-blue-300">
                         <XCircle className="w-4 h-4" />
                         Incident Dismissed
                       </p>
@@ -285,6 +276,16 @@ export function DynamicAlertsFeed() {
               )))}
           </div>
         </CardContent>
+
+        <CardFooter className="border-t border-gray-100 dark:border-slate-700 p-3 bg-gray-50/50 dark:bg-slate-800/50">
+          <Button
+            className="w-full bg-blue-900 hover:bg-blue-950 text-white dark:bg-blue-700 dark:hover:bg-blue-800 font-bold group border-none shadow-md"
+            onClick={() => onNavigate ? onNavigate('reports') : navigate('/reports')}
+          >
+            View All Incidents
+            <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        </CardFooter>
       </Card>
 
       <AlertDetailsModal
