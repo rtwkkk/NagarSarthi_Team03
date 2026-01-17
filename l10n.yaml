@@ -1,0 +1,14 @@
+arb-dir: lib/l10n
+template-arb-file: app_en.arb
+output-localization-file: app_localizations.dart
+output-class: AppLocalizations
+
+# Very useful options - recommended to add:
+synthetic-package: false # ← prevents creating .dart_tool/flutter_gen package
+output-dir: lib/generated/l10n # ← cleaner separation from main code
+use-escaping: true # ← safer handling of special characters
+preferred-supported-locales: # ← helps with fallback order
+  - en
+  - hi
+  - gu
+  - bn # add all languages you're supporting

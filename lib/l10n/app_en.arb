@@ -1,0 +1,158 @@
+{
+  "@@locale": "en",
+
+  "appTitle": "Nagar Alert Hub",
+  "@appTitle": { "description": "Application title (used in login, app bar, etc)" },
+
+  "appName": "Nagar Alert Hub",
+  "@appName": { "description": "Main application name shown in app bar" },
+
+  "platformTagline": "AI-Powered Intelligence Platform",
+  "@platformTagline": { "description": "Tagline shown on login/welcome screen" },
+
+  "welcomeBack": "Welcome Back",
+  "@welcomeBack": { "description": "Greeting on login/welcome screen" },
+
+  "signInSubtitle": "Sign in to access real-time civic alerts",
+  "@signInSubtitle": {},
+
+  "emailOrPhone": "Email or Phone",
+  "@emailOrPhone": {},
+
+  "emailHint": "Enter your email or phone number",
+  "@emailHint": {},
+
+  "password": "Password",
+  "@password": {},
+
+  "passwordHint": "Enter your password",
+  "@passwordHint": {},
+
+  "rememberMe": "Remember me",
+  "@rememberMe": {},
+
+  "forgotPassword": "Forgot password?",
+  "@forgotPassword": {},
+
+  "signIn": "Sign In",
+  "@signIn": {},
+
+  "orContinueWith": "or continue with",
+  "@orContinueWith": {},
+
+  "google": "Google",
+  "@google": { "description": "Google sign-in button" },
+
+  "otpLogin": "OTP Login",
+  "@otpLogin": { "description": "Alternative login method" },
+
+  "noAccount": "Don''t have an account? ",
+  "@noAccount": {},
+
+  "signUpCitizen": "Sign up as Citizen",
+  "@signUpCitizen": {},
+
+  "secured": "🔒 Secured by end-to-end encryption",
+  "@secured": {},
+
+  "verified": "✓ Verified by Government of India",
+  "@verified": {},
+
+
+
+  "locationJamshedpur": "Jamshedpur, Jharkhand",
+  "@locationJamshedpur": { "description": "Default/current city shown in app bar" },
+
+  "todaysOverview": "Today''s Overview",
+  "@todaysOverview": { "description": "Section title" },
+
+  "live": "Live",
+  "@live": { "description": "Small live indicator badge" },
+
+  "activeAlertsRightNow": "Active Alerts Right Now",
+  "@activeAlertsRightNow": { "description": "Main big number description" },
+
+  "highPriority": "High Priority",
+  "@highPriority": {},
+
+  "inProgress": "In Progress",
+  "@inProgress": {},
+
+  "verifiedThisMonth": "Verified this month",
+  "@verifiedThisMonth": { "description": "Monthly stat card title" },
+
+  "reportsThisMonth": "Reports this month",
+  "@reportsThisMonth": { "description": "Monthly stat card title" },
+
+  "avgResponseTime": "Avg Response Time",
+  "@avgResponseTime": { "description": "Average response time section title" },
+
+  "noResolvedIncidentsYet": "No resolved incidents yet",
+  "@noResolvedIncidentsYet": { "description": "Shown when there are no resolved cases" },
+
+  "basedOnXResolvedCasesThisMonth": "Based on {count} resolved cases this month",
+  "@basedOnXResolvedCasesThisMonth": {
+    "description": "Footnote under average response time",
+    "placeholders": { "count": { "type": "int" } }
+  },
+
+  "recentIncidentsLast2Hours": "Recent Incidents (Last 2 Hours)",
+  "@recentIncidentsLast2Hours": { "description": "Section title" },
+
+  "noIncidentsLast2Hours": "No incidents in the last 2 hours.",
+  "@noIncidentsLast2Hours": { "description": "Empty state message" },
+
+  "pastIncidents": "Past Incidents",
+  "@pastIncidents": { "description": "Section title" },
+
+  "clickHereToView": "Click here to view",
+  "@clickHereToView": { "description": "Text on button/link to past incidents screen" },
+
+  "reportIncident": "Report Incident",
+  "@reportIncident": { "description": "Floating action button label" },
+
+  "verifiedBadge": "VERIFIED",
+  "@verifiedBadge": { "description": "Badge for verified incidents" },
+
+  "pendingBadge": "PENDING",
+  "@pendingBadge": { "description": "Badge for not-yet-verified incidents" },
+
+  "reportsCount": "{count} reports",
+  "@reportsCount": {
+    "description": "Incident metric - number of reports",
+    "placeholders": { "count": { "type": "int" } }
+  },
+
+  "credibilityPercent": "{percent}% credible",
+  "@credibilityPercent": {
+    "description": "Incident metric - credibility score",
+    "placeholders": { "percent": { "type": "int" } }
+  },
+
+  "unknownIncident": "Unknown Incident",
+  "@unknownIncident": { "description": "Fallback title when incident has no title" },
+
+  "justNow": "Just now",
+  "@justNow": { "description": "Time ago - less than 1 minute" },
+
+  "minutesAgo": "{count} min ago",
+  "@minutesAgo": {
+    "description": "Time ago - minutes",
+    "placeholders": { "count": { "type": "int" } }
+  },
+
+  "hoursAgo": "{count} hr ago",
+  "@hoursAgo": {
+    "description": "Time ago - hours",
+    "placeholders": { "count": { "type": "int" } }
+  },
+
+  "daysAgo": "{count, plural, =1{# day ago} other{# days ago}}",
+"@daysAgo": {
+  "description": "Time ago - days (with plural support)",
+  "placeholders": {
+    "count": { "type": "int" }
+  }
+}
+
+}
