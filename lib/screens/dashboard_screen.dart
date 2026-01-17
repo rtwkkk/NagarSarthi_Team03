@@ -682,37 +682,37 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                 const SizedBox(height: 20),
 
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Past Incidents',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                      TextButton.icon(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const PastIncidentsScreen(),
-                            ),
-                          );
-                        },
-                        icon: const Icon(Icons.bookmark, size: 18),
-                        label: const Text('Click here to view'),
-                        style: TextButton.styleFrom(
-                          foregroundColor: Colors.blue,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Padding(
+                //   padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Text(
+                //         'Past Incidents',
+                //         style: TextStyle(
+                //           fontSize: 20,
+                //           fontWeight: FontWeight.bold,
+                //           color: Colors.black87,
+                //         ),
+                //       ),
+                //       TextButton.icon(
+                //         onPressed: () {
+                //           Navigator.push(
+                //             context,
+                //             MaterialPageRoute(
+                //               builder: (context) => const PastIncidentsScreen(),
+                //             ),
+                //           );
+                //         },
+                //         icon: const Icon(Icons.bookmark, size: 18),
+                //         label: const Text('Click here to view'),
+                //         style: TextButton.styleFrom(
+                //           foregroundColor: Colors.blue,
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 const SizedBox(height: 100),
               ],
             ),

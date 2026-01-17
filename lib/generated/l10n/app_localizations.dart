@@ -96,25 +96,31 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
-    Locale('bn'),
     Locale('en'),
-    Locale('gu'),
     Locale('hi'),
+    Locale('gu'),
+    Locale('bn'),
   ];
 
-  /// No description provided for @appTitle.
+  /// Application title (used in login, app bar, etc)
   ///
   /// In en, this message translates to:
   /// **'Nagar Alert Hub'**
   String get appTitle;
 
-  /// No description provided for @platformTagline.
+  /// Main application name shown in app bar
+  ///
+  /// In en, this message translates to:
+  /// **'Nagar Alert Hub'**
+  String get appName;
+
+  /// Tagline shown on login/welcome screen
   ///
   /// In en, this message translates to:
   /// **'AI-Powered Intelligence Platform'**
   String get platformTagline;
 
-  /// No description provided for @welcomeBack.
+  /// Greeting on login/welcome screen
   ///
   /// In en, this message translates to:
   /// **'Welcome Back'**
@@ -174,13 +180,13 @@ abstract class AppLocalizations {
   /// **'or continue with'**
   String get orContinueWith;
 
-  /// No description provided for @google.
+  /// Google sign-in button
   ///
   /// In en, this message translates to:
   /// **'Google'**
   String get google;
 
-  /// No description provided for @otpLogin.
+  /// Alternative login method
   ///
   /// In en, this message translates to:
   /// **'OTP Login'**
@@ -189,7 +195,7 @@ abstract class AppLocalizations {
   /// No description provided for @noAccount.
   ///
   /// In en, this message translates to:
-  /// **'Don\'t have an account? '**
+  /// **'Don\'\'t have an account? '**
   String get noAccount;
 
   /// No description provided for @signUpCitizen.
@@ -209,6 +215,156 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'✓ Verified by Government of India'**
   String get verified;
+
+  /// Default/current city shown in app bar
+  ///
+  /// In en, this message translates to:
+  /// **'Jamshedpur, Jharkhand'**
+  String get locationJamshedpur;
+
+  /// Section title
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'\'s Overview'**
+  String get todaysOverview;
+
+  /// Small live indicator badge
+  ///
+  /// In en, this message translates to:
+  /// **'Live'**
+  String get live;
+
+  /// Main big number description
+  ///
+  /// In en, this message translates to:
+  /// **'Active Alerts Right Now'**
+  String get activeAlertsRightNow;
+
+  /// No description provided for @highPriority.
+  ///
+  /// In en, this message translates to:
+  /// **'High Priority'**
+  String get highPriority;
+
+  /// No description provided for @inProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'In Progress'**
+  String get inProgress;
+
+  /// Monthly stat card title
+  ///
+  /// In en, this message translates to:
+  /// **'Verified this month'**
+  String get verifiedThisMonth;
+
+  /// Monthly stat card title
+  ///
+  /// In en, this message translates to:
+  /// **'Reports this month'**
+  String get reportsThisMonth;
+
+  /// Average response time section title
+  ///
+  /// In en, this message translates to:
+  /// **'Avg Response Time'**
+  String get avgResponseTime;
+
+  /// Shown when there are no resolved cases
+  ///
+  /// In en, this message translates to:
+  /// **'No resolved incidents yet'**
+  String get noResolvedIncidentsYet;
+
+  /// Footnote under average response time
+  ///
+  /// In en, this message translates to:
+  /// **'Based on {count} resolved cases this month'**
+  String basedOnXResolvedCasesThisMonth(int count);
+
+  /// Section title
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Incidents (Last 2 Hours)'**
+  String get recentIncidentsLast2Hours;
+
+  /// Empty state message
+  ///
+  /// In en, this message translates to:
+  /// **'No incidents in the last 2 hours.'**
+  String get noIncidentsLast2Hours;
+
+  /// Section title
+  ///
+  /// In en, this message translates to:
+  /// **'Past Incidents'**
+  String get pastIncidents;
+
+  /// Text on button/link to past incidents screen
+  ///
+  /// In en, this message translates to:
+  /// **'Click here to view'**
+  String get clickHereToView;
+
+  /// Floating action button label
+  ///
+  /// In en, this message translates to:
+  /// **'Report Incident'**
+  String get reportIncident;
+
+  /// Badge for verified incidents
+  ///
+  /// In en, this message translates to:
+  /// **'VERIFIED'**
+  String get verifiedBadge;
+
+  /// Badge for not-yet-verified incidents
+  ///
+  /// In en, this message translates to:
+  /// **'PENDING'**
+  String get pendingBadge;
+
+  /// Incident metric - number of reports
+  ///
+  /// In en, this message translates to:
+  /// **'{count} reports'**
+  String reportsCount(int count);
+
+  /// Incident metric - credibility score
+  ///
+  /// In en, this message translates to:
+  /// **'{percent}% credible'**
+  String credibilityPercent(int percent);
+
+  /// Fallback title when incident has no title
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown Incident'**
+  String get unknownIncident;
+
+  /// Time ago - less than 1 minute
+  ///
+  /// In en, this message translates to:
+  /// **'Just now'**
+  String get justNow;
+
+  /// Time ago - minutes
+  ///
+  /// In en, this message translates to:
+  /// **'{count} min ago'**
+  String minutesAgo(int count);
+
+  /// Time ago - hours
+  ///
+  /// In en, this message translates to:
+  /// **'{count} hr ago'**
+  String hoursAgo(int count);
+
+  /// Time ago - days (with plural support)
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{# day ago} other{# days ago}}'**
+  String daysAgo(int count);
 }
 
 class _AppLocalizationsDelegate

@@ -218,22 +218,22 @@ class ProfileScreen extends StatelessWidget {
                     SliverToBoxAdapter(
                       child: Column(
                         children: [
-                          const SizedBox(height: 20),
-                          ListTile(
-                            leading: const Icon(Icons.palette_outlined),
-                            title: const Text('Display & Theme'),
-                            subtitle: const Text('Light, Dark, System'),
-                            trailing: const Icon(Icons.chevron_right_rounded),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      const ThemeSettingsScreen(),
-                                ),
-                              );
-                            },
-                          ),
+                          // const SizedBox(height: 20),
+                          // ListTile(
+                          //   leading: const Icon(Icons.palette_outlined),
+                          //   title: const Text('Display & Theme'),
+                          //   subtitle: const Text('Light, Dark, System'),
+                          //   trailing: const Icon(Icons.chevron_right_rounded),
+                          //   onTap: () {
+                          //     Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //         builder: (context) =>
+                          //             const ThemeSettingsScreen(),
+                          //       ),
+                          //     );
+                          //   },
+                          // ),
                           const SizedBox(height: 20),
                           // Credibility Score Card (Clickable)
                           GestureDetector(
