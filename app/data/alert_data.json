@@ -1,0 +1,51 @@
+[
+  {
+    "alert_type": "road_closure",
+    "location": "XYZ Circle",
+    "reason": "maintenance work",
+    "start_time": "2 PM",
+    "end_time": "6 PM"
+  },
+  {
+    "alert_type": "water_cut",
+    "location": "Sector 12",
+    "reason": "pipeline repair",
+    "start_time": "10 AM",
+    "end_time": "4 PM"
+  },
+  {
+    "alert_type": "power_outage",
+    "location": "Green Park Area",
+    "reason": "electrical maintenance",
+    "start_time": "11 PM",
+    "end_time": "5 AM"
+  },
+  {
+    "alert_type": "traffic_diversion",
+    "location": "Main Market Road",
+    "reason": "public event",
+    "start_time": "5 PM",
+    "end_time": "9 PM"
+  },
+  {
+    "alert_type": "fire_alert",
+    "location": "Industrial Zone Phase 2",
+    "reason": "fire incident reported",
+    "start_time": "Now",
+    "end_time": "Until further notice"
+  },
+  {
+    "alert_type": "public_protest",
+    "location": "City Square",
+    "reason": "public protest",
+    "start_time": "3 PM",
+    "end_time": "Until further notice"
+  },
+  {
+    "alert_type": "vip_movement",
+    "location": "Secretariat Road",
+    "reason": "minister arrival",
+    "start_time": "4 PM",
+    "end_time": "7 PM"
+  }
+]
