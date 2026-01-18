@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:geolocator/geolocator.dart';
+import 'package:nagar_alert_app/services/incident_verification_service.dart';
 // Import your services (create these files as shown in previous response)
 import '../services/incident_service.dart';
 import '../services/location_service.dart';
@@ -21,6 +23,20 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
   final IncidentService _incidentService = IncidentService();
   final LocationService _locationService = LocationService();
   final ImagePicker _imagePicker = ImagePicker();
+
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  late final IncidentVerificationService _verificationService;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize verification service with your Gemini API key
+    _verificationService = IncidentVerificationService(
+      geminiApiKey:
+          'AIzaSyAps7lQjnBKewHa4nOAgQyR9zJSHdHyNGM', // Replace with your actual key
+    );
+    _fetchCurrentLocation();
+  }
 
   String? _selectedCategory;
   // String? _selectedSeverity;
@@ -116,12 +132,6 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
   //     'description': 'Urgent, immediate attention required',
   //   },
   // ];
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchCurrentLocation();
-  }
 
   @override
   void dispose() {
@@ -289,6 +299,19 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
 
       if (mounted) {
         setState(() => _isSubmitting = false);
+
+        // Trigger verification in the background
+        _verificationService
+            .verifyIncidentAfterSubmission(incidentId)
+            .then((success) {
+              print(
+                '✅ Verification ${success ? 'completed' : 'failed'} for incident: $incidentId',
+              );
+            })
+            .catchError((error) {
+              print('❌ Verification error for incident $incidentId: $error');
+            });
+
         _showSuccessDialog(incidentId);
       }
     } catch (e) {

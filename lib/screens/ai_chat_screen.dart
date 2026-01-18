@@ -40,10 +40,7 @@ class _AiChatScreenState extends State<AiChatScreen> {
   void initState() {
     super.initState();
 
-    _gemini = GenerativeModel(
-      model: 'gemini-2.5-flash',
-      apiKey: 'AIzaSyAps7lQjnBKewHa4nOAgQyR9zJSHdHyNGM',
-    );
+    _gemini = GenerativeModel(model: 'gemini-2.5-flash', apiKey: 'API_KEY');
 
     _addWelcomeMessage();
   }

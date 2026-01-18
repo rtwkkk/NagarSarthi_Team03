@@ -19,7 +19,7 @@ class TranslationService {
     // Firebase is already initialized in main.dart
     _model = GenerativeModel(
       model: 'gemini-2.5-flash',
-      apiKey: 'AIzaSyAps7lQjnBKewHa4nOAgQyR9zJSHdHyNGM',
+      apiKey: 'API_KEY',
       generationConfig: GenerationConfig(
         temperature: 0.1, // almost deterministic for translation
         topK: 1,
