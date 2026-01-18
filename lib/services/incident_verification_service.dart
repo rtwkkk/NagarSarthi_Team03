@@ -223,7 +223,7 @@ Provide your analysis in the following JSON format (respond ONLY with valid JSON
 
     try {
       final url = Uri.parse(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=$geminiApiKey',
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=AIzaSyBteV6_FBQ8ejguzXUD-chhCZGmL0siYrc',
       );
 
       final requestBody = {

@@ -32,8 +32,7 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
     super.initState();
     // Initialize verification service with your Gemini API key
     _verificationService = IncidentVerificationService(
-      geminiApiKey:
-          'AIzaSyAps7lQjnBKewHa4nOAgQyR9zJSHdHyNGM', // Replace with your actual key
+      geminiApiKey: 'API-KEY', // Replace with your actual key
     );
     _fetchCurrentLocation();
   }
@@ -299,19 +298,6 @@ class _ReportIncidentScreenState extends State<ReportIncidentScreen> {
 
       if (mounted) {
         setState(() => _isSubmitting = false);
-
-        // Trigger verification in the background
-        _verificationService
-            .verifyIncidentAfterSubmission(incidentId)
-            .then((success) {
-              print(
-                '✅ Verification ${success ? 'completed' : 'failed'} for incident: $incidentId',
-              );
-            })
-            .catchError((error) {
-              print('❌ Verification error for incident $incidentId: $error');
-            });
-
         _showSuccessDialog(incidentId);
       }
     } catch (e) {
